@@ -1,0 +1,61 @@
+.progress-dots {
+    display: flex;
+    align-items: center;
+  }
+  
+  .dot-container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-top: 19px;
+    color: #333; /* Dot text color */
+    margin-bottom: 5px; /* Adjust the margin between dot and label */
+  }
+  
+  .dot.active {
+    background-color: #007bff;
+    color: #fff;
+    margin-top: 19px;
+  }
+  
+  .dot.completed {
+    background-color: #28a745; /* Green color for completed dots */
+    color: #fff;
+    margin-top: 19px;
+  }
+  
+  .line {
+    flex-grow: 1;
+    height: 2px;
+    background-color: #ddd;
+  }
+  
+  .dot-label {
+    font-size: 13px;
+    color: rgba(0, 115, 179, 1);
+    font-family: "DMSans-Regular"
+  }
+  
+
+  .nextbtn {
+    background: #00A877 !important;
+    border-color: #00A877 !important;
+    font-family: "DMSans-Medium" !important;
+    border-radius: 12px;
+    margin-top: 35px !important;
+    padding: 8px !important;
+    padding-left: 95px !important;
+    padding-right: 95px !important;
+}

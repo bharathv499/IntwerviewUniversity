@@ -1,0 +1,74 @@
+/* AboutUsPage.css */
+.about-us-container {
+  /* padding: 30px; */
+  /* Add padding for spacing */
+}
+
+.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.image-col {
+  padding: 0;
+  /* Remove padding to align with text */
+}
+
+.about-us-image {
+  height: 100%;
+  /* Full height of the container */
+  object-fit: cover;
+  /* Cover the entire container while maintaining aspect ratio */
+}
+
+.text-col {
+  padding: 25px;
+  /* Add padding for spacing */
+}
+
+.about-us-text {
+  text-align: left;
+}
+
+.abouttext {
+  color: rgba(0, 115, 179, 1);
+  font-family: 'SpaceGrotesk-Bold';
+}
+
+.productcss {
+  display: flex;
+  justify-content: center;
+}
+
+.aboutbottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.bottom-img {
+  display: flex;
+  padding: 30px;
+  justify-content: center;
+  align-items: center;
+}
+
+
+@media (max-width: 767px) {
+
+  .image-col,
+  .text-col {
+    padding: 0;
+    /* Remove padding for full-width columns on small screens */
+  }
+}
+
+@media (max-width:650px) {
+  .headerAbout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+}

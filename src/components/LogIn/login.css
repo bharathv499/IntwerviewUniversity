@@ -1,0 +1,515 @@
+.signupcss {
+    text-decoration: underline;
+    font-family: 'SpaceGrotesk-Medium';
+    color: #00A877
+}
+
+
+.inputcss {
+    background-color: #F2EEEE !important;
+}
+
+.btncss {
+    background: #FF7F50 !important;
+    border: none;
+    border-color: #FF7F50 !important;
+    width: 100%;
+    font-family: "Roboto-bold";
+}
+
+.socialgoogle {
+    height: 36px;
+    margin-left: 25px;
+    cursor: pointer;
+}
+
+.socialface {
+    height: 40px;
+    cursor: pointer;
+}
+
+.socialapple {
+    height: 45px;
+}
+
+.applebtn {
+    background-color: white;
+    border: none;
+    font-family: none;
+    margin-right: 32px !important;
+}
+
+.lgimageflex {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+   
+
+}
+.bordercss{
+    border-bottom: 1px solid #AEAEAE;
+}
+.loginlogo {
+    height: 80px;
+}
+
+.logocss {
+    display: flex;
+    justify-content: center;
+}
+
+.logintitle {
+    font-family: 'SpaceGrotesk-Bold';
+    font-size: 28px !important;
+}
+
+.loginside {
+    height: 320px;
+
+}
+
+.orangecircle {
+    height: 300px;
+}
+
+.logincard {
+    width: 30rem !important;
+    background-color: #FFFFFF;
+    text-align: left;
+    box-shadow: 0px 4px 5px 0px #4B4B4B;
+    height: 500px !important;
+}
+
+.labelcss {
+    font-family: 'SpaceGrotesk-Medium';
+    font-size: 16px;
+}
+
+.errorcss {
+    font-family: 'SpaceGrotesk-Medium';
+    font-size: 14px !important;
+}
+
+.labelcss1 {
+    font-family: 'SpaceGrotesk-Medium';
+    font-size: 14px;
+}
+
+.labelforget {
+    font-family: 'SpaceGrotesk-Medium';
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 50px;
+    color: #FF7F50;
+}
+
+.formgr {
+    margin-bottom: 20px;
+}
+
+.bottomcss {
+    margin-top: 30px;
+}
+
+.loginmargin1 {
+    margin-top: 50px;
+}
+
+.loginmargin {
+    margin-top: 30px;
+}
+
+
+.login .loginrow .row>* {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.custom-img {
+    height: 100vh;
+    /* 100% of the viewport height */
+    object-fit: cover;
+    /* Cover the entire container while maintaining aspect ratio */
+}
+
+.loginrow  .form-control {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+}
+
+.eyeicon{
+    
+    position: absolute;
+    right: 42px;
+    transition-duration: 0s;
+    top: 262px;
+
+}
+
+.eyeicon1{
+    position: absolute;
+    right: 30px;
+    transition-duration: 0s;
+    top: 324px; 
+}
+
+/* .loginrow .form-control {
+    display: block;
+    width: 100%;
+    padding: 0.175rem 0.25rem !important;
+    font-size: 0.8rem !important;
+} */
+
+
+
+@media  (min-device-width: 768px) and (max-device-width: 1024px) {
+    .loginImage{
+        margin-bottom: 7px;
+    }
+
+}
+@media (max-width:991px) {
+    .logincard {
+        width: 28rem !important;
+        background-color: #FFFFFF;
+        text-align: left;
+        box-shadow: 0px 4px 5px 0px #4B4B4B;
+        height: 450px !important;
+    }
+    
+    .loginrow .form-control {
+        display: block;
+        width: 100%;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+    }
+
+    .loginlogo {
+        height: 80px;
+    }
+
+    .logintitle {
+        font-family: 'SpaceGrotesk-Bold';
+        font-size: 18px !important;
+    }
+
+    .labelcss {
+        font-family: 'SpaceGrotesk-Medium';
+        font-size: 14px;
+    }
+
+    .errorcss {
+        font-family: 'SpaceGrotesk-Medium';
+        font-size: 12px !important;
+    }
+
+
+    .labelcss1 {
+        font-family: 'SpaceGrotesk-Medium';
+        font-size: 12px;
+    }
+
+    .labelforget {
+        font-family: 'SpaceGrotesk-Medium';
+        font-size: 12px;
+        cursor: pointer;
+        margin-left: 16px;
+    }
+
+    .formgr {
+        margin-bottom: 12px;
+    }
+
+    .logincard .form-control {
+        padding: 0.1rem 0.55rem;
+        font-size: 0.7rem;
+    }
+
+    .btncss {
+        background: #FF7F50 !important;
+        border: none;
+        border-color: #FF7F50 !important;
+        width: 100%;
+        padding: 3px !important;
+        font-family: "Roboto-bold";
+    }
+
+  
+
+    .socialgoogle {
+        height: 15px;
+        margin-left: 18px;
+        cursor: pointer;
+    }
+
+    .socialface {
+        height: 18px;
+        cursor: pointer;
+    }
+
+    .socialapple {
+        height: 20px;
+    }
+
+    .applebtn {
+        background-color: white;
+        border: none;
+        font-family: none;
+        margin-right: 22px !important;
+    }
+
+    .bottomcss {
+        margin-top: 17px;
+    }
+
+    .loginmargin1 {
+        margin-top: 30px;
+    }
+
+    .loginmargin {
+        margin-top: 10px;
+    }
+
+    .loginside {
+        height: 250px;
+
+    }
+}
+
+@media (max-width:650px) {
+    .logincard {
+        width: 28rem !important;
+        background-color: #FFFFFF;
+        text-align: left;
+        box-shadow: 0px 4px 5px 0px #4B4B4B;
+        /* height: 346px !important; */
+    }
+
+    .loginContainer{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .loginImage{
+        margin-bottom: 7px;
+    }
+
+    .loginrow .form-control {
+        display: block;
+        width: 100%;
+        padding: 0.175rem 0.25rem !important;
+        font-size: 0.8rem !important;
+    }
+
+    .loginlogo {
+        height: 100px;
+    }
+
+    .logintitle {
+        font-family: 'SpaceGrotesk-Bold';
+        font-size: 18px !important;
+    }
+
+    .labelcss {
+        font-family: 'SpaceGrotesk-Medium';
+        font-size: 10px;
+    }
+
+    .errorcss {
+        font-family: 'SpaceGrotesk-Medium';
+        font-size: 8px !important;
+    }
+
+
+    .labelcss1 {
+        font-family: 'SpaceGrotesk-Medium';
+        font-size: 6px;
+    }
+
+    .labelforget {
+        font-family: 'SpaceGrotesk-Medium';
+        font-size: 6px;
+        cursor: pointer;
+        margin-left: 0px;
+    }
+
+    .formgr {
+        margin-bottom: 4px;
+    }
+
+    .logincard .form-control {
+        padding: 0.1rem 0.55rem;
+        font-size: 0.7rem;
+    }
+
+    .btncss {
+        background: #FF7F50 !important;
+        border: none;
+        border-color: #FF7F50 !important;
+        width: 100%;
+        padding: 3px !important;
+        font-family: "Roboto-bold";
+    }
+
+    .socialgoogle {
+        height: 15px;
+        margin-left: 18px;
+        cursor: pointer;
+    }
+
+    .socialface {
+        height: 18px;
+        cursor: pointer;
+    }
+
+    .socialapple {
+        height: 20px;
+    }
+
+    .applebtn {
+        background-color: white;
+        border: none;
+        font-family: none;
+        margin-right: 22px !important;
+    }
+
+    .bottomcss {
+        margin-top: 17px;
+    }
+
+    .loginmargin1 {
+        margin-top: 30px;
+    }
+
+    .loginmargin {
+        margin-top: 5px;
+    }
+
+    .loginside {
+        height: 165px;
+
+    }
+
+    .loginlogo {
+        height: 55px;
+    }
+}
+
+@media (max-width:290px) {
+    .logincard {
+        width: 28rem !important;
+        background-color: #FFFFFF;
+        text-align: left;
+        box-shadow: 0px 4px 5px 0px #4B4B4B;
+        height: 350px !important;
+    }
+    .loginContainer{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .loginImage{
+        margin-bottom: 7px;
+    }
+    .loginrow .form-control {
+        display: block;
+        width: 100%;
+        padding: 0.175rem 0.25rem !important;
+        font-size: 0.8rem !important;
+    }
+
+    .loginlogo {
+        height: 100px;
+    }
+
+    .logintitle {
+        font-family: 'SpaceGrotesk-Bold';
+        font-size: 18px !important;
+    }
+
+    .labelcss {
+        font-family: 'SpaceGrotesk-Medium';
+        font-size: 7px;
+    }
+
+    .errorcss {
+        font-family: 'SpaceGrotesk-Medium';
+        font-size: 7px !important;
+    }
+
+    .labelcss1 {
+        font-family: 'SpaceGrotesk-Medium';
+        font-size: 7px;
+    }
+
+    .labelforget {
+        font-family: 'SpaceGrotesk-Medium';
+        font-size: 7px;
+        cursor: pointer;
+        margin-left: 0px;
+    }
+
+    .formgr {
+        margin-bottom: 0px;
+    }
+
+    .logincard .form-control {
+        padding: 0.1rem 0.55rem;
+        font-size: 0.7rem;
+    }
+
+    .btncss {
+        background: #FF7F50 !important;
+        border: none;
+        border-color: #FF7F50 !important;
+        width: 100%;
+        padding: 1px !important;
+        font-family: "Roboto-bold";
+    }
+
+    .socialgoogle {
+        height: 15px;
+        margin-left: 18px;
+        cursor: pointer;
+    }
+
+    .socialface {
+        height: 18px;
+        cursor: pointer;
+    }
+
+    .socialapple {
+        height: 20px;
+    }
+
+    .applebtn {
+        background-color: white;
+        border: none;
+        font-family: none;
+        margin-right: 22px !important;
+    }
+
+    .bottomcss {
+        margin-top: 17px;
+    }
+
+    .loginmargin1 {
+        margin-top: 30px;
+    }
+
+    .loginmargin {
+        margin-top: 5px;
+    }
+
+    .loginside {
+        height: 124px;
+
+    }
+
+    .loginlogo {
+        height: 38px;
+    }
+}

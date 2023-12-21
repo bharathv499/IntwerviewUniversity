@@ -1,0 +1,499 @@
+.welbtn {
+    background-color: rgba(0, 168, 119, 1);
+    border-color: rgba(0, 168, 119, 1);
+    color: white;
+}
+
+.interviewprep .modal-header {
+    border-bottom: 0px !important;
+}
+
+.interviewprep1 .modal-header {
+    margin-left: 20px !important;
+    margin-right: 20px !important;
+    padding-bottom: 0px !important;
+}
+
+.wlecomeContainer {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.wlecomeContainer1 {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+}
+
+.welcomelable {
+    font-family: 'DMSans-Medium';
+    font-size: 25px;
+    color: rgba(0, 0, 0, 1);
+}
+
+.fileuploadtxt {
+    font-family: 'DMSans-Medium';
+    font-size: 18px;
+    color: rgba(0, 0, 0, 1);
+}
+
+.welcomeText {
+    font-family: 'DMSans-Regular';
+    font-size: 14px;
+    color: rgba(0, 0, 0, 1);
+}
+
+.fileuploadtext {
+    font-family: 'SpaceGrotesk-Medium';
+    font-size: 14px;
+    color: rgba(0, 0, 0, 1);
+}
+
+.support {
+    font-family: 'DMSans-Regular';
+    font-size: 12px;
+    padding-top: 5px;
+    color: rgba(0, 0, 0, 1);
+}
+
+.letsGo {
+    font-family: 'DMSans-Bold';
+    font-size: 12px;
+    background: #00A877 !important;
+    border-color: #00A877 !important;
+    border-radius: 24px;
+    margin-top: 15px !important;
+    padding: 8px !important;
+    padding-left: 70px !important;
+    padding-right: 70px !important;
+}
+
+.submitbtncss {
+    font-family: 'DMSans-Bold';
+    font-size: 12px;
+    background: #00A877 !important;
+    border-color: #00A877 !important;
+    border-radius: 24px;
+    margin-top: 15px !important;
+    padding: 5px !important;
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+}
+
+
+.interviewprepbtn {
+    font-family: 'DMSans-Bold';
+    font-size: 12px;
+    background: #00A877 !important;
+    border-color: #00A877 !important;
+    border-radius: 24px;
+    padding: 5px !important;
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+}
+
+.prepText {
+    font-size: 40px;
+    font-family: 'Antonio-Bold';
+}
+
+.uploadimg {
+    height: 20px;
+}
+
+.pasteimg {
+    height: 20px;
+}
+
+.fileUploadContainer {
+    border: 1px dashed rgba(0, 0, 0, 1);
+    border-radius: 8px;
+    padding-top: 14px;
+    padding-bottom: 10px;
+    text-align: center;
+    cursor: pointer;
+    background-color: rgba(245, 245, 245, 1);
+    padding-left: 75px !important;
+    padding-right: 75px !important;
+    margin-top: 25px !important;
+    margin-bottom: 25px !important;
+}
+
+.filePasteContainer {
+    border: 1px solid rgba(174, 174, 174, 1);
+    border-radius: 8px;
+    padding-top: 75px !important;
+    padding-bottom: 75px !important;
+    text-align: center;
+    cursor: pointer;
+    background-color: rgba(245, 245, 245, 1);
+    padding-left: 75px !important;
+    padding-right: 75px !important;
+    margin-top: 5px !important;
+    margin-bottom: 15px !important;
+}
+
+.interviewprep1 .active {
+    border-bottom: 2px solid rgba(0, 115, 179, 1);
+    color: rgba(0, 115, 179, 1);
+    font-size: 22px;
+}
+
+.interviewprep1 .inactive {
+    font-size: 22px;
+}
+
+
+.tabItem {
+    border-bottom: 1px solid rgba(174, 174, 174, 1);
+    margin-bottom: 5px;
+}
+
+.savedText {
+    font-size: 22px;
+    font-family: 'SpaceGrotesk-Medium';
+}
+
+.tabText {
+    font-size: 18px;
+    font-family: 'SpaceGrotesk-Medium';
+}
+
+
+
+.spanText {
+    color: rgba(111, 111, 111, 1);
+    font-size: 14px;
+    font-family: 'SpaceGrotesk-Medium';
+}
+
+.questionText {
+    color: rgba(111, 111, 111, 1);
+    font-size: 17px;
+    font-family: 'SpaceGrotesk-Medium';
+}
+
+.cardText {
+    font-size: 16px;
+    font-family: 'DMSans-Bold';
+}
+
+.interviewimg {
+    font-size: 14px;
+    font-family: 'Antonio-Bold';
+}
+
+.cardBody {
+    background: linear-gradient(0deg, #F5F5F5, #F5F5F5);
+    width: 355px;
+    border-radius: 8px;
+
+}
+
+.cardBodyfav{
+    background: linear-gradient(0deg, #F5F5F5, #F5F5F5);
+    width: 380px;
+    border-radius: 8px;
+}
+
+
+.viewImage {
+    height: 27px;
+
+}
+
+.inteviewbtncss {
+    background: rgba(0, 168, 119, 1) !important;
+    border: none;
+    width: auto;
+    border-color: rgba(0, 168, 119, 1) !important;
+    font-family: "DMSans-Medium" !important;
+    border-radius: 24px;
+    margin-left: 2px;
+    padding: 8px !important;
+    padding-left: 35px !important;
+    padding-right: 35px !important;
+    margin-top: 35px !important;
+    box-shadow: 2px 2px 2px rgba(0, 168, 119, 0.5);
+}
+
+.newInterview {
+    padding: 30px;
+
+}
+
+.newModal {
+    border-top: 5px solid rgba(0, 168, 119, 1);
+    border-radius: 5px;
+}
+
+.interviewContainer .modal-dialog {
+
+    max-width: 700px !important;
+    margin-right: auto;
+    margin-left: auto;
+
+}
+
+.cardbackground1 {
+    background: linear-gradient(0deg, #F5F5F5, #F5F5F5);
+}
+
+.sideActive {
+    background-color: rgba(0, 115, 179, 1);
+    border-color: rgba(0, 115, 179, 1);
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+    padding: 4px;
+}
+
+.sideInactive {
+    background-color: rgba(174, 174, 174, 1);
+    border-color: rgba(174, 174, 174, 1);
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+    padding: 4px;
+}
+
+.activetext1 {
+    color: #FFFFFF !important;
+    font-size: 18px;
+    font-family: "DMSans-Regular";
+}
+
+.notactive1 {
+    color: #FFFFFF !important;
+    font-size: 18px;
+    font-family: "DMSans-Regular";
+}
+
+.jobescription textarea.form-control {
+    min-height: calc(14.5em + 0.75rem + calc(var(--bs-border-width) * 2));
+}
+
+@media (max-width:991px) {
+    .fileUploadContainer {
+        border: 1px dashed rgba(0, 0, 0, 1);
+        border-radius: 8px;
+        padding-top: 14px;
+        padding-bottom: 10px;
+        text-align: center;
+        cursor: pointer;
+        background-color: rgba(245, 245, 245, 1);
+        padding-left: 75px !important;
+        padding-right: 75px !important;
+        margin-top: 25px !important;
+        margin-bottom: 25px !important;
+    }
+
+    .inteviewbtncss {
+        background: rgba(0, 168, 119, 1) !important;
+        border: none;
+        width: auto;
+        border-color: rgba(0, 168, 119, 1) !important;
+        font-family: "DMSans-Medium" !important;
+        border-radius: 24px;
+        margin-left: 2px;
+        padding: 8px !important;
+        margin-top: 35px !important;
+        padding-left: 35px !important;
+        padding-right: 35px !important;
+        box-shadow: 2px 2px 2px rgba(0, 168, 119, 0.5);
+    }
+
+    .filePasteContainer {
+        border: 1px solid rgba(174, 174, 174, 1);
+        border-radius: 8px;
+        padding-top: 75px !important;
+        padding-bottom: 75px !important;
+        text-align: center;
+        cursor: pointer;
+        background-color: rgba(245, 245, 245, 1);
+        padding-left: 75px !important;
+        padding-right: 75px !important;
+        margin-top: 5px !important;
+        margin-bottom: 15px !important;
+    }
+}
+
+@media (max-width:650px) {
+
+    .interviewprep1 .active {
+        background-color: rgba(0, 115, 179, 1);
+        color: white;
+        padding: 10px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        padding-left: 23px;
+        padding-right: 23px;
+        font-size: 14px;
+
+    }
+
+
+    .cardBody {
+        background: linear-gradient(0deg, #F5F5F5, #F5F5F5);
+        width: 350px;
+        border-radius: 8px;
+
+    }
+
+    .cardBodyfav{
+        background: linear-gradient(0deg, #F5F5F5, #F5F5F5);
+        width: 350px;
+        border-radius: 8px;
+    }
+
+    .favanstab {
+        margin-left: 5px;
+    }
+
+    .interviewprep1 .inactive {
+
+        background-color: rgba(174, 174, 174, 1);
+        color: white;
+        padding: 10px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        padding-left: 23px;
+        padding-right: 23px;
+        font-size: 14px;
+    }
+
+    .interviewcard {
+        margin-bottom: 10px;
+        margin-top: 25px !important;
+    }
+
+    .prepText {
+        font-size: 16px;
+        font-family: 'Antonio-Bold';
+        padding: 0px !important;
+        padding-left: 13px !important;
+    }
+
+    .interviewimg {
+        width: 150px;
+    }
+
+    .inteviewbtncss {
+        background: rgba(0, 168, 119, 1) !important;
+        border: none;
+        width: auto;
+        font-family: "DMSans-Medium" !important;
+        border-radius: 24px;
+        margin-top: 0px !important;
+        /* margin-left: 2px; */
+        padding: 4px !important;
+        /* padding-left: 35px !important;
+        padding-right: 35px !important; */
+        width: 200px;
+        border-color: rgba(0, 168, 119, 1) !important;
+        font-size: 12px !important;
+        box-shadow: 2px 2px 2px rgba(0, 168, 119, 0.5);
+    }
+
+    .smallscreen {
+        margin-top: 20px !important;
+        margin-bottom: 20px !important;
+    }
+
+    .arrimg {
+        height: 20px;
+    }
+
+    .fileUploadContainer {
+        border: 1px dashed rgba(0, 0, 0, 1);
+        border-radius: 8px;
+        padding-top: 14px;
+        padding-bottom: 10px;
+        text-align: center;
+        cursor: pointer;
+        background-color: rgba(245, 245, 245, 1);
+        padding-left: 45px !important;
+        padding-right: 45px !important;
+        margin-top: 25px !important;
+        margin-bottom: 25px !important;
+    }
+
+    .filePasteContainer {
+        border: 1px solid rgba(174, 174, 174, 1);
+        border-radius: 8px;
+        padding-top: 45px !important;
+        padding-bottom: 45px !important;
+        text-align: center;
+        cursor: pointer;
+        background-color: rgba(245, 245, 245, 1);
+        padding-left: 75px !important;
+        padding-right: 75px !important;
+        margin-top: 5px !important;
+        margin-bottom: 15px !important;
+    }
+
+    .letsGo {
+        font-family: 'DMSans-Bold';
+        font-size: 12px;
+        background: #00A877 !important;
+        border-color: #00A877 !important;
+        border-radius: 24px;
+        margin-top: 15px !important;
+        padding: 8px !important;
+        padding-left: 50px !important;
+        padding-right: 50px !important;
+    }
+
+    .interviewprep1 .modal-header {
+        margin-left: 5px !important;
+        margin-right: 5px !important;
+        padding-bottom: 0px !important;
+    }
+
+}
+
+@media (max-width:290px) {
+    .fileUploadContainer {
+        border: 1px dashed rgba(0, 0, 0, 1);
+        border-radius: 8px;
+        padding-top: 14px;
+        padding-bottom: 10px;
+        text-align: center;
+        cursor: pointer;
+        background-color: rgba(245, 245, 245, 1);
+        padding-left: 45px !important;
+        padding-right: 45px !important;
+        margin-top: 25px !important;
+        margin-bottom: 25px !important;
+    }
+
+    .cardBody {
+        background: linear-gradient(0deg, #F5F5F5, #F5F5F5);
+        width: 320px;
+        border-radius: 8px;
+
+    }
+
+    .filePasteContainer {
+        border: 1px solid rgba(174, 174, 174, 1);
+        border-radius: 8px;
+        padding-top: 45px !important;
+        padding-bottom: 45px !important;
+        text-align: center;
+        cursor: pointer;
+        background-color: rgba(245, 245, 245, 1);
+        padding-left: 75px !important;
+        padding-right: 75px !important;
+        margin-top: 5px !important;
+        margin-bottom: 15px !important;
+    }
+}

@@ -1,0 +1,44 @@
+.transformcss {
+    color: rgba(0, 0, 0, 1);
+    font-family: 'SpaceGrotesk-Bold';
+    font-size: 62px;
+}
+
+
+.landing-text {
+    padding: 30px !important;
+}
+
+.imagemargin {
+    margin-top: 0px !important;
+
+}
+
+
+
+@media (max-width:991px) {
+    .imagemargin {
+        margin-top: 0px !important;
+
+    }
+}
+
+@media (max-width:650px) {
+    .imagemargin {
+        margin-top: 40px !important;
+
+    }
+    .socialimg1{
+        height: 12px;
+    }
+}
+
+@media (max-width:290px) {
+    .imagemargin {
+        margin-top: 40px !important;
+
+    }
+    .socialimg1{
+        height: 6px;
+    }
+}
