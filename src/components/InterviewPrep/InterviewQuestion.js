@@ -43,17 +43,20 @@ export default function InterviewQuestion() {
 
         dispatch(getQuestion(body))
             .then((result) => {
-                console.log(result, "res")
-                setQuestionData(Object.values(result?.payload?.choices[0].message.content[0]))
-                const data=Object.values(result?.payload?.choices[0].message.content[0]);
-                {data?.filter((item) => item != '')?.map((item, i) => ( (i == 0) ? setSelectedItem(item):''))}
+                const questionArray = result?.payload?.choices[0].message.content.split('\n');
+                setQuestionData(questionArray)
+                
+                {questionArray?.filter((item) => item != '')?.map((item, i) => ( (i == 0) ? setSelectedItem(item):''))}
                 setLoading(false)
             })
             .catch((error) => {
                 console.log(error)
             });
 
+       // const questions = "1. What data structures are available in Python, and what are their main characteristics and uses?\n\n2. What is the primary difference between a Tuple and a List data structure in Python?\n\n3. How to use dictionary data structure in Python and explain how it differs from other data structures in Python?\n\n4. Can you explain the time complexities of different operations (like search, insertion and deletion) in various python data structures such as lists, sets and dictionaries?\n\n5. What are the applications of Stack and Queue data structures in Python and how can these be implemented?";
 
+        // Split the string into an array of questions
+        
     }, []);
 
 
@@ -67,27 +70,27 @@ export default function InterviewQuestion() {
         console.log(item, "item")
         setSelectedItem(item);
 
-        const body = {
-            "model": "gpt-4",
-            "messages": [
-                {
-                    "role": "user",
-                    "content": item
-                }
-            ]
-        }
+        // const body = {
+        //     "model": "gpt-4",
+        //     "messages": [
+        //         {
+        //             "role": "user",
+        //             "content": item
+        //         }
+        //     ]
+        // }
 
-        dispatch(getQuestion(body))
-            .then((result) => {
-                console.log(result)
-                setanswerData(Object.values(result?.payload?.choices[0].message.content[0]))
-                //setQuestionData(Object.values(result?.payload?.choices[0].message.content[0]))
+        // dispatch(getQuestion(body))
+        //     .then((result) => {
+        //         console.log(result)
+        //         setanswerData(Object.values(result?.payload?.choices[0].message.content))
+        //         //setQuestionData(Object.values(result?.payload?.choices[0].message.content[0]))
 
-                setLoading(false)
-            })
-            .catch((error) => {
-                console.log(error)
-            });
+        //         setLoading(false)
+        //     })
+        //     .catch((error) => {
+        //         console.log(error)
+        //     });
 
 
 
@@ -132,7 +135,7 @@ export default function InterviewQuestion() {
         dispatch(getQuestion(body))
             .then((result) => {
                 console.log(result)
-                setanswerData(Object.values(result?.payload?.choices[0].message.content[0]))
+                setanswerData(Object.values(result?.payload?.choices[0].message.content))
                 //setQuestionData(Object.values(result?.payload?.choices[0].message.content[0]))
 
                 setLoading(false)
@@ -167,14 +170,14 @@ export default function InterviewQuestion() {
                     <Col lg={4} className='d-none d-lg-block'>
 
                         <Card className="flex-column cardbackground1 ms-5 me-2 mt-2 mb-2" style={{ height: '120vh' }} >
-
+                       
                             <div className='row ms-1 mt-3'>
                                 <div className='col-sm d-flex justify-content-center cursor'><Image onClick={() => regenerateQ()} src={regenerate} style={{ height: 27 }} /></div>
                                 <div className='col-sm d-flex justify-content-end me-2'><Image src={back} style={{ height: 30 }} /></div>
                             </div>
                             <Nav className="flex-column mb-2">
 
-                                {questionData?.filter((item) => item != '')?.map((item, i) => (
+                                {questionData?.map((item, i) => (
                                     <>
                                         <Nav.Item key={item}
                                             className={`${selectedItem === item ? 'sideActive' : 'sideInactive'} pb-2`}

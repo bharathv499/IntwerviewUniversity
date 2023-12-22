@@ -15,6 +15,69 @@
 }
 
 
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.first-background {
+    background-image: url('../../assets/images/homebg.png');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.5;
+    /* Adjust opacity as needed */
+}
+
+.second-background {
+    background-image: url('../../assets/images/homewhite.png');
+    background-size: cover;
+    background-position: center;
+    height: 88% !important;
+    opacity: 0.5;
+    /* Adjust opacity as needed */
+}
+
+/* .main-image {
+    width: 100%;
+    height: auto;
+    opacity: 0.9;
+    display: block;
+}
+.another-image {
+    width: 30%; 
+    height: auto;
+    display: block;
+  } */
+
+  .content {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .main-image {
+    width: 100%; /* Adjust the width of the main image */
+    height: auto;
+    display: block;
+    opacity: 0.9;
+  }
+  
+  .another-image {
+    position: absolute;
+    top: 195px; /* Adjust the top position as needed */
+    left: 0px; /* Adjust the left position as needed */
+    width: 175px; /* Adjust the width of the other image */
+    height: auto;
+    display: block;
+  }
 
 @media (max-width:991px) {
     .imagemargin {
@@ -28,7 +91,8 @@
         margin-top: 40px !important;
 
     }
-    .socialimg1{
+
+    .socialimg1 {
         height: 12px;
     }
 }
@@ -38,7 +102,8 @@
         margin-top: 40px !important;
 
     }
-    .socialimg1{
+
+    .socialimg1 {
         height: 6px;
     }
 }
