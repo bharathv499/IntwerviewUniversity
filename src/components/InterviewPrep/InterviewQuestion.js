@@ -8,7 +8,7 @@ import './InterviewQuestion.css'
 import { getQuestion } from '../../redux/authSlice'
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from 'react-router-dom';
-import regenerate from '../../assets/images/regenerate.png'
+import regen from '../../assets/images/regen.svg'
 import back from '../../assets/images/back.png'
 import Loader from './../../Loader';
 
@@ -33,7 +33,7 @@ export default function InterviewQuestion() {
     const [selectedItem, setSelectedItem] = useState('');
 
     useEffect(() => {
-        setLoading(true)
+       // setLoading(true)
         const body = {
             "model": "gpt-4",
             "messages": [
@@ -41,17 +41,17 @@ export default function InterviewQuestion() {
             ]
         }
 
-        dispatch(getQuestion(body))
-            .then((result) => {
-                const questionArray = result?.payload?.choices[0].message.content.split('\n');
-                setQuestionData(questionArray)
+        // dispatch(getQuestion(body))
+        //     .then((result) => {
+        //         const questionArray = result?.payload?.choices[0].message.content.split('\n');
+        //         setQuestionData(questionArray)
                 
-                {questionArray?.filter((item) => item != '')?.map((item, i) => ( (i == 0) ? setSelectedItem(item):''))}
-                setLoading(false)
-            })
-            .catch((error) => {
-                console.log(error)
-            });
+        //         {questionArray?.filter((item) => item != '')?.map((item, i) => ( (i == 0) ? setSelectedItem(item):''))}
+        //         setLoading(false)
+        //     })
+        //     .catch((error) => {
+        //         console.log(error)
+        //     });
 
        // const questions = "1. What data structures are available in Python, and what are their main characteristics and uses?\n\n2. What is the primary difference between a Tuple and a List data structure in Python?\n\n3. How to use dictionary data structure in Python and explain how it differs from other data structures in Python?\n\n4. Can you explain the time complexities of different operations (like search, insertion and deletion) in various python data structures such as lists, sets and dictionaries?\n\n5. What are the applications of Stack and Queue data structures in Python and how can these be implemented?";
 
@@ -66,7 +66,7 @@ export default function InterviewQuestion() {
 
 
     const handleItemClick = (item) => {
-        setLoading(true)
+       // setLoading(true)
         console.log(item, "item")
         setSelectedItem(item);
 
@@ -134,11 +134,12 @@ export default function InterviewQuestion() {
 
         dispatch(getQuestion(body))
             .then((result) => {
-                console.log(result)
-                setanswerData(Object.values(result?.payload?.choices[0].message.content))
+                setLoading(false)
+                console.log(result,"re")
+               // setanswerData(Object.values(result?.payload?.choices[0].message.content[0]))
                 //setQuestionData(Object.values(result?.payload?.choices[0].message.content[0]))
 
-                setLoading(false)
+               
             })
             .catch((error) => {
                 console.log(error)
@@ -172,7 +173,9 @@ export default function InterviewQuestion() {
                         <Card className="flex-column cardbackground1 ms-5 me-2 mt-2 mb-2" style={{ height: '120vh' }} >
                        
                             <div className='row ms-1 mt-3'>
-                                <div className='col-sm d-flex justify-content-center cursor'><Image onClick={() => regenerateQ()} src={regenerate} style={{ height: 27 }} /></div>
+                                {/* <div className='col-sm d-flex justify-content-center cursor'><Image onClick={() => regenerateQ()} src={regenerate} style={{ height: 27 }} /></div> */}
+                                <div className='col-sm regen cursor'>
+                                    <Image onClick={() => regenerateQ()} src={regen}  /><span className='retxt'>Regenerate Questions</span></div>
                                 <div className='col-sm d-flex justify-content-end me-2'><Image src={back} style={{ height: 30 }} /></div>
                             </div>
                             <Nav className="flex-column mb-2">

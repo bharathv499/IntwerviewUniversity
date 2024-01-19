@@ -8,6 +8,17 @@
 
 }
 
+.retxt{
+    width: 173px;
+    padding-left: 10px;
+    color: rgba(0, 168, 119, 1);
+}
+
+.regen{
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+}
 .questionBottom {
     display: flex;
     flex-direction: row;

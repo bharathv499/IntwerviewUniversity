@@ -4,7 +4,7 @@ import { Button, Card, Col, Form, Image, Row, Container, CardDeck } from "react-
 import google from '../../assets/images/google.svg'
 import apple from '../../assets/images/apple.svg'
 import './SignUp.css';
-import logo from '../../assets/images/logo.svg'
+import mainlogo from '../../assets/images/mainlogo.png'
 import { addAuthenticator, facebookLogin, getUserProfile, signinuser } from '../../redux/authSlice';
 import { useDispatch } from "react-redux";
 import { toast, ToastContainer } from 'react-toastify';
@@ -113,7 +113,7 @@ export default function SignUp() {
         name: name,
         email: email,
         password: password,
-       confirm_password: confirm_password
+        confirm_password: confirm_password
     }
     const handleFormSubmit = (event) => {
         event.preventDefault();
@@ -158,7 +158,7 @@ export default function SignUp() {
         return emailRegex.test(inputEmail);
     };
     const isPasswordValid = (inputPassword) => {
-       // return inputPassword.trim().length > 8;
+        // return inputPassword.trim().length > 8;
         const regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$/;
         return regex.test(inputPassword);
     };
@@ -207,172 +207,172 @@ export default function SignUp() {
     }
 
     const clientId = '215908869528-ilajam71misjhg5cnak7bj1ar1rfvrhb.apps.googleusercontent.com'
-  const handleGoogleSignInAPI = async dispatch => {
-    try {
-      const client = window.google.accounts.oauth2.initTokenClient({
-        client_id: clientId,
-        scope: "https://www.googleapis.com/auth/userinfo.email",
-        callback: res => {
+    const handleGoogleSignInAPI = async dispatch => {
+        try {
+            const client = window.google.accounts.oauth2.initTokenClient({
+                client_id: clientId,
+                scope: "https://www.googleapis.com/auth/userinfo.email",
+                callback: res => {
 
-          if (res?.access_token) {
+                    if (res?.access_token) {
+
+                        const body = {
+                            access_token: res.access_token
+                        }
+                        let data = JSON.stringify(body)
+                        let config = {
+                            method: "post",
+                            url: 'https://round-unit-43333.botics.co/modules/social-auth/google/login/',
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            data: data
+                        }
+
+                        axios
+                            .request(config)
+                            .then(response => {
+                                localStorage.setItem("token", response.data.key)
+                                googlelogin(response.data.key)
+                            })
+                            .catch(error => {
+                                window.scrollTo(0, 0)
+                                if (error?.response?.status === 400) {
+                                    console.log(error, "error")
+                                    toast.error(error.response.data.non_field_errors[0], {
+                                        position: toast.POSITION.TOP_RIGHT,
+                                        autoClose: 2000,
+                                        hideProgressBar: true,
+                                    });
+                                }
+                            })
+                    } else {
+                        window.scrollTo(0, 0)
+                        toast.error("No access token", {
+                            position: toast.POSITION.TOP_RIGHT,
+                            autoClose: 2000,
+                            hideProgressBar: true,
+                        });
+                    }
+                },
+                error_callback: err => {
+                    window.scrollTo(0, 0)
+                    toast.error("No access token", {
+                        position: toast.POSITION.TOP_RIGHT,
+                        autoClose: 2000,
+                        hideProgressBar: true,
+                    });
+                }
+            })
+            console.log(await client.requestAccessToken())
+        } catch (err) {
+        }
+    }
+
+
+    const googlelogin = (response) => {
+        dispatch(addAuthenticator(response))
+        navigate('/interview')
+        dispatch(getUserProfile())
+            .then((result) => {
+                // localStorage.setItem('role', result.payload.role)
+                // localStorage.setItem('username', result.payload.username)
+                // localStorage.setItem('userId', result.payload.id)
+                localStorage.setItem('role', result.payload.role)
+                localStorage.setItem('username', result.payload.full_name)
+                localStorage.setItem('email', result.payload.email)
+                localStorage.setItem('userId', result.payload.id)
+
+
+
+            })
+            .catch((errordata) => {
+
+            });
+
+
+    }
+
+    const signInWithApple = response => {
+        console.log(response, "res")
+        if (response?.authorization?.id_token) {
+            const { authorization } = response || {}
+            const { id_token, code } = authorization || {}
 
             const body = {
-              access_token: res.access_token
+                id_token: id_token,
+                access_token: code
             }
             let data = JSON.stringify(body)
             let config = {
-              method: "post",
-              url: 'https://round-unit-43333.botics.co/modules/social-auth/google/login/',
-              headers: {
-                "Content-Type": "application/json"
-              },
-              data: data
+                method: "post",
+                url: 'https://round-unit-43333.botics.co/modules/social-auth/apple/login/',
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': `token ${localStorage.getItem('token')}`
+                },
+                data: data
             }
-
             axios
-              .request(config)
-              .then(response => {
-                localStorage.setItem("token", response.data.key)
-                googlelogin(response.data.key)
-              })
-              .catch(error => {
-                window.scrollTo(0, 0)
-                if (error?.response?.status === 400) {
-                  console.log(error, "error")
-                  toast.error(error.response.data.non_field_errors[0], {
-                    position: toast.POSITION.TOP_RIGHT,
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                  });
-                }
-              })
-          } else {
-            window.scrollTo(0, 0)
-            toast.error("No access token", {
-              position: toast.POSITION.TOP_RIGHT,
-              autoClose: 2000,
-              hideProgressBar: true,
-            });
-          }
-        },
-        error_callback: err => {
-          window.scrollTo(0, 0)
-          toast.error("No access token", {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 2000,
-            hideProgressBar: true,
-          });
-        }
-      })
-      console.log(await client.requestAccessToken())
-    } catch (err) {
-    }
-  }
+                .request(config)
+                .then(appleResponse => {
+                    console.log(appleResponse, "appleResponse")
+                    window.scrollTo(0, 0)
+                    if (appleResponse?.status === 200 || appleResponse?.status === 201) {
+                        console.log(appleResponse, "appleResponse")
+                        toast.success("login success", {
+                            position: toast.POSITION.TOP_RIGHT,
+                            autoClose: 5000,
+                            hideProgressBar: true,
+                        });
+
+                        if (appleResponse.payload.key) {
+                            navigate('/interview')
+                            toast.success('Login Successful!', {
+                                position: toast.POSITION.TOP_RIGHT,
+                                autoClose: 2000,
+                                hideProgressBar: true,
+                            });
+                            dispatch(getUserProfile())
+                                .then((result) => {
+                                    localStorage.setItem('role', result.payload.role)
+                                    localStorage.setItem('username', result.payload.full_name)
+                                    localStorage.setItem('email', result.payload.email)
+                                    localStorage.setItem('userId', result.payload.id)
 
 
-  const googlelogin = (response) => {
-    dispatch(addAuthenticator(response))
-    navigate('/interview')
-    dispatch(getUserProfile())
-      .then((result) => {
-        // localStorage.setItem('role', result.payload.role)
-        // localStorage.setItem('username', result.payload.username)
-        // localStorage.setItem('userId', result.payload.id)
-        localStorage.setItem('role', result.payload.role)
-        localStorage.setItem('username', result.payload.full_name)
-        localStorage.setItem('email', result.payload.email)
-        localStorage.setItem('userId', result.payload.id)
+                                })
+                                .catch((errordata) => {
+
+                                });
+                        } else {
+
+                        }
 
 
-      
-      })
-      .catch((errordata) => {
-
-      });
-
-
-  }
-
-  const signInWithApple = response => {
-    console.log(response, "res")
-    if (response?.authorization?.id_token) {
-      const { authorization } = response || {}
-      const { id_token, code } = authorization || {}
-
-      const body = {
-        id_token: id_token,
-        access_token: code
-      }
-      let data = JSON.stringify(body)
-      let config = {
-        method: "post",
-        url: 'https://round-unit-43333.botics.co/modules/social-auth/apple/login/',
-        headers: {
-          "Content-Type": "application/json",
-          'Authorization': `token ${localStorage.getItem('token')}`
-        },
-        data: data
-      }
-      axios
-        .request(config)
-        .then(appleResponse => {
-          console.log(appleResponse, "appleResponse")
-          window.scrollTo(0, 0)
-          if (appleResponse?.status === 200 || appleResponse?.status === 201) {
-            console.log(appleResponse, "appleResponse")
-            toast.success("login success", {
-              position: toast.POSITION.TOP_RIGHT,
-              autoClose: 5000,
-              hideProgressBar: true,
-            });
-
-            if (appleResponse.payload.key) {
-              navigate('/interview')
-              toast.success('Login Successful!', {
-                position: toast.POSITION.TOP_RIGHT,
-                autoClose: 2000,
-                hideProgressBar: true,
-              });
-              dispatch(getUserProfile())
-                .then((result) => {
-                  localStorage.setItem('role', result.payload.role)
-                  localStorage.setItem('username', result.payload.full_name)
-                  localStorage.setItem('email', result.payload.email)
-                  localStorage.setItem('userId', result.payload.id)
-    
-    
+                    } else if (appleResponse?.status === 400) {
+                        console.log(appleResponse, "appleResponse")
+                        toast.error("Error", {
+                            position: toast.POSITION.TOP_RIGHT,
+                            autoClose: 2000,
+                            hideProgressBar: true,
+                        });
+                    }
                 })
-                .catch((errordata) => {
-    
-                });
-            } else {
-    
-            }
-
-
-          } else if (appleResponse?.status === 400) {
-            console.log(appleResponse, "appleResponse")
-            toast.error("Error", {
-              position: toast.POSITION.TOP_RIGHT,
-              autoClose: 2000,
-              hideProgressBar: true,
-            });
-          }
-        })
-        .catch(error => {
-          window.scrollTo(0, 0)
-          if (error?.response?.status === 400) {
-            toast.error("Error", {
-              position: toast.POSITION.TOP_RIGHT,
-              autoClose: 2000,
-              hideProgressBar: true,
-            });
-          }
-        })
-    } else {
-      console.log('error')
+                .catch(error => {
+                    window.scrollTo(0, 0)
+                    if (error?.response?.status === 400) {
+                        toast.error("Error", {
+                            position: toast.POSITION.TOP_RIGHT,
+                            autoClose: 2000,
+                            hideProgressBar: true,
+                        });
+                    }
+                })
+        } else {
+            console.log('error')
+        }
     }
-  }
 
     const backgroundImageStyle = {
         position: 'absolute',
@@ -450,7 +450,7 @@ export default function SignUp() {
                             <Card className="flex-fill no-margin loginImage">
                                 <Card.Body>
                                     <div className='logocss loginmargin1'>
-                                        <Image variant="top" className="img-fluid" src={logo} />
+                                    <Image variant="top" className="img-fluid" style={{height:48}} src={mainlogo} />
                                     </div>
                                     <div className='logocss d-none d-lg-block'>
                                         <Image variant="top" className="img-fluid custom-img" src={loginside} />

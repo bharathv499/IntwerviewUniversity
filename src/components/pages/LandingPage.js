@@ -5,27 +5,27 @@ import startimg from '../../assets/images/startimg.png'
 import startimage from '../../assets/images/startimage.png'
 import productimg from '../../assets/images/productimg.png'
 import intro from '../../assets/images/intro.png'
-import succeess from '../../assets/images/succeess.png'
-import value from '../../assets/images/value.png'
-import social from '../../assets/images/social.png'
+import arrow1 from '../../assets/images/arrow1.png'
+import rectangle from '../../assets/images/rectangle.png'
+import success from '../../assets/images/success.png'
 import benefit from '../../assets/images/benefit.png'
 import footerimg from '../../assets/images/footerimg.png'
 import mask from '../../assets/images/mask.png'
-import practice from '../../assets/images/practice.png'
+import feature from '../../assets/images/feature.png'
 import offers from '../../assets/images/offers.png'
 import AI from '../../assets/images/AI.png'
 import articulation from '../../assets/images/articulation.png'
-import start from '../../assets/images/start.png'
+import Icon from '../../assets/images/Icon.png'
 import './landing.css'
 import pinkbg from '../../assets/images/pinkbg.png'
 export default function LandingPage() {
 
     const backgroundImageStyle = {
         position: 'absolute',
-        top: 141,
+        top: 170,
         right: 0,
         bottom: 0,
-        left: 70,
+        left: 50,
         backgroundImage: `url(${pinkbg})`,
         backgroundRepeat: 'no-repeat',
     };
@@ -34,15 +34,23 @@ export default function LandingPage() {
 
             <Container fluid className="ms-3 me-3 landing-text">
                 <div style={{ width: '10px', height: '10px' }}>
-                    <div style={backgroundImageStyle}></div></div>
+                    <div style={backgroundImageStyle}></div>
+                </div>
                 <Row className="no-gutters">
                     <Col xs={12} lg={7} className="image-col">
-                        <Image variant="top" fluid src={startimage} />
-                        <Image src={social} className='ms-5 socialimg1' fluid variant="top" />
-
+                        {/* <Image variant="top" fluid src={startimage} /> */}
+                        <h1 className="banner-header text-start mt-5 me-5 pe-4">
+                            <span className="">Avoid the $300K Single-Offer Mistake! </span>
+                        </h1>
+                        <p className="banner-desc gray-text text-start pe-5 me-3">
+                            Stop Losing $300K Throughout Your Career - Embrace Personalized Interview Coaching and Custom Questions Tailored Just for You.
+                        </p>
+                        <div>
+                            <Button className='startbtn'>Get Started  <Image src={arrow1} variant="top" /></Button>
+                            {/* <Image src={startimg}  variant="top" /> */}
+                        </div>
                     </Col>
                     <Col xs={12} lg={5} className="text-col">
-                        {/* <Image variant="top" className='introimg' fluid src={mask} /> */}
 
                         <div className="image-container">
                             <div className="background first-background"></div>
@@ -66,17 +74,46 @@ export default function LandingPage() {
 
                     </Col>
                     <Col xs={12} lg={5} className="text-col">
-                        <Image variant="top" className='introimg' fluid src={intro} />
+                        <Image variant="top" src={rectangle} /><br></br>
+                        <span className='featuretxt'>Credibility boost</span>
+                        <p>Multiple offers yield increased negotiating leverage, don’t leave $1000’s on the table</p>
 
                     </Col>
                 </Row>
 
             </Container>
+
             <Container fluid className='ms-3 me-3 landing-text'>
                 <Row className="no-gutters ms-2">
-                    <Col xs={12} lg={6} className="image-col ">
-                        <Image variant="top" className='benefitimg' src={benefit} />
+                    <Col xs={12} lg={5} className="text-col">
+                        <Image variant="top" src={rectangle} /><br></br>
+                        <span className='featuretxt'>How it Works</span>
+                        <p>
+                            <h6>Personalized AI Interview Coaching:</h6>
+                            <p>Upload your resume and job description — Zunamu's AI Interview preparation does the rest, curating interview questions precisely, so they are handpicked for your goals.</p>
+                            <h6>Craft Your Work Story:</h6>
+                            <p>We unfold the chapters of your career story, spotlighting your strengths to weave a compelling narrative that resonates in any interview setting.</p>
+                            <h6>Experience-Based Prep:</h6>
+                            <p> Employ your actual work history to outshine generic interview responses. Get customized answer advice where you're stuck based on your own resume.</p>
 
+                        </p>
+
+                    </Col>
+                    <Col xs={12} lg={7} className="image-col ">
+                        <Image variant="top" fluid src={success} />
+
+                    </Col>
+
+                </Row>
+
+            </Container>
+            <Container fluid className='ms-3 me-3 landing-text'>
+                <Row className="no-gutters ms-2">
+
+                    <Col xs={12} lg={6} className="image-col ">
+                        <Image variant="top" src={rectangle} /><br></br>
+
+                        <span className='featuretxt'>Features</span>
                     </Col>
                     <Col xs={12} lg={6} className="text-col">
 
@@ -86,33 +123,61 @@ export default function LandingPage() {
             </Container>
             <Container fluid className='ms-3 me-3 landing-text'>
                 <Row className="no-gutters ms-2">
-                    <Col xs={12} lg={6} className="image-col ">
-                        <Image variant="top" fluid src={practice} />
+                    <Col xs={12} lg={2} className="image-col ">
+                        <Image variant="top" fluid src={feature} />
                     </Col>
-                    <Col xs={12} lg={6} className="image-col imagemargin">
-                        <Image variant="top" fluid src={offers} />
+                    <Col xs={12} lg={4} className="image-col ">
 
+                        <span className='customheader'>Custom AI Questions</span>
+                        <p className='customtxt'>Generic is out, specificity is in. Your interviews deserve more than one-size-fits-all.</p>
+                    </Col>
+                    <Col xs={12} lg={2} className="image-col ">
+                        <Image variant="top" fluid src={feature} />
+                    </Col>
+                    <Col xs={12} lg={4} className="image-col ">
+
+                        <span className='customheader'>Narrative Crafting</span>
+                        <p className='customtxt'>You're not just answering questions; you're telling your story, chapter by impressive chapter.</p>
                     </Col>
                 </Row>
-
             </Container>
 
             <Container fluid className='ms-3 me-3 landing-text'>
                 <Row className="no-gutters ms-2">
-                    <Col xs={12} lg={6} className="image-col ">
-                        <Image variant="top" fluid src={offers} />
+                    <Col xs={12} lg={2} className="image-col ">
+                        <Image variant="top" fluid src={feature} />
                     </Col>
-                    <Col xs={12} lg={6} className="image-col">
+                    <Col xs={12} lg={4} className="image-col ">
 
+                        <span className='customheader'>Foundational Experiences</span>
+                        <p className='customtxt'>Generic is out, specificity is in. Your interviews deserve more than one-size-fits-all.</p>
+                    </Col>
+                    <Col xs={12} lg={2} className="image-col ">
+                        <Image variant="top" fluid src={feature} />
+                    </Col>
+                    <Col xs={12} lg={4} className="image-col ">
+
+                        <span className='customheader'>Interactive Help</span>
+                        <p className='customtxt'>Stuck on a tough question? Zunamu's AI provides the nudge you need to leap forward.</p>
                     </Col>
                 </Row>
-
             </Container>
 
             <Container fluid className='landing-text'>
-                <Row>
+                <Row className='landingtxt'>
                     <Col lg={12} className='footercss mt-5 mb-3'>
-                        <Image variant="top" fluid src={footerimg} />
+                        {/* <Image variant="top" fluid src={footerimg} /> */}
+                        <div className="container">
+                            <div className="text-box">
+                                <p className='bottomtxt'>Zunamu is leveraging advanced AI technology to redefine interview preparation!</p>
+                                <p className='bottomtxt1'>Join the revolution and open doors to new job opportunities.</p>
+
+                                <div class="custom-input">
+                                    <input type="email" className="email-input" placeholder="Enter your email address" />
+                                    <Image src={Icon} alt="icon" />
+                                </div>
+                            </div>
+                        </div>
                     </Col>
                 </Row>
 

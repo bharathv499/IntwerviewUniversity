@@ -110,7 +110,7 @@ export const signUpUser = createAsyncThunk('signupuser', async (body) => {
     const res = await fetch("https://round-unit-43333.botics.co/rest-auth/registration/", {
         method: "post",
         headers: {
-            'content-Type': "application/json"
+            'content-Type': 'application/json',
         },
         body: JSON.stringify(body)
     })

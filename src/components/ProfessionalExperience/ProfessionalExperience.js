@@ -53,13 +53,13 @@ export default function ProfessionalExperience() {
         <>
 
 
-            <Container fluid>
+            {/* <Container fluid>
                 <Row>
                     <Col lg={4} className="d-none d-lg-block">
                         <Sidebar />
-                    </Col>
+                    </Col> */}
                     <Col xl={12} className='d-lg-none d-xl-none d-xl-block d-lg-block  d-flex justify-content-center'><Button className='myprofile' >Professional Experience</Button></Col>
-                    <Col lg={8} className="mt-3 ">
+                    {/* <Col lg={8} className="mt-3 "> */}
                         <Form className="me-lg-5" noValidate validated={validated} onSubmit={handleFormSubmit}>
                             <div className="row">
                                 <div className="col-sm">
@@ -165,12 +165,12 @@ export default function ProfessionalExperience() {
 
                             </span>
                         </Form>
-                    </Col>
+                    {/* </Col>
 
                 </Row>
 
 
-            </Container>
+            </Container> */}
 
 
 

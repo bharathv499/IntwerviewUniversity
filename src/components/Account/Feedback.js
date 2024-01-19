@@ -94,13 +94,13 @@ const Feedback = () => {
 
     return (
         <div >
-            <Container fluid>
+            {/* <Container fluid>
                 <Row>
                     <Col lg={4} className='d-none d-lg-block'>
                         <Sidebar />
-                    </Col>
+                    </Col> */}
                     <Col xl={12} className='d-lg-none d-xl-none d-xl-block d-lg-block  d-flex justify-content-center'><Button className='myprofile' >Support/ Send Feedback</Button></Col>
-                    <Col lg={8} className='mt-5'>
+                    {/* <Col lg={8} className='mt-5'> */}
 
                         <ToastContainer />
 
@@ -147,9 +147,9 @@ const Feedback = () => {
                                 </Col>
                             </Row>
                         </div>
-                    </Col >
+                    {/* </Col >
                 </Row >
-            </Container >
+            </Container > */}
         </div >
     );
 };

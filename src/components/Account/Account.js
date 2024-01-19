@@ -156,13 +156,13 @@ export default function Account() {
 
     return (
         <div>
-            <Container fluid>
+            {/* <Container fluid>
                 <Row>
                     <Col lg={4} className='d-none d-lg-block'>
                         <Sidebar />
-                    </Col>
+                    </Col> */}
                     <Col xl={12} className='d-lg-none d-xl-none d-xl-block d-lg-block  d-flex justify-content-center'><Button className='myprofile' >My Profile</Button></Col>
-                    <Col lg={8} className='mt-5'>
+                    {/* <Col lg={8} className='mt-5'> */}
                         <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
                             <ToastContainer />
                             <Row>
@@ -299,9 +299,9 @@ export default function Account() {
                             </span>
 
                         </Form>
-                    </Col>
-                </Row>
-            </Container>
+                    {/* </Col> */}
+                {/* </Row>
+            </Container> */}
 
             <Modal show={showModal} onHide={handleClose}
 

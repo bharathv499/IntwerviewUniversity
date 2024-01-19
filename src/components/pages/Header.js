@@ -71,7 +71,7 @@ export default function Header() {
   ];
 
   const onSetting = () => {
-    navigate("/account")
+    navigate("/sidebar")
     setShow(false)
 
   }

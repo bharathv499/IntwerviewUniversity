@@ -4,7 +4,107 @@
     font-size: 62px;
 }
 
+.landingtxt .container {
+    position: relative;
+    width: 100%;
+    height: 309px;
+    border-radius: 30px;
+    background-color: rgba(32, 181, 138, 1); /* Green background color */
+    background-image: url('../../assets/images/Intersect.png'); /* Replace 'your-background-image.jpg' with your actual image file */
+    background-size: cover;
+    background-position: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 
+  .text-box {
+    padding-left: 39px;
+    padding-right: 40px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .bottomtxt1{
+    font-family: 'DMSans-Medium';
+    font-size: 24px;
+    color:rgba(226, 226, 226, 1)
+  }
+  
+  .bottomtxt{
+    font-family: 'SpaceGrotesk-Bold';
+    font-size: 32px;
+  }
+  .email-input {
+    margin-top: 20px;
+    padding: 12px;
+    font-size: 16px;
+    width: 450px;
+    border-radius: 12px;
+    border-color: rgba(255, 255, 255, 1);
+    border: none;
+  }
+
+  .custom-input {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .custom-input email-input {
+    padding-right: 30px; /* Adjust this value to leave space for the image */
+    width: 200px; /* Adjust the width of the input box */
+  }
+
+  .custom-input img {
+    position: absolute;
+    top: 64%;
+    right: 10px; /* Adjust this value based on your design */
+    transform: translateY(-50%);
+    width: 30px; /* Adjust the width of the image */
+    height: 30px; /* Adjust the height of the image */
+  }
+
+.banner-header{
+    color: rgba(0, 0, 0, 1);
+    font-family: 'SpaceGrotesk-Bold';
+    font-size: 62px;
+}
+.banner-desc{
+    color:rgba(123, 123, 123, 1);
+    font-family: 'DMSans-Medium';
+    font-size: 24px;
+}
+.featuretxt{
+    font-family: 'SpaceGrotesk-Bold';
+    color: rgba(0, 115, 179, 1);
+    font-size: 36px;
+}
+.customheader{
+    font-family: 'SpaceGrotesk-Bold';
+    color: rgba(0, 0, 0, 1);
+    font-size: 31px;
+}
+.customtxt{
+    color: rgba(123, 123, 123, 1);
+    font-size: 18px;
+    font-family: 'DMSans-Regular';
+}
+.startbtn {
+    font-family: 'DMSans-Bold';
+    font-size: 22px !important;
+    background: #00A877 !important;
+    border-color: #00A877 !important;
+    border-radius: 12px;
+    margin-top: 15px !important;
+    padding: 10px !important;
+    box-shadow: 0px 0px 39px 0px rgba(0, 168, 119, 0.5);
+
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+}
 .landing-text {
     padding: 30px !important;
 }
@@ -95,7 +195,52 @@
     .socialimg1 {
         height: 12px;
     }
+
+    .text-box {
+        padding-left: 10px;
+        padding-right: 10px;
+        padding: 10px;
+        text-align: center;
+      }
+
+    .bottomtxt1{
+        font-family: 'DMSans-Medium';
+        font-size: 14px;
+        color:rgba(226, 226, 226, 1)
+      }
+      
+      .bottomtxt{
+        font-family: 'SpaceGrotesk-Bold';
+        font-size: 18px;
+      }
+
+      .email-input {
+        margin-top: 10px;
+        padding: 10px;
+        font-size: 16px;
+        width: 250px;
+        border-radius: 12px;
+        border-color: rgba(255, 255, 255, 1);
+        border: none;
+      }
+
+      .custom-input {
+        flex-direction: column; /* Stack elements vertically on smaller screens */
+        text-align: center;
+      }
+
+    
+
+      .custom-input img {
+        position: absolute;
+        top: 55%;
+        right: 10px; /* Adjust this value based on your design */
+        transform: translateY(-50%);
+        width: 30px; /* Adjust the width of the image */
+        height: 30px; /* Adjust the height of the image */
+      }
 }
+
 
 @media (max-width:290px) {
     .imagemargin {

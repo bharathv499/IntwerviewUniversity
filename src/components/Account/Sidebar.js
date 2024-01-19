@@ -1,40 +1,57 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Account.css';
-import { Nav, Modal, Button, Card, Row, Col } from 'react-bootstrap';
+import { Nav, Modal, Button, Card, Row, Col, Container } from 'react-bootstrap';
 import ChangePassword from './ChangePassword';
 import { logout } from '../../redux/authSlice';
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useNavigate } from 'react-router-dom';
+import Account from './Account';
+import ProfessionalExperience from '../ProfessionalExperience/ProfessionalExperience';
+import Feedback from './Feedback';
+
 
 export default function Sidebar() {
     const dispatch = useDispatch()
-  
+
     const [showLogout, setshowLogout] = useState(false);
     const [deleteacc, setdeleteacc] = useState(false);
-    const navigate= useNavigate()
+    const [showProfile,setShowProfile]=useState(true);
+    const [showExperience,setshowExperience]=useState(false);
+    const [showFeedback,setShowFeedback]=useState(false);
+
+    const navigate = useNavigate()
     const handleClose1 = () => setshowLogout(false);
     const handleClose2 = () => setdeleteacc(false);
-    
+
     const [selectedItem, setSelectedItem] = useState(1);
     const isAuthenticated = localStorage.getItem('isAuthenticated');
     useEffect(() => {
-  
+
     }, [isAuthenticated])
     const handleItemClick = (item) => {
         setSelectedItem(item);
-       
+
 
         if (item === 1) {
-            navigate('/account')
+            //navigate('/account')
+            setShowFeedback(false)
+            setshowExperience(false)
+            setShowProfile(true)
         }
 
 
         if (item === 2) {
-            navigate('/experience')
+            // navigate('/experience')
+            setShowFeedback(false)
+            setShowProfile(false)
+            setshowExperience(true)
         }
 
         if (item === 3) {
-            navigate('/feedback')
+            setShowFeedback(true)
+            setShowProfile(false)
+            setshowExperience(false)
+            //navigate('/feedback')
         }
 
         if (item === 4) {
@@ -45,7 +62,7 @@ export default function Sidebar() {
             setshowLogout(true)
         }
 
-        
+
 
     };
 
@@ -58,7 +75,7 @@ export default function Sidebar() {
     ];
 
     const onLogout = () => {
-       
+
         //dispatch(logout())
         localStorage.removeItem('token')
         localStorage.removeItem('username')
@@ -70,24 +87,35 @@ export default function Sidebar() {
         // console.log(isAuthenticated,"isAuthenticated")
         // if (!isAuthenticated) 
         navigate('/')
-       
-       
-      }
+
+
+    }
     return (
         <div>
+            <Container fluid>
+                <Row>
+                    <Col lg={4} className='d-none d-lg-block'>
+                        <Card className="flex-column cardbackground ms-5 me-2 mt-2 mb-2" style={{ height: '100vh' }} >
+                            <Nav className="flex-column">
+                                {items.map((item) => (
+                                    <Nav.Item key={item.id} onClick={() => handleItemClick(item.id)}
+                                        className={`${selectedItem === item.id ? 'selected-line' : 'navcss'}`}
+                                    >
+                                        <Nav.Link href="#section1" className={`navText ${selectedItem === item.id ? 'activetext' : 'notactive'}`} >{item.name}</Nav.Link>
+                                    </Nav.Item>
 
-            <Card className="flex-column cardbackground ms-5 me-2 mt-2 mb-2" style={{ height: '100vh' }} >
-                <Nav className="flex-column">
-                    {items.map((item) => (
-                        <Nav.Item key={item.id} onClick={() => handleItemClick(item.id)}
-                            className={`${selectedItem === item.id ? 'selected-line' : 'navcss'}`}
-                            >
-                            <Nav.Link href="#section1" className={`navText ${selectedItem === item.id ? 'activetext' : 'notactive'}`} >{item.name}</Nav.Link>
-                        </Nav.Item>
+                                ))}
+                            </Nav>
+                        </Card>
+                    </Col>
+                    <Col lg={8} className='mt-3'>
+                       {showProfile ?  <Account/> :''}
+                       {showExperience ? <ProfessionalExperience/> :''}
+                       {showFeedback ? <Feedback/> :''}
 
-                    ))}
-                </Nav>
-            </Card>
+                    </Col>
+                </Row>
+            </Container>
 
             <Modal show={showLogout} onHide={handleClose1}
 
@@ -102,8 +130,8 @@ export default function Sidebar() {
                         <span className="logoutlabel">Are you sure you want to Log out?
                         </span>
                         <span>
-                            <Button className='cancelbtn' type="submit"  onClick={()=> onLogout()}>Yes</Button>
-                            <Button className='savebtn' style={{marginLeft:5}} type="submit"  >No</Button>
+                            <Button className='cancelbtn' type="submit" onClick={() => onLogout()}>Yes</Button>
+                            <Button className='savebtn' style={{ marginLeft: 5 }} type="submit"  >No</Button>
                         </span>
                     </div>
                 </Modal.Body>
@@ -120,11 +148,11 @@ export default function Sidebar() {
                 </Modal.Header>
                 <Modal.Body>
                     <div className='logout'>
-                        <span className="logoutlabel">Are you sure you want to delete the account? 
+                        <span className="logoutlabel">Are you sure you want to delete the account?
                         </span>
                         <span>
                             <Button className='cancelbtn' type="submit"  >Yes</Button>
-                            <Button className='savebtn' style={{marginLeft:5}} type="submit"  >No</Button>
+                            <Button className='savebtn' style={{ marginLeft: 5 }} type="submit"  >No</Button>
                         </span>
                     </div>
                 </Modal.Body>

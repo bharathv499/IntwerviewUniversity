@@ -46,7 +46,7 @@ export default function About() {
         {/* <span className='loginrow'> */}
         <Row>
           <Col xs={12} lg={4} className="image-col mb-5">
-            <h2 className='abouttext'>About Us</h2>
+            <h2 className='aboutustext'>About Us</h2>	
           </Col>
         </Row>
         <Row className="no-gutters">

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Nav, Image } from 'react-bootstrap';
-import logo1 from '../../assets/images/logo1.svg'
+import footerlogo from '../../assets/images/footerlogo.png'
 import Instagram from '../../assets/images/Instagram.svg'
 import Twitter from '../../assets/images/Twitter.svg'
 import YouTube from '../../assets/images/YouTube.svg'
@@ -33,7 +33,7 @@ const Footer = () => {
             <span>© 2023 Interview University. All rights reserved.</span>
           </Col>
           <Col className='footerText' xs={12} lg={4} md={4}>
-            <Image variant="top" className='footerimg' src={logo1} />
+            <Image variant="top" className='footerimg' src={footerlogo} />
           </Col>
           <Col className='footertxt2' xs={12} lg={4} md={4}>
             <span className='me-2'>Terms of Service</span>

@@ -35,6 +35,12 @@
   font-family: 'SpaceGrotesk-Bold';
 }
 
+.aboutustext {
+  color: #A9A9A9;
+  font-size: 40px;
+  font-family: 'SpaceGrotesk-Bold';
+}
+
 .productcss {
   display: flex;
   justify-content: center;

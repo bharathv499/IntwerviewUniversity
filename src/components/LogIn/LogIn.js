@@ -3,7 +3,7 @@ import { Button, Card, Col, Form, Image, Row, Container, CardDeck } from "react-
 import google from '../../assets/images/google.svg'
 import apple from '../../assets/images/apple.svg'
 import './login.css';
-import logo from '../../assets/images/logo.svg'
+import mainlogo from '../../assets/images/mainlogo.png'
 import { addAuthenticator, facebookLogin, getUserProfile, signinuser } from '../../redux/authSlice';
 import { useDispatch } from "react-redux";
 import { toast, ToastContainer } from 'react-toastify';
@@ -394,7 +394,7 @@ const LogIn = () => {
               <Card className="flex-fill no-margin loginImage">
                 <Card.Body>
                   <div className='logocss loginmargin1'>
-                    <Image variant="top" className="img-fluid" src={logo} />
+                    <Image variant="top" className="img-fluid" style={{height:48}} src={mainlogo} />
                   </div>
                   <div className='logocss d-none d-lg-block' >
                     <Image variant="top" className="img-fluid custom-img" src={loginside} />

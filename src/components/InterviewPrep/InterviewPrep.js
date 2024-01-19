@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Modal, Row, Col, Image, Card, Container, Form,Carousel } from "react-bootstrap";
+import { Button, Modal, Row, Col, Image, Card, Container, Form, Carousel } from "react-bootstrap";
 import './InterviewPrep.css'
 
 import welcomeimg from '../../assets/images/welcome.png'
@@ -30,8 +30,8 @@ export default function InterviewPrep() {
         console.log('Selected Option:', selectedOption.value);
     };
 
-    const [welcome, setWelcome] = useState(false)
-    const [welcome1, setWelcome1] = useState(true)
+    const [welcome, setWelcome] = useState(true)
+    const [welcome1, setWelcome1] = useState(false)
     const handleClose = () => setWelcome(false)
     const handleClose1 = () => setWelcome1(false)
     const navigate = useNavigate()
@@ -138,7 +138,7 @@ export default function InterviewPrep() {
 
     }
 
-  
+
 
     const [formData, setFormData] = useState({
         role: '',
@@ -155,14 +155,61 @@ export default function InterviewPrep() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(selectedOption,"selectedOption")
+        console.log(selectedOption, "selectedOption")
         formData.role = selectedOption.value;
         // Assuming you want to redirect to '/display' and pass the form data
-        console.log(formData,"formDataaaaaaaaaa")
+        console.log(formData, "formDataaaaaaaaaa")
         console.log("data")
         navigate('/question', { state: { userData: formData } });
     };
 
+
+    const handleImageUpload = (event) => {
+
+        const file = event.target.files[0];
+        var formdata1 = new FormData();
+
+        formdata1.append("file", file);
+        formdata1.append("bucket", "interview-universit-43333");
+        formdata1.append("user_id", "3");
+
+
+        handleFile(file);
+        sethideOnUpload(false)
+        if (file) {
+
+            // setSelectedImage(URL.createObjectURL(file));
+            // formData1.append("avatar", file)
+
+            // var requestOptions = {
+            //     method: 'POST',
+            //     body: formdata
+            //   };
+
+            let config = {
+                method: 'post',
+                url: 'https://round-unit-43333.botics.co/modules/s3-file-uploader/service/file/upload/',
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `token ${localStorage.getItem('token')}`,
+                },
+                data: formdata1
+            };
+            for (const value of formdata1.values()) {
+                console.log(value);
+            }
+
+            axios.request(config)
+                .then((response) => {
+                    // setSelectedImage(response.data.avatar);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } else {
+            //setSelectedImage(null);
+        }
+    };
     return (
         <>
 
@@ -275,7 +322,7 @@ export default function InterviewPrep() {
 
             <Modal show={upload} onHide={uploadClose}
                 aria-labelledby="contained-modal-title-vcenter"
-                centered className="interviewprep1"
+                centered className="interviewprep2"
             >
                 <Modal.Header closeButton >
                     <span className={`${(activeMenuItem == "upload") ? 'active' : ''} p-2 cursor `}
@@ -307,7 +354,7 @@ export default function InterviewPrep() {
                                         type="file"
                                         id="fileInput"
                                         style={{ display: 'none' }}
-                                        onChange={handleFileSelect}
+                                        onChange={handleImageUpload}
                                         accept=".pdf, .docx"
                                     />
                                     <Button className='letsGo cursor' type="submit" htmlFor="fileInput">
@@ -321,21 +368,30 @@ export default function InterviewPrep() {
                             </div></>}
                         {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                         {selectedFile && (<>
-                            <Image variant="top" src={right} style={{ height: 35, marginBottom: 10 }} />
+                            <div
 
-                            <p className="fileuploadtext">
-                                {selectedFile.name} ({(selectedFile.size / (1024 * 1024)).toFixed(2)} MB)
+                                className="fileUploadContainer"
+                            >
+                                <Image variant="top" src={right} style={{ height: 35, marginBottom: 10 }} />
 
-                            </p>
-                            <input
-                                type="file"
-                                id="fileInput"
-                                style={{ display: 'none' }}
-                                onChange={handleFileSelect}
-                                accept=".pdf, .docx"
-                            />
-                            <span htmlFor="fileInput" className="cursor logincss" >Replace</span>
+                                <p className="fileuploadtext">
+                                    {selectedFile.name} ({(selectedFile.size / (1024 * 1024)).toFixed(2)} MB)
 
+                                </p>
+
+                                <input
+                                    type="file"
+                                    id="fileInput"
+                                    style={{ display: 'none' }}
+                                    onChange={handleFileSelect}
+                                    accept=".pdf, .docx"
+                                />
+                                {/* <span htmlFor="fileInput" className="cursor logincss" >Replace</span> */}
+                                <Button className='letsGo cursor' type="submit" htmlFor="fileInput">
+
+                                    <label htmlFor="fileInput" className="cursor"> Replace
+                                    </label></Button>
+                            </div>
                         </>)}
                     </div>
                 </Modal.Body>}
@@ -407,8 +463,8 @@ export default function InterviewPrep() {
                             <Form.Group controlId="exampleForm.ControlTextarea1">
 
                                 <Form.Control as="textarea" required
-                                name="content"
-                                  onChange={handleInputChange}
+                                    name="content"
+                                    onChange={handleInputChange}
                                     className='cardBody'
                                 />
                                 <Form.Control.Feedback type="invalid">Please enter terms</Form.Control.Feedback>
