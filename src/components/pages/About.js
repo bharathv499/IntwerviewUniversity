@@ -1,20 +1,23 @@
 import React from 'react'
 import './About.css'
 import about from '../../assets/images/about.png'
+import origin from '../../assets/images/origin.png'
 import line from '../../assets/images/line.png'
 import rectangle from '../../assets/images/rectangle.png'
 import line2 from '../../assets/images/line2.png'
 import ourproduct from '../../assets/images/ourproduct.png'
-import logo1 from '../../assets/images/logo1.png'
-import about1 from '../../assets/images/about1.png'
-import about3 from '../../assets/images/about3.png'
-import about4 from '../../assets/images/about4.png'
+
+import uniquejourney from '../../assets/images/uniquejourney.png'
+import values from '../../assets/images/values.png'
+
 import journey from '../../assets/images/journey.png'
-import footerimg from '../../assets/images/footerimg.png'
-import aboutus from '../../assets/images/aboutus.png'
+import team from '../../assets/images/team.png'
+import vision from '../../assets/images/vision.png'
 import { Container, Row, Col, Image, Card } from 'react-bootstrap';
 import bluebg from '../../assets/images/bluebg.png'
 import pinkbg from '../../assets/images/pinkbg.png'
+import Icon from '../../assets/images/Icon.png'
+import footerlogo from '../../assets/images/footerlogo.png'
 export default function About() {
 
   const backgroundImageStyle = {
@@ -51,8 +54,8 @@ export default function About() {
         </Row>
         <Row className="no-gutters">
           <Col xs={12} lg={4} className="image-col">
-            <Image variant="top" src={about} fluid
-              className="about-us-image" />
+            <Image variant="top" src={origin} fluid
+              className="our-origin" />
           </Col>
           <Col xs={12} lg={8} className="text-col ps-5 mt-3">
             <div className="about-us-text">
@@ -86,7 +89,7 @@ export default function About() {
             </div>
           </Col>
           <Col xs={12} lg={4} className="image-col">
-            <Image variant="top" src={about3} fluid
+            <Image variant="top" src={values} fluid
               className="about-us-image" />
           </Col>
         </Row>
@@ -102,7 +105,7 @@ export default function About() {
       <Container fluid className="about-us-container p-5">
         <Row className="no-gutters">
           <Col xs={12} lg={4} className="image-col">
-            <Image variant="top" src={about1} fluid
+            <Image variant="top" src={team} fluid
               className="about-us-image" />
           </Col>
           <Col xs={12} lg={8} className="text-col ps-5 mt-3">
@@ -136,13 +139,13 @@ export default function About() {
 
           <Row className='mt-3 footertext p-0'>
             <Col className='ps-4 pe-4'>
-              We created our first product, Interview University, for early and mid career professionals like you. It personalizes your interview preparation by using your resume and job description to generate custom interview questions specific to your role and then assists you in answering them in the best way possible, providing you
+              We created our first product, Zunamu, for early and mid career professionals like you. It personalizes your interview preparation by using your resume and job description to generate custom interview questions specific to your role and then assists you in answering them in the best way possible, providing you
               feedback and guidance for improvement.
             </Col>
           </Row>
 
           <div className='productcss mt-5'>
-            <Image variant="top" src={logo1} style={{ height: 75 }}
+            <Image variant="top" src={footerlogo} style={{ height: 40 }}
               className="about-us-image " />
           </div>
         </Container>
@@ -151,7 +154,7 @@ export default function About() {
       <Container fluid className="about-us-container p-5">
         <Row className="no-gutters">
           <Col xs={12} lg={4} className="image-col">
-            <Image variant="top" src={about} fluid
+            <Image variant="top" src={vision} fluid
               className="about-us-image" />
           </Col>
           <Col xs={12} lg={8} className="text-col ps-5 mt-3">
@@ -185,7 +188,7 @@ export default function About() {
         <Row className="no-gutters">
           <Col xs={12} lg={12} className="image-col">
 
-            <Image variant="top" src={about4} fluid
+            <Image variant="top" src={uniquejourney} fluid style={{ height: 200 }}
               className="about-us-image" />
           </Col>
         </Row>
@@ -194,7 +197,7 @@ export default function About() {
             <div className="about-us-text pt-3">
 
               <p >
-                Zunamu sees a future beyond the present. We envision a world where professionals have their own career coach for every step of their journey - job interviews, promotions, performance reviews, and even challenging stakeholder conversations. We're here to reverse your negativity bias and transform challenging conversations into confident communication.
+              Zunamu is more than a company - it's a testament to resilience. Our name, a blend of Spanish and Arabic words meaning “rise” and “growth”, encapsulates this ethos. Our founder's immigrant roots, his unflagging growth mindset, and his commitment to meditation weave together to form the very fabric of Zunamu. The result is a unique methodology that focuses on building a comprehensive and compelling work story for each professional. We're not just here to prepare you for the next interview; we're here to prepare you for a brighter future.
               </p>
             </div>
           </Col>
@@ -202,14 +205,25 @@ export default function About() {
 
       </Container>
 
-      <Container fluid className='bottom-img footerimage'>
-        <Row >
-          <Col lg={12} className='footercss mt-3 mb-3'>
-            <Image variant="top" fluid src={footerimg} />
-          </Col>
-        </Row>
+      <Container fluid className='landing-text'>
+                <Row className='landingtxt'>
+                    <Col lg={12} className='footercss mt-5 mb-3'>
+                        {/* <Image variant="top" fluid src={footerimg} /> */}
+                        <div className="container">
+                            <div className="text-box">
+                                <p className='bottomtxt'>Zunamu is leveraging advanced AI technology to redefine interview preparation!</p>
+                                <p className='bottomtxt1'>Join the revolution and open doors to new job opportunities.</p>
 
-      </Container>
+                                <div class="custom-input">
+                                    <input type="email" className="email-input" placeholder="Enter your email address" />
+                                    <Image src={Icon} alt="icon" />
+                                </div>
+                            </div>
+                        </div>
+                    </Col>
+                </Row>
+
+            </Container>
     </div>
   )
 }

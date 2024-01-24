@@ -192,6 +192,31 @@ export const getQuestion = createAsyncThunk('getQuestion', async (body) => {
     return await res.json();
 })
 
+export const extractText = createAsyncThunk('extractText', async (body) => {
+    const res = await fetch("https://round-unit-43333.botics.co/api-docs/#/extract_text", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `token ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(body)
+    })
+    return await res.json();
+})
+
+
+export const  pasteResume= createAsyncThunk('pasteResume', async (body) => {
+    const res = await fetch("https://round-unit-43333.botics.co/paste_resume/resumes/", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `token ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(body)
+    })
+    return await res.json();
+})
+
 export const uploadPhoto = createAsyncThunk('uploadPhoto', async (body) => {
 
     const res = await fetch("https://round-unit-43333.botics.co/api/v1/uploadpicture/", {

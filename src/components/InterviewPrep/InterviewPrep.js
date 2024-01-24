@@ -17,8 +17,10 @@ import axios from "axios";
 import WelcomePage from './WelcomePage';
 import { Link, useNavigate } from 'react-router-dom';
 import Select from 'react-select';
+import { useDispatch } from "react-redux";
+import { pasteResume } from "../../redux/authSlice";
 export default function InterviewPrep() {
-
+    const dispatch = useDispatch()
     const [selectedOption, setSelectedOption] = useState(null);
     const [options] = useState([
         { value: 'user', label: 'user' },
@@ -32,6 +34,8 @@ export default function InterviewPrep() {
 
     const [welcome, setWelcome] = useState(true)
     const [welcome1, setWelcome1] = useState(false)
+    const [extractData, setextractData] = useState('')
+
     const handleClose = () => setWelcome(false)
     const handleClose1 = () => setWelcome1(false)
     const navigate = useNavigate()
@@ -157,13 +161,60 @@ export default function InterviewPrep() {
         e.preventDefault();
         console.log(selectedOption, "selectedOption")
         formData.role = selectedOption.value;
+        // if(extractData !=''){
+        //     formData.content=extractData;
+        // }
+       
         // Assuming you want to redirect to '/display' and pass the form data
         console.log(formData, "formDataaaaaaaaaa")
         console.log("data")
         navigate('/question', { state: { userData: formData } });
     };
 
+    const [formData1, setFormData1] = useState({
+        description: '',
+       
+    });
+    const handleImageUpload1 = (event) =>{
+        const file = event.target.files[0];
+        const formdata = new FormData();
 
+        formdata.append("pdf_file", file);
+        console.log(file,"file")
+
+        if (file) {
+
+            let config = {
+                method: 'POST',
+                url: 'https://round-unit-43333.botics.co/extract_text/extract_skills/extract/forms/',
+                headers: {
+                    'X-CSRFTOKEN': `rN3gD7X9fMWNBXec7Y4naOPY4jvc8yvzOAZvMblW4pChKVH0pKZegdontyYtuN1c`,
+                },
+                data: formdata
+            };
+            for (const value of formdata.values()) {
+                console.log(value,"resume");
+            }
+            console.log(config,"config")
+
+            axios.request(config)
+                .then((response) => {
+                    console.log(response.data.skills,"reponse")
+                    let data=response.data.skills;
+                    console.log(data.join(', '),"data")
+                    setextractData(data.join(', '))
+                    formData1.description = data.join(', ')
+                    // setSelectedImage(response.data.avatar);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } else {
+            //setSelectedImage(null);
+        }
+    }
+
+  
     const handleImageUpload = (event) => {
 
         const file = event.target.files[0];
@@ -210,6 +261,21 @@ export default function InterviewPrep() {
             //setSelectedImage(null);
         }
     };
+
+    const [text, setText] = useState('');
+
+    const handleTextAreaChange = (event) => {
+        setText(event.target.value);
+    };
+
+    const body1 = {
+        "id": 3,
+        "content": text,
+    }
+
+    const PasteResume = () => {
+        dispatch(pasteResume(body1))
+    }
     return (
         <>
 
@@ -367,10 +433,8 @@ export default function InterviewPrep() {
 
                             </div></>}
                         {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-                        {selectedFile && (<>
+                        {selectedFile && (
                             <div
-
-                                className="fileUploadContainer"
                             >
                                 <Image variant="top" src={right} style={{ height: 35, marginBottom: 10 }} />
 
@@ -387,12 +451,13 @@ export default function InterviewPrep() {
                                     accept=".pdf, .docx"
                                 />
                                 {/* <span htmlFor="fileInput" className="cursor logincss" >Replace</span> */}
-                                <Button className='letsGo cursor' type="submit" htmlFor="fileInput">
+                                {/* <Button className='letsGo cursor' type="submit" htmlFor="fileInput"> */}
 
-                                    <label htmlFor="fileInput" className="cursor"> Replace
-                                    </label></Button>
+                                    <label htmlFor="fileInput" className="cursor logincss"> Replace
+                                    </label>
+                                    {/* </Button> */}
                             </div>
-                        </>)}
+                        )}
                     </div>
                 </Modal.Body>}
 
@@ -400,17 +465,21 @@ export default function InterviewPrep() {
                     <div >
                         <span className="fileuploadtext ms-3">Paste your latest Resume
                         </span>
-                        <div className="row wlecomeContainer1">
-                            <div
+                        <div className="row wlecomeContainer1 mt-2">
+                            <Form.Control as="textarea" required style={{ maxHeight: '90vh', minHeight: '30vh', background: 'linear-gradient(0deg, #F5F5F5, #F5F5F5)' }}
+                                onChange={handleTextAreaChange}
+                            />
+                            
+                            {/* <div
                                 onDrop={handleDrop}
                                 onDragOver={handleDragOver}
                                 className="filePasteContainer"
                             >
 
-                            </div>
+                            </div> */}
                         </div>
                         <span className="d-flex justify-content-end me-2">
-                            <Button className='submitbtncss' type="submit" >Submit</Button>
+                            <Button className='submitbtncss' type="submit" onClick={PasteResume} >Submit</Button>
                         </span>
                     </div>
                 </Modal.Body>}
@@ -459,13 +528,32 @@ export default function InterviewPrep() {
 
                         <div className="row jobescription">
 
-                            <Form.Label className="text-start labelcss" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Job Description</span>  <span style={{ color: '#FF7F50', cursor: 'pointer' }} >Upload</span></Form.Label>
+                            <Form.Label className="text-start labelcss" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Job Description</span>  <span style={{ color: '#FF7F50', cursor: 'pointer' }} >
+                            <div
+                                >
+                                    <input
+                                        type="file"
+                                        id="fileInput"
+                                        style={{ display: 'none' }}
+                                        onChange={handleImageUpload1}
+                                        accept=".pdf, .docx"
+                                    />
+                                    {/* <Button className='letsGo cursor' type="submit" htmlFor="fileInput"> */}
+
+                                        <label htmlFor="fileInput" className="cursor"> Upload
+                                        </label>
+                                        {/* </Button> */}
+
+                                </div>
+                                
+                                </span></Form.Label>
                             <Form.Group controlId="exampleForm.ControlTextarea1">
 
                                 <Form.Control as="textarea" required
                                     name="content"
                                     onChange={handleInputChange}
                                     className='cardBody'
+                                    defaultValue={extractData}
                                 />
                                 <Form.Control.Feedback type="invalid">Please enter terms</Form.Control.Feedback>
                             </Form.Group>

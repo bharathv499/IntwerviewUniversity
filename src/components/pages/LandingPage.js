@@ -17,6 +17,8 @@ import AI from '../../assets/images/AI.png'
 import articulation from '../../assets/images/articulation.png'
 import Icon from '../../assets/images/Icon.png'
 import './landing.css'
+import offer from '../../assets/images/offer.png'
+import phone from '../../assets/images/phone.png'
 import pinkbg from '../../assets/images/pinkbg.png'
 export default function LandingPage() {
 
@@ -58,7 +60,7 @@ export default function LandingPage() {
 
                             <div className="content">
                                 <Image src={mask} alt="Main" className="main-image" />
-                                <Image src={AI} alt="Main" className="another-image" />
+                                {/* <Image src={AI} alt="Main" className="another-image" /> */}
                             </div>
 
                         </div>
@@ -76,7 +78,7 @@ export default function LandingPage() {
                     <Col xs={12} lg={5} className="text-col">
                         <Image variant="top" src={rectangle} /><br></br>
                         <span className='featuretxt'>Credibility boost</span>
-                        <p>Multiple offers yield increased negotiating leverage, don’t leave $1000’s on the table</p>
+                        <p className='customtxt'>Multiple offers yield increased negotiating leverage, don’t leave $1000’s on the table</p>
 
                     </Col>
                 </Row>
@@ -89,12 +91,12 @@ export default function LandingPage() {
                         <Image variant="top" src={rectangle} /><br></br>
                         <span className='featuretxt'>How it Works</span>
                         <p>
-                            <h6>Personalized AI Interview Coaching:</h6>
-                            <p>Upload your resume and job description — Zunamu's AI Interview preparation does the rest, curating interview questions precisely, so they are handpicked for your goals.</p>
-                            <h6>Craft Your Work Story:</h6>
-                            <p>We unfold the chapters of your career story, spotlighting your strengths to weave a compelling narrative that resonates in any interview setting.</p>
-                            <h6>Experience-Based Prep:</h6>
-                            <p> Employ your actual work history to outshine generic interview responses. Get customized answer advice where you're stuck based on your own resume.</p>
+                            <h6 className='customtxt1'>Personalized AI Interview Coaching:</h6>
+                            <p className='customtxt'>Upload your resume and job description — Zunamu's AI Interview preparation does the rest, curating interview questions precisely, so they are handpicked for your goals.</p>
+                            <h6 className='customtxt1'>Craft Your Work Story:</h6>
+                            <p className='customtxt'>We unfold the chapters of your career story, spotlighting your strengths to weave a compelling narrative that resonates in any interview setting.</p>
+                            <h6 className='customtxt1'>Experience-Based Prep:</h6>
+                            <p className='customtxt'> Employ your actual work history to outshine generic interview responses. Get customized answer advice where you're stuck based on your own resume.</p>
 
                         </p>
 
@@ -132,7 +134,7 @@ export default function LandingPage() {
                         <p className='customtxt'>Generic is out, specificity is in. Your interviews deserve more than one-size-fits-all.</p>
                     </Col>
                     <Col xs={12} lg={2} className="image-col ">
-                        <Image variant="top" fluid src={feature} />
+                        <Image variant="top" fluid src={offer} />
                     </Col>
                     <Col xs={12} lg={4} className="image-col ">
 
@@ -145,7 +147,7 @@ export default function LandingPage() {
             <Container fluid className='ms-3 me-3 landing-text'>
                 <Row className="no-gutters ms-2">
                     <Col xs={12} lg={2} className="image-col ">
-                        <Image variant="top" fluid src={feature} />
+                        <Image variant="top" fluid src={phone} />
                     </Col>
                     <Col xs={12} lg={4} className="image-col ">
 
@@ -153,7 +155,7 @@ export default function LandingPage() {
                         <p className='customtxt'>Generic is out, specificity is in. Your interviews deserve more than one-size-fits-all.</p>
                     </Col>
                     <Col xs={12} lg={2} className="image-col ">
-                        <Image variant="top" fluid src={feature} />
+                        <Image variant="top" fluid src={phone} />
                     </Col>
                     <Col xs={12} lg={4} className="image-col ">
 

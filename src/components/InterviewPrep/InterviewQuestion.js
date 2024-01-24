@@ -33,7 +33,7 @@ export default function InterviewQuestion() {
     const [selectedItem, setSelectedItem] = useState('');
 
     useEffect(() => {
-       // setLoading(true)
+        setLoading(true)
         const body = {
             "model": "gpt-4",
             "messages": [
@@ -41,17 +41,17 @@ export default function InterviewQuestion() {
             ]
         }
 
-        // dispatch(getQuestion(body))
-        //     .then((result) => {
-        //         const questionArray = result?.payload?.choices[0].message.content.split('\n');
-        //         setQuestionData(questionArray)
+        dispatch(getQuestion(body))
+            .then((result) => {
+                const questionArray = result?.payload?.choices[0].message.content.split('\n');
+                setQuestionData(questionArray)
                 
-        //         {questionArray?.filter((item) => item != '')?.map((item, i) => ( (i == 0) ? setSelectedItem(item):''))}
-        //         setLoading(false)
-        //     })
-        //     .catch((error) => {
-        //         console.log(error)
-        //     });
+                {questionArray?.filter((item) => item != '')?.map((item, i) => ( (i == 0) ? setSelectedItem(item):''))}
+                setLoading(false)
+            })
+            .catch((error) => {
+                console.log(error)
+            });
 
        // const questions = "1. What data structures are available in Python, and what are their main characteristics and uses?\n\n2. What is the primary difference between a Tuple and a List data structure in Python?\n\n3. How to use dictionary data structure in Python and explain how it differs from other data structures in Python?\n\n4. Can you explain the time complexities of different operations (like search, insertion and deletion) in various python data structures such as lists, sets and dictionaries?\n\n5. What are the applications of Stack and Queue data structures in Python and how can these be implemented?";
 
@@ -136,8 +136,8 @@ export default function InterviewQuestion() {
             .then((result) => {
                 setLoading(false)
                 console.log(result,"re")
-               // setanswerData(Object.values(result?.payload?.choices[0].message.content[0]))
-                //setQuestionData(Object.values(result?.payload?.choices[0].message.content[0]))
+                setanswerData(Object.values(result?.payload?.choices[0].message.content[0]))
+                setQuestionData(Object.values(result?.payload?.choices[0].message.content[0]))
 
                
             })
@@ -181,13 +181,12 @@ export default function InterviewQuestion() {
                             <Nav className="flex-column mb-2">
 
                                 {questionData?.map((item, i) => (
-                                    <>
+                                   
                                         <Nav.Item key={item}
                                             className={`${selectedItem === item ? 'sideActive' : 'sideInactive'} pb-2`}
                                             onClick={() => handleItemClick(item)}>
                                             <Nav.Link href="#section1" className={`profiletext ${selectedItem === item ? 'activetext1' : 'notactive1'}`} >{item}</Nav.Link>
                                         </Nav.Item>
-                                    </>
 
                                 ))}
                             </Nav>

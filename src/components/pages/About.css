@@ -21,6 +21,12 @@
   /* Cover the entire container while maintaining aspect ratio */
 }
 
+.our-origin {
+  height: 285px !important;
+  /* Full height of the container */
+  object-fit: cover;
+  /* Cover the entire container while maintaining aspect ratio */
+}
 .text-col {
   padding: 25px;
   /* Add padding for spacing */

@@ -380,7 +380,7 @@ const LogIn = () => {
   };
 
   return (
-    <>
+   
       <Container fluid className="d-flex justify-content-center align-items-center py-5 login">
         <div style={{ width: '10px', height: '10px' }}>
           <div style={backgroundImageStyle}></div></div>
@@ -520,7 +520,6 @@ const LogIn = () => {
         </span>
       </Container>
 
-    </>
   )
 }
 

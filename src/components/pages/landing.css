@@ -92,6 +92,12 @@
     font-size: 18px;
     font-family: 'DMSans-Regular';
 }
+
+.customtxt1{
+  color: rgba(0, 0, 0, 1);
+  font-size: 18px;
+  font-family: 'SpaceGrotesk-Bold';
+}
 .startbtn {
     font-family: 'DMSans-Bold';
     font-size: 22px !important;
