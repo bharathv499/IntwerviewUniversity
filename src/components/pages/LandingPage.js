@@ -13,7 +13,7 @@ import footerimg from '../../assets/images/footerimg.png'
 import mask from '../../assets/images/mask.png'
 import feature from '../../assets/images/feature.png'
 import offers from '../../assets/images/offers.png'
-import AI from '../../assets/images/AI.png'
+import img from '../../assets/images/img.png'
 import articulation from '../../assets/images/articulation.png'
 import Icon from '../../assets/images/Icon.png'
 import './landing.css'
@@ -34,17 +34,17 @@ export default function LandingPage() {
     return (
         <div className='m-3'>
 
-            <Container fluid className="ms-3 me-3 landing-text">
+            <Container fluid className="ms-lg-3 me-lg-3 landing-text">
                 <div style={{ width: '10px', height: '10px' }}>
                     <div style={backgroundImageStyle}></div>
                 </div>
                 <Row className="no-gutters">
                     <Col xs={12} lg={7} className="image-col">
                         {/* <Image variant="top" fluid src={startimage} /> */}
-                        <h1 className="banner-header text-start mt-5 me-5 pe-4">
+                        <h1 className="banner-header  mt-lg-5 me-lg-5 pe-lg-4">
                             <span className="">Avoid the $300K Single-Offer Mistake! </span>
                         </h1>
-                        <p className="banner-desc gray-text text-start pe-5 me-3">
+                        <p className="banner-desc gray-text  pe-lg-5 me-lg-3">
                             Stop Losing $300K Throughout Your Career - Embrace Personalized Interview Coaching and Custom Questions Tailored Just for You.
                         </p>
                         <div>
@@ -59,7 +59,7 @@ export default function LandingPage() {
                             <div className="background second-background"></div>
 
                             <div className="content">
-                                <Image src={mask} alt="Main" className="main-image" />
+                                {/* <Image src={mask} alt="Main" className="main-image" /> */}
                                 {/* <Image src={AI} alt="Main" className="another-image" /> */}
                             </div>
 
@@ -69,8 +69,8 @@ export default function LandingPage() {
                 </Row>
 
             </Container>
-            <Container fluid className='ms-3 me-3 landing-text'>
-                <Row className="no-gutters ms-2">
+            <Container fluid className='ms-lg-3 me-lg-3 landing-text'>
+                <Row className="no-gutters ms-lg-2">
                     <Col xs={12} lg={7} className="image-col ">
                         <Image variant="top" fluid src={productimg} />
 
@@ -85,8 +85,8 @@ export default function LandingPage() {
 
             </Container>
 
-            <Container fluid className='ms-3 me-3 landing-text'>
-                <Row className="no-gutters ms-2">
+            <Container fluid className='ms-lg-3 me-lg-3 landing-text'>
+                <Row className="no-gutters ms-lg-2">
                     <Col xs={12} lg={5} className="text-col">
                         <Image variant="top" src={rectangle} /><br></br>
                         <span className='featuretxt'>How it Works</span>
@@ -101,16 +101,20 @@ export default function LandingPage() {
                         </p>
 
                     </Col>
-                    <Col xs={12} lg={7} className="image-col ">
+                    <Col xs={12} lg={7} className="image-col d-flex d-none d-lg-block">
                         <Image variant="top" fluid src={success} />
+
+                    </Col>
+                    <Col xs={12} lg={7} className="image-col d-flex d-block d-lg-none">
+                        <Image variant="top" fluid src={img} />
 
                     </Col>
 
                 </Row>
 
             </Container>
-            <Container fluid className='ms-3 me-3 landing-text'>
-                <Row className="no-gutters ms-2">
+            <Container fluid className='ms-lg-3 me-lg-3 landing-text'>
+                <Row className="no-gutters ms-lg-2">
 
                     <Col xs={12} lg={6} className="image-col ">
                         <Image variant="top" src={rectangle} /><br></br>
@@ -123,12 +127,12 @@ export default function LandingPage() {
                 </Row>
 
             </Container>
-            <Container fluid className='ms-3 me-3 landing-text'>
-                <Row className="no-gutters ms-2">
-                    <Col xs={12} lg={2} className="image-col ">
+            <Container fluid className='ms-lg-3 me-lg-3 landing-text pb-0'>
+                <Row className="no-gutters ms-lg-2">
+                    <Col xs={12} lg={2} className="image-col">
                         <Image variant="top" fluid src={feature} />
                     </Col>
-                    <Col xs={12} lg={4} className="image-col ">
+                    <Col xs={12} lg={4} className="image-col">
 
                         <span className='customheader'>Custom AI Questions</span>
                         <p className='customtxt'>Generic is out, specificity is in. Your interviews deserve more than one-size-fits-all.</p>
@@ -144,8 +148,8 @@ export default function LandingPage() {
                 </Row>
             </Container>
 
-            <Container fluid className='ms-3 me-3 landing-text'>
-                <Row className="no-gutters ms-2">
+            <Container fluid className='ms-lg-3 me-lg-3 landing-text pb-0'>
+                <Row className="no-gutters ms-lg-2">
                     <Col xs={12} lg={2} className="image-col ">
                         <Image variant="top" fluid src={phone} />
                     </Col>

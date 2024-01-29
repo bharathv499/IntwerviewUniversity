@@ -235,6 +235,17 @@ export const uploadPhoto = createAsyncThunk('uploadPhoto', async (body) => {
 })
 
 
+export const  favoriteAnswer= createAsyncThunk('favoriteAnswer', async (body) => {
+    const res = await fetch("https://round-unit-43333.botics.co/favourite_answer/favorite_answers/", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `token ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(body)
+    })
+    return await res.json();
+})
 
 
 //https://cold-hat-40370.botics.co/users/update-profile

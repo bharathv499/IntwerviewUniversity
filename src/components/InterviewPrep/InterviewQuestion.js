@@ -5,7 +5,7 @@ import arrow from '../../assets/images/arrow.png'
 import like from '../../assets/images/like.png'
 import ep_back from '../../assets/images/ep_back.png'
 import './InterviewQuestion.css'
-import { getQuestion } from '../../redux/authSlice'
+import { getQuestion,favoriteAnswer } from '../../redux/authSlice'
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from 'react-router-dom';
 import regen from '../../assets/images/regen.svg'
@@ -24,15 +24,23 @@ export default function InterviewQuestion() {
     const [showans, setshowans] = useState(false);
 
     const [questionData, setQuestionData] = useState([]);
-    const [answerData, setanswerData] = useState([]);
+    const [answerData, setanswerData] = useState('');
 
     const location = useLocation();
     const userdata = location.state?.userData || [];
-    // console.log(userdata, "userdata")
+    const[userData,setUserData]=('')
+     console.log(userdata, "userdata")
     // const useEffect
     const [selectedItem, setSelectedItem] = useState('');
 
+   
     useEffect(() => {
+        // Access userData from location.state and store it in component state
+        if (location.state && location.state.userData) {
+        }
+      }, [location.state]);
+    useEffect(() => {
+        
         setLoading(true)
         const body = {
             "model": "gpt-4",
@@ -69,6 +77,7 @@ export default function InterviewQuestion() {
        // setLoading(true)
         console.log(item, "item")
         setSelectedItem(item);
+        setanswerData('')
 
         // const body = {
         //     "model": "gpt-4",
@@ -99,6 +108,8 @@ export default function InterviewQuestion() {
 
     const regenerateQ = () => {
         setLoading(true)
+        setanswerData('')
+
         const body = {
             "model": "gpt-4",
             "messages": [
@@ -109,8 +120,13 @@ export default function InterviewQuestion() {
         dispatch(getQuestion(body))
             .then((result) => {
                 console.log(result, "res")
-                setQuestionData(Object.values(result?.payload?.choices[0].message.content[0]))
+
+                const questionArray = result?.payload?.choices[0].message.content.split('\n');
+                setQuestionData(questionArray)
+                
+                {questionArray?.filter((item) => item != '')?.map((item, i) => ( (i == 0) ? setSelectedItem(item):''))}
                 setLoading(false)
+               
             })
             .catch((error) => {
                 console.log(error)
@@ -122,12 +138,16 @@ export default function InterviewQuestion() {
         settypeanswer(false)
         setshowans(true)
 
+        const selectedquestion = selectedItem.split('.')[1];
+        const newstr="can you give me answer for";
+        let resultString = newstr.concat(selectedquestion);
+        // can you give me answer for
         const body = {
             "model": "gpt-4",
             "messages": [
                 {
                     "role": "user",
-                    "content": selectedItem
+                    "content": resultString
                 }
             ]
         }
@@ -136,8 +156,8 @@ export default function InterviewQuestion() {
             .then((result) => {
                 setLoading(false)
                 console.log(result,"re")
-                setanswerData(Object.values(result?.payload?.choices[0].message.content[0]))
-                setQuestionData(Object.values(result?.payload?.choices[0].message.content[0]))
+                setanswerData(Object.values(result?.payload?.choices[0].message.content))
+               // setQuestionData(Object.values(result?.payload?.choices[0].message.content[0]))
 
                
             })
@@ -145,6 +165,23 @@ export default function InterviewQuestion() {
                 console.log(error)
             });
 
+    }
+
+    const favanswer = () =>{
+       
+        const body = {
+            "answer": answerData,
+            "question": selectedItem
+          }
+
+        dispatch(getQuestion(body))
+        .then((result) => {
+           console.log(result,"result")
+           
+        })
+        .catch((error) => {
+            console.log(error)
+        });
     }
 
     return (
@@ -170,7 +207,7 @@ export default function InterviewQuestion() {
                 <Row>
                     <Col lg={4} className='d-none d-lg-block'>
 
-                        <Card className="flex-column cardbackground1 ms-5 me-2 mt-2 mb-2" style={{ height: '120vh' }} >
+                        <Card className="flex-column cardbackground1 ms-5 me-2 mt-2 mb-2" style={{ height: '130vh' }} >
                        
                             <div className='row ms-1 mt-3'>
                                 {/* <div className='col-sm d-flex justify-content-center cursor'><Image onClick={() => regenerateQ()} src={regenerate} style={{ height: 27 }} /></div> */}
@@ -200,7 +237,7 @@ export default function InterviewQuestion() {
                             {typeanswer && <div className="row mb-2 mt-2">
                                 <div className="col-sm">
                                     <Card className='typeanswer'>
-                                        <CardBody style={{ height: '110vh' }}>
+                                        <CardBody style={{ height: '120vh' }}>
                                             <Form.Label className="d-flex backcss">
                                                 {selectedItem}
                                             </Form.Label>
@@ -220,7 +257,7 @@ export default function InterviewQuestion() {
                             {showans && <div className="row mb-2 mt-2">
                                 <div className="col-sm">
                                     <Card>
-                                        <CardBody style={{ height: '90vh' }}>
+                                        <CardBody style={{ height: '100vh' }}>
                                             <Form.Label className="d-flex backcss">
                                                 {selectedItem}
                                             </Form.Label>
@@ -233,7 +270,7 @@ export default function InterviewQuestion() {
                                 </div>
                             </div>}
                             <div className='questionBottom mb-2'>
-                                <span className='liketext cursor d-none d-lg-block'><Image src={like} className='arrowimg' />Favorite this answer</span>
+                                <span className='liketext cursor d-none d-lg-block'><Image src={like} className='arrowimg' onClick={() => favanswer()}/>Favorite this answer</span>
                                 <span className='liketext cursor d-lg-none'><Image src={like} className='arrowimg' />Save this answer</span>
                                 <span >
                                     <Button className='questionsave' type="submit"  >Submit

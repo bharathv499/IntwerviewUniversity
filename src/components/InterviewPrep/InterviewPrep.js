@@ -19,17 +19,44 @@ import { Link, useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import { useDispatch } from "react-redux";
 import { pasteResume } from "../../redux/authSlice";
+import { toast, ToastContainer } from 'react-toastify';
+
 export default function InterviewPrep() {
     const dispatch = useDispatch()
     const [selectedOption, setSelectedOption] = useState(null);
+    const [userrole, setUserRole] = useState('');
+    const [userRole, setuserRole] = useState('');
+
     const [options] = useState([
         { value: 'user', label: 'user' },
     ]);
 
-    const handleChange = (selectedOption) => {
 
-        setSelectedOption(selectedOption);
-        console.log('Selected Option:', selectedOption.value);
+    // Splitting the string by dot and taking the second part
+
+    const [showText,setshowText]=useState(false);
+
+    const handleChange = (event) => {
+
+            if(event.target.value != 'other'){
+                setSelectedOption(event.target.value);
+                setuserRole(event.target.value)
+                setshowText(false)
+            }else{
+                setSelectedOption(event.target.value);
+                setshowText(true)
+            }
+       
+       
+    };
+
+    const handleChange1 = (event) => {
+
+            setuserRole('')
+            setuserRole(event.target.value)
+            setUserRole(event.target.value);
+           
+     
     };
 
     const [welcome, setWelcome] = useState(true)
@@ -149,22 +176,46 @@ export default function InterviewPrep() {
         content: '',
     });
 
+    const [contentData,setcontentData]=useState('')
+
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
+        //let newString = "give me 5 questions based on this?";
+       
+         const contentData1 = e.target.value;
+        setcontentData(contentData1)
+
+        // const userrole=`${userRole} ${'as a role with'}`;//userRole.concat('as a role with');
+        // const newString = "give me 5 questions based on this?";
+        // const resultString = `${contentData} ${newString}`; //extractData.concat(newString);
+        // const finalestr= `${userrole} ${resultString}`;
+        // console.log(finalestr,"aaaaa")
+
+        // const { name, value } = finalestr;
+        // setFormData((prevData) => ({
+        //     ...prevData,
+        //     [name]: value,
+        // }));
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(selectedOption, "selectedOption")
-        formData.role = selectedOption.value;
-        // if(extractData !=''){
-        //     formData.content=extractData;
-        // }
-       
+        console.log(formData.content, "selectedOption")
+        formData.role = userRole;
+        if (extractData != '') {
+            // <role> as a role with  <job description> job desricption can you give me 5 questions
+            const userrole=`${userRole} ${'as a role with'}`;//userRole.concat('as a role with');
+            const newString = "give me 5 questions based on this?";
+            const resultString = `${extractData} ${newString}`; //extractData.concat(newString);
+            const finalestr= `${userrole} ${resultString}`;//userrole.concat(resultString);
+            formData.content = finalestr;
+        }else if(contentData !=''){
+            const userrole=`${userRole} ${'as a role with'}`;//userRole.concat('as a role with');
+            const newString = "give me 5 questions based on this?";
+            const resultString = `${contentData} ${newString}`; //extractData.concat(newString);
+            const finalestr= `${userrole} ${resultString}`;//userrole.concat(resultString);
+            formData.content = finalestr;
+        }
+
         // Assuming you want to redirect to '/display' and pass the form data
         console.log(formData, "formDataaaaaaaaaa")
         console.log("data")
@@ -173,14 +224,14 @@ export default function InterviewPrep() {
 
     const [formData1, setFormData1] = useState({
         description: '',
-       
+
     });
-    const handleImageUpload1 = (event) =>{
+    const handleImageUpload1 = (event) => {
         const file = event.target.files[0];
         const formdata = new FormData();
 
         formdata.append("pdf_file", file);
-        console.log(file,"file")
+        console.log(file, "file")
 
         if (file) {
 
@@ -193,15 +244,15 @@ export default function InterviewPrep() {
                 data: formdata
             };
             for (const value of formdata.values()) {
-                console.log(value,"resume");
+                console.log(value, "resume");
             }
-            console.log(config,"config")
+            console.log(config, "config")
 
             axios.request(config)
                 .then((response) => {
-                    console.log(response.data.skills,"reponse")
-                    let data=response.data.skills;
-                    console.log(data.join(', '),"data")
+                    console.log(response.data.skills, "reponse")
+                    let data = response.data.skills;
+                    console.log(data.join(', '), "data")
                     setextractData(data.join(', '))
                     formData1.description = data.join(', ')
                     // setSelectedImage(response.data.avatar);
@@ -214,7 +265,7 @@ export default function InterviewPrep() {
         }
     }
 
-  
+
     const handleImageUpload = (event) => {
 
         const file = event.target.files[0];
@@ -275,11 +326,25 @@ export default function InterviewPrep() {
 
     const PasteResume = () => {
         dispatch(pasteResume(body1))
+            .then((result) => {
+                setupload(false)
+
+                toast.success("Resume saved successfully", {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                });
+
+            })
+            .catch((error) => {
+                console.log(error)
+            });
     }
     return (
         <>
 
             <Container fluid style={{ height: '90vh' }}>
+                <ToastContainer />
                 <Row className="smallscreen">
 
                     <Col className="prepText mt-lg-4 ms-lg-5 cursor" >Interview Preparation</Col>
@@ -453,9 +518,9 @@ export default function InterviewPrep() {
                                 {/* <span htmlFor="fileInput" className="cursor logincss" >Replace</span> */}
                                 {/* <Button className='letsGo cursor' type="submit" htmlFor="fileInput"> */}
 
-                                    <label htmlFor="fileInput" className="cursor logincss"> Replace
-                                    </label>
-                                    {/* </Button> */}
+                                <label htmlFor="fileInput" className="cursor logincss"> Replace
+                                </label>
+                                {/* </Button> */}
                             </div>
                         )}
                     </div>
@@ -469,13 +534,13 @@ export default function InterviewPrep() {
                             <Form.Control as="textarea" required style={{ maxHeight: '90vh', minHeight: '30vh', background: 'linear-gradient(0deg, #F5F5F5, #F5F5F5)' }}
                                 onChange={handleTextAreaChange}
                             />
-                            
+
                             {/* <div
                                 onDrop={handleDrop}
                                 onDragOver={handleDragOver}
                                 className="filePasteContainer"
                             >
-
+ 
                             </div> */}
                         </div>
                         <span className="d-flex justify-content-end me-2">
@@ -511,17 +576,42 @@ export default function InterviewPrep() {
             >
                 <Modal.Body className="newModal">
                     <Form onSubmit={handleSubmit}>
-                        <div className="col-sm-6 pb-3" >
+                        <div className="col-sm-12 pb-3" >
                             <Form.Group controlId="exampleForm.SelectCustom">
                                 <Form.Label className="text-start labelcss">Choose Role</Form.Label>
-
-                                <Select
+                                <Row >
+                                    <Col lg={6}>
+                                        <Form.Control
+                                            as="select"
+                                            required
+                                            name='role'
+                                            value={selectedOption}
+                                            onChange={handleChange}
+                                        >
+                                            <option value="">Choose Role</option>
+                                            <option value="Product Manager">Product Manger</option>
+                                            <option value="Manager">Manager</option>
+                                            <option value="other">Other</option>
+                                        </Form.Control>
+                                    </Col>
+                                   {showText ? <Col lg={6}>
+                                        <Form.Control
+                                            type='text'
+                                            className='textcontainer'
+                                            name='role'
+                                            placeholder="Enter Role"
+                                            onChange={handleChange1}
+                                            required
+                                        /></Col> :''}
+                                        
+                                        </Row>
+                                {/* <Select
                                     value={selectedOption}
                                     onChange={handleChange}
                                     options={options}
                                     isClearable
                                     placeholder="Type to search..."
-                                />
+                                /> */}
                                 <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
                             </Form.Group>
                         </div>
@@ -529,7 +619,7 @@ export default function InterviewPrep() {
                         <div className="row jobescription">
 
                             <Form.Label className="text-start labelcss" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Job Description</span>  <span style={{ color: '#FF7F50', cursor: 'pointer' }} >
-                            <div
+                                <div
                                 >
                                     <input
                                         type="file"
@@ -540,13 +630,13 @@ export default function InterviewPrep() {
                                     />
                                     {/* <Button className='letsGo cursor' type="submit" htmlFor="fileInput"> */}
 
-                                        <label htmlFor="fileInput" className="cursor"> Upload
-                                        </label>
-                                        {/* </Button> */}
+                                    <label htmlFor="fileInput" className="cursor"> Upload
+                                    </label>
+                                    {/* </Button> */}
 
                                 </div>
-                                
-                                </span></Form.Label>
+
+                            </span></Form.Label>
                             <Form.Group controlId="exampleForm.ControlTextarea1">
 
                                 <Form.Control as="textarea" required

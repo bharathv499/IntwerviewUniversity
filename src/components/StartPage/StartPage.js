@@ -259,7 +259,7 @@ const StartPage = () => {
   };
 
   return (
-    <>
+ 
       <Container fluid className="d-flex justify-content-center align-items-center py-5 login">
         <div style={{ width: '10px', height: '10px' }}>
           <div style={backgroundImageStyle}></div></div>
@@ -268,7 +268,7 @@ const StartPage = () => {
         <span className='loginrow'>
 
           <Row className="no-gutters mx-1 " >
-            <Col className="d-flex" xl={6}>
+            <Col className="d-flex d-none d-lg-block" xl={6}>
               <Card className="flex-fill no-margin loginImage">
                 <Card.Body>
                   <div className='logocss loginmargin1'>
@@ -346,7 +346,6 @@ const StartPage = () => {
         </span>
       </Container>
 
-    </>
   )
 }
 

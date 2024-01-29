@@ -390,10 +390,10 @@ const LogIn = () => {
 
 
           <Row className="no-gutters mx-1 " >
-            <Col className="d-flex" xl={6}>
+            <Col className="d-flex d-none d-lg-block" xl={6}>
               <Card className="flex-fill no-margin loginImage">
                 <Card.Body>
-                  <div className='logocss loginmargin1'>
+                  <div className='logocss loginmargin1 '>
                     <Image variant="top" className="img-fluid" style={{height:48}} src={mainlogo} />
                   </div>
                   <div className='logocss d-none d-lg-block' >
