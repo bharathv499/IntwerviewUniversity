@@ -116,15 +116,7 @@ const LogIn = () => {
               localStorage.setItem('email', result.payload.email)
               localStorage.setItem('userId', result.payload.id)
 
-              // if (result.payload.role == 'supplier') {
-              //   navigate('/quotationDashboard')
-              // } else if (result.payload.role === 'contractor') {
-              //   navigate('/contractorDashboard')
-              // } else if (result.payload.role === 'trucking') {
-              //   navigate('/truckingdashboard')
-              // } else {
-              //   navigate('/profileinformation')
-              // }
+             
 
             })
             .catch((errordata) => {
@@ -391,13 +383,13 @@ const LogIn = () => {
 
           <Row className="no-gutters mx-1 " >
             <Col className="d-flex d-none d-lg-block" xl={6}>
-              <Card className="flex-fill no-margin loginImage">
+              <Card className="flex-fill no-margin loginImage loginimgcontainer">
                 <Card.Body>
                   <div className='logocss loginmargin1 '>
                     <Image variant="top" className="img-fluid" style={{height:48}} src={mainlogo} />
                   </div>
                   <div className='logocss d-none d-lg-block' >
-                    <Image variant="top" className="img-fluid custom-img" src={loginside} />
+                    <Image variant="top" className="img-fluid custom-img"  src={loginside} />
                   </div>
                 </Card.Body>
               </Card>

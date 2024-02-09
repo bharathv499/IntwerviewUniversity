@@ -1,20 +1,24 @@
 import React, { useState, useEffect } from 'react'
-import Sidebar from './Sidebar'
 import { Card, Col, Container, Row, Form, Button, Image, Modal, Nav, CardBody } from 'react-bootstrap'
 import arrow from '../../assets/images/arrow.png'
 import like from '../../assets/images/like.png'
+import like1 from '../../assets/images/like1.svg'
+import { toast, ToastContainer } from 'react-toastify';
 import ep_back from '../../assets/images/ep_back.png'
 import './InterviewQuestion.css'
-import { getQuestion,favoriteAnswer } from '../../redux/authSlice'
+import { getQuestion, favoriteAnswer, helpme, saveInterviewSession } from '../../redux/authSlice'
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from 'react-router-dom';
 import regen from '../../assets/images/regen.svg'
 import back from '../../assets/images/back.png'
 import Loader from './../../Loader';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
 
 export default function InterviewQuestion() {
 
     const navigate = useNavigate();
+    const [inputAnswerData, setInputAnswerData] = useState('')
 
     const dispatch = useDispatch()
     const [questionInterview, setQuestionInterview] = useState(false)
@@ -22,25 +26,27 @@ export default function InterviewQuestion() {
     const [loading, setLoading] = useState(false);
     const [typeanswer, settypeanswer] = useState(true);
     const [showans, setshowans] = useState(false);
-
+  
     const [questionData, setQuestionData] = useState([]);
     const [answerData, setanswerData] = useState('');
 
     const location = useLocation();
-    const userdata = location.state?.userData || [];
-    const[userData,setUserData]=('')
-     console.log(userdata, "userdata")
-    // const useEffect
     const [selectedItem, setSelectedItem] = useState('');
+    const [isClicked, setIsClicked] = useState(false);
 
-   
+    const [userdata] = useState(location.state?.userData);
+    const [answers, setAnswers] = useState({
+        role: ''
+    });
+
+    const [enablebtn, setEnablebtn] = useState(false)
     useEffect(() => {
-        // Access userData from location.state and store it in component state
-        if (location.state && location.state.userData) {
-        }
-      }, [location.state]);
-    useEffect(() => {
-        
+        setanswerData('')
+        settypeanswer(true)
+        setshowans(false)
+        setInputAnswerData('')
+        setEnablebtn(false)
+
         setLoading(true)
         const body = {
             "model": "gpt-4",
@@ -51,64 +57,54 @@ export default function InterviewQuestion() {
 
         dispatch(getQuestion(body))
             .then((result) => {
+                console.log(result?.payload?.choices[0].message.content.split('\n'), "content")
                 const questionArray = result?.payload?.choices[0].message.content.split('\n');
-                setQuestionData(questionArray)
-                
-                {questionArray?.filter((item) => item != '')?.map((item, i) => ( (i == 0) ? setSelectedItem(item):''))}
+                setQuestionData(questionArray?.filter((item) => item != ""))
+
+                { questionArray?.filter((item) => item != '')?.map((item, i) => ((i == 0) ? setSelectedItem(item) : '')) }
                 setLoading(false)
             })
             .catch((error) => {
                 console.log(error)
             });
 
-       // const questions = "1. What data structures are available in Python, and what are their main characteristics and uses?\n\n2. What is the primary difference between a Tuple and a List data structure in Python?\n\n3. How to use dictionary data structure in Python and explain how it differs from other data structures in Python?\n\n4. Can you explain the time complexities of different operations (like search, insertion and deletion) in various python data structures such as lists, sets and dictionaries?\n\n5. What are the applications of Stack and Queue data structures in Python and how can these be implemented?";
 
-        // Split the string into an array of questions
-        
     }, []);
 
+    const handleItemClick = (item,index) => {
+        // setLoading(true)
+        console.log(answers, "answers")
+        // console.log(index, "ques")
 
-    const [showLogout, setshowLogout] = useState(false);
-    const [deleteacc, setdeleteacc] = useState(false);
+        if (answers.hasOwnProperty(`answer_${index}`)) {
+            const ques=`answer_${index}`
+            console.log(ques,"ques")
+            console.log(answers[ques],"answers.ques")
+            
+             settypeanswer(true) 
+            setInputAnswerData(answers[ques])
+        } else {
+            // "answer_1" is not available in the object
+            setanswerData('')
+            setInputAnswerData('')
+        }
 
-
-
-    const handleItemClick = (item) => {
-       // setLoading(true)
-        console.log(item, "item")
         setSelectedItem(item);
-        setanswerData('')
-
-        // const body = {
-        //     "model": "gpt-4",
-        //     "messages": [
-        //         {
-        //             "role": "user",
-        //             "content": item
-        //         }
-        //     ]
-        // }
-
-        // dispatch(getQuestion(body))
-        //     .then((result) => {
-        //         console.log(result)
-        //         setanswerData(Object.values(result?.payload?.choices[0].message.content))
-        //         //setQuestionData(Object.values(result?.payload?.choices[0].message.content[0]))
-
-        //         setLoading(false)
-        //     })
-        //     .catch((error) => {
-        //         console.log(error)
-        //     });
-
-
-
+        setIsClicked(false);
+      
+        settypeanswer(true)
+        setshowans(false)
+       
     };
 
 
     const regenerateQ = () => {
         setLoading(true)
         setanswerData('')
+        settypeanswer(true)
+        setshowans(false)
+        setIsClicked(false);
+        setInputAnswerData('')
 
         const body = {
             "model": "gpt-4",
@@ -120,13 +116,14 @@ export default function InterviewQuestion() {
         dispatch(getQuestion(body))
             .then((result) => {
                 console.log(result, "res")
+                console.log(result?.payload?.choices[0].message.content.split('\n'), "content")
 
                 const questionArray = result?.payload?.choices[0].message.content.split('\n');
-                setQuestionData(questionArray)
-                
-                {questionArray?.filter((item) => item != '')?.map((item, i) => ( (i == 0) ? setSelectedItem(item):''))}
+                setQuestionData(questionArray?.filter((item) => item != ""))
+
+                { questionArray?.filter((item) => item != '')?.map((item, i) => ((i == 0) ? setSelectedItem(item) : '')) }
                 setLoading(false)
-               
+
             })
             .catch((error) => {
                 console.log(error)
@@ -135,57 +132,165 @@ export default function InterviewQuestion() {
 
     const helpmeClick = () => {
         setLoading(true)
-        settypeanswer(false)
-        setshowans(true)
+        setIsClicked(false);
+        console.log(selectedItem, "selectedItem")
 
         const selectedquestion = selectedItem.split('.')[1];
-        const newstr="can you give me answer for";
-        let resultString = newstr.concat(selectedquestion);
-        // can you give me answer for
+        const question=`${selectedquestion}${' answer this assuming you are the candidate'}`
+        // answer this assuming you are the candidate
         const body = {
             "model": "gpt-4",
             "messages": [
                 {
                     "role": "user",
-                    "content": resultString
+                    "content": question
                 }
             ]
         }
 
-        dispatch(getQuestion(body))
+        dispatch(helpme(body))
             .then((result) => {
                 setLoading(false)
-                console.log(result,"re")
-                setanswerData(Object.values(result?.payload?.choices[0].message.content))
-               // setQuestionData(Object.values(result?.payload?.choices[0].message.content[0]))
+                console.log(result, "re")
+                setanswerData('');
+                const data = Object.values(result?.payload?.choices[0].message.content)
+                handleAnswerChange(selectedItem, data.join(''))
+                if (data != '') {
+                    settypeanswer(false)
+                    setshowans(true)
+                    setanswerData(Object.values(result?.payload?.choices[0].message.content))
+                }
 
-               
+                // setQuestionData(Object.values(result?.payload?.choices[0].message.content[0]))
+
+
             })
             .catch((error) => {
                 console.log(error)
             });
 
     }
+    console.log(answerData, "answerData")
 
-    const favanswer = () =>{
-       
-        const body = {
-            "answer": answerData,
-            "question": selectedItem
-          }
+    const favanswer = () => {
 
-        dispatch(getQuestion(body))
-        .then((result) => {
-           console.log(result,"result")
-           
-        })
-        .catch((error) => {
-            console.log(error)
-        });
+        if (answerData.length === 0 && inputAnswerData === '') {
+            toast.error("Answer equired", {
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 2000,
+                hideProgressBar: true,
+            });
+        } else {
+            const body1 = {
+                "answer": answerData.length === 0 ? inputAnswerData : answerData.join(''),
+                "question": selectedItem,
+                "role": userdata.role
+            }
+
+            dispatch(favoriteAnswer(body1))
+                .then((result) => {
+                    setIsClicked(!isClicked);
+                    console.log(result, "result")
+
+                })
+                .catch((error) => {
+                    console.log(error)
+                });
+
+        }
+
+
+
     }
+    const textStyle = {
+        color: isClicked ? 'rgba(0, 115, 179, 1)' : 'rgba(174, 174, 174, 1)',
+        cursor: 'pointer',
+    };
 
+    /////////save session data
+
+
+    // Handler to update answer for a specific question
+    const handleAnswerChange = (question, answer) => {
+        setEnablebtn(true)
+        const num = question.split('.')[0]
+        console.log(`question_${num}`)
+        setInputAnswerData(answer)
+        setAnswers(prevAnswers => ({
+            ...prevAnswers,
+            [`question_${num}`]: question
+        }));
+        setAnswers(prevAnswers => ({
+            ...prevAnswers,
+            [`answer_${num}`]: answer
+        }));
+    };
+    console.log(answers, "answers")
+
+    const saveData = () => {
+        setLoading(true)
+        answers.role = userdata.role
+
+        const questionKeys = Object.keys(answers).filter(key => key.startsWith('question_'));
+        const answerKeys = Object.keys(answers).filter(key => key.startsWith('answer_'));
+
+        if (questionKeys.length !== 5 || answerKeys.length !== 5) {
+            setLoading(false)
+            toast.error("Please provide all questions answers", {
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 2000,
+                hideProgressBar: true,
+            });
+        } else {
+            dispatch(saveInterviewSession(answers))
+                .then((result) => {
+                    setLoading(false)
+                    toast.success("Data saved successfully", {
+                        position: toast.POSITION.TOP_RIGHT,
+                        autoClose: 5000,
+                        hideProgressBar: true,
+                    });
+
+                    console.log(result, "re")
+
+                })
+                .catch((error) => {
+                    console.log(error)
+                });
+        }
+    }
+    const [feedbackText, setfeedbackText] = useState('')
+
+    const submitData = (question, answer) => {
+        const selectedquestion = question.split('.')[1];
+        setLoading(true)
+        const string = `${'question:'} ${selectedquestion} ${'?'} ${'answer:'} ${answer} ${'can you please give feedback on this?'}`
+        const body = {
+            "model": "gpt-4",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": string
+                }
+            ]
+        }
+
+        dispatch(helpme(body))
+            .then((result) => {
+                setLoading(false)
+                setfeedbackText(result?.payload?.choices[0].message.content)
+                setQuestionInterview(true)
+                console.log(result, "result")
+
+            })
+            .catch((error) => {
+                console.log(error)
+            });
+    }
     return (
         <div>
+            <ToastContainer />
+
             <Container fluid>
                 {loading ? (
                     <Loader />
@@ -197,7 +302,7 @@ export default function InterviewQuestion() {
                 <Row className="smallscreenque seesionHeader  mb-3">
 
                     <Col className="mt-lg-4 ms-lg-5 cursor backsmall" onClick={() => navigate('/interview')}><Image src={ep_back} height={20} /><span className='ms-1 backcss'>Back</span></Col>
-                    <Col className="d-flex justify-content-end  mt-lg-2 me-lg-5 mx-auto"> <Button className='sessionbtn' type="submit" >Save Interview Session</Button></Col>
+                    <Col className="d-flex justify-content-end  mt-lg-2 me-lg-5 mx-auto"> <Button className='sessionbtn' type="submit" onClick={saveData}>Save Interview Session</Button></Col>
                 </Row>
                 <Row className='d-lg-none seequestion'>
                     <Col>
@@ -207,23 +312,23 @@ export default function InterviewQuestion() {
                 <Row>
                     <Col lg={4} className='d-none d-lg-block'>
 
-                        <Card className="flex-column cardbackground1 ms-5 me-2 mt-2 mb-2" style={{ height: '130vh' }} >
-                       
+                        <Card className="flex-column cardbackground1 ms-5 me-2 mt-2 mb-2" style={{ height: '120vh', overflow: 'auto' }} >
+
                             <div className='row ms-1 mt-3'>
                                 {/* <div className='col-sm d-flex justify-content-center cursor'><Image onClick={() => regenerateQ()} src={regenerate} style={{ height: 27 }} /></div> */}
                                 <div className='col-sm regen cursor'>
-                                    <Image onClick={() => regenerateQ()} src={regen}  /><span className='retxt'>Regenerate Questions</span></div>
+                                    <Image onClick={() => regenerateQ()} src={regen} /><span className='retxt'>Regenerate Questions</span></div>
                                 <div className='col-sm d-flex justify-content-end me-2'><Image src={back} style={{ height: 30 }} /></div>
                             </div>
                             <Nav className="flex-column mb-2">
 
-                                {questionData?.map((item, i) => (
-                                   
-                                        <Nav.Item key={item}
-                                            className={`${selectedItem === item ? 'sideActive' : 'sideInactive'} pb-2`}
-                                            onClick={() => handleItemClick(item)}>
-                                            <Nav.Link href="#section1" className={`profiletext ${selectedItem === item ? 'activetext1' : 'notactive1'}`} >{item}</Nav.Link>
-                                        </Nav.Item>
+                                {questionData?.filter((item) => item != '')?.map((item, i) => (
+
+                                    <Nav.Item key={item}
+                                        className={`${selectedItem === item ? 'sideActive' : 'sideInactive'} pb-2`}
+                                        onClick={() => handleItemClick(item,i+1)}>
+                                        <Nav.Link href="#section1" className={`profiletext ${selectedItem === item ? 'activetext1' : 'notactive1'}`} >{item}</Nav.Link>
+                                    </Nav.Item>
 
                                 ))}
                             </Nav>
@@ -237,15 +342,16 @@ export default function InterviewQuestion() {
                             {typeanswer && <div className="row mb-2 mt-2">
                                 <div className="col-sm">
                                     <Card className='typeanswer'>
-                                        <CardBody style={{ height: '120vh' }}>
+                                        <CardBody style={{ height: '110vh' }}>
                                             <Form.Label className="d-flex backcss">
                                                 {selectedItem}
                                             </Form.Label>
                                             <span className='answer'>Answer:</span>
                                             <Form.Group controlId="exampleForm.ControlTextarea1">
 
-                                                <Form.Control as="textarea" required style={{ minHeight: '90vh' }}
-                                                    placeholder='Type your answer..'
+                                                <Form.Control as="textarea" required style={{ minHeight: '90vh', overflow: 'auto' }}
+                                                    value={inputAnswerData}
+                                                    placeholder='Type your answer..' onChange={(e) => handleAnswerChange(selectedItem, e.target.value)}
                                                 />
                                                 <Form.Control.Feedback type="invalid">Please enter terms</Form.Control.Feedback>
                                             </Form.Group>
@@ -263,6 +369,9 @@ export default function InterviewQuestion() {
                                             </Form.Label>
                                             <span className='answer'>Answer:</span>
                                             <p>
+                                                {/* <Form.Control as="textarea" required style={{ minHeight: '90vh',overflow:'auto' }}
+                                                value={answerData} onChange={(e) => setInputAnswerData(e.target.value)}
+                                                /> */}
                                                 {answerData}
                                             </p>
                                         </CardBody>
@@ -270,12 +379,23 @@ export default function InterviewQuestion() {
                                 </div>
                             </div>}
                             <div className='questionBottom mb-2'>
-                                <span className='liketext cursor d-none d-lg-block'><Image src={like} className='arrowimg' onClick={() => favanswer()}/>Favorite this answer</span>
+                                <span className='liketext cursor d-none d-lg-block' style={textStyle} onClick={() => favanswer()} >
+                                    {isClicked ? <FontAwesomeIcon icon={faHeart} style={{ color: 'red', paddingRight: 3 }} />
+                                        :
+                                        <Image src={like} className='arrowimg' style={textStyle} />}
+                                    Favorite this answer</span>
                                 <span className='liketext cursor d-lg-none'><Image src={like} className='arrowimg' />Save this answer</span>
                                 <span >
-                                    <Button className='questionsave' type="submit"  >Submit
+                                    <Button className='questionsave'
+                                        style={{
+                                            backgroundColor: enablebtn ? 'rgba(0, 168, 119, 1)' : 'rgba(174, 174, 174, 1)',
+                                            borderColor: enablebtn ? 'rgba(0, 168, 119, 1)' : 'rgba(174, 174, 174, 1)'
+                                        }}
+                                        disabled={!enablebtn} type="submit" onClick={() => answerData ? submitData(selectedItem, answerData.join('')) : submitData(selectedItem, inputAnswerData)} >Submit
                                         <Image src={arrow} style={{ height: 22 }} className='ms-2 ' />
                                     </Button>
+
+
                                     <Button className='helpbtncss ms-2' type="submit" onClick={() => helpmeClick()}>Help me</Button>
                                 </span>
                             </div>
@@ -292,10 +412,7 @@ export default function InterviewQuestion() {
                 >
                     <Modal.Body className="newModal p-4">
                         <p className='feedback'>Feedback</p>
-                        <p className='feedbacktext'>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                        <p className='feedbacktext'>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                        <p className='feedbacktext'>{feedbackText}</p>
 
                         <span className="d-flex ms-xs-3 justify-content-end ms-auto">
                             <Button className='savebtn' type="submit" onClick={questionCLose} >Close</Button>

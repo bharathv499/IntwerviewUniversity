@@ -10,15 +10,28 @@ import signin from '../../assets/images/signin.svg'
 import signup from '../../assets/images/signup.svg'
 import './Header.css'
 import { Link, useNavigate } from 'react-router-dom';
+import { getUserProfile } from '../../redux/authSlice';
+import { useDispatch } from 'react-redux';
 
 export default function Header() {
-  const userName = localStorage.getItem('username')
+  // const userName = localStorage.getItem('username')
   const userEmail = localStorage.getItem('email')
-
+  const [userName, setUserName] = useState('');
   const [show, setShow] = useState(false);
   const [isloggedIn, setIsloggedIn] = useState(false);
+  const dispatch=useDispatch();
   const isAuthenticated = localStorage.getItem('isAuthenticated');
   useEffect(() => {
+    dispatch(getUserProfile())
+      .then((result) => {
+
+        const data = result.payload;
+        const full_name = data.full_name;
+        setUserName(full_name)
+      })
+      .catch((error) => {
+        console.log(error)
+      });
 
   }, [isAuthenticated])
   const [menuDisplay, setMenuDisplay] = useState(false);

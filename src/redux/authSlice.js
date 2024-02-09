@@ -30,45 +30,6 @@ export const changePassword = createAsyncThunk('changepassword', async (body) =>
 
 
 
-export const notificationList = createAsyncThunk('notificationList', async () => {
-    const response = await fetch("https://cold-hat-40370.botics.co/notification/", {
-      method: "get",
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `token ${localStorage.getItem('token')}`
-      },
-    })
-    const data = await response.json();
-
-    return data;
-  });
-
-  export const getallusers = createAsyncThunk('notificationList', async () => {
-    const response = await fetch("https://cold-hat-40370.botics.co/users/", {
-      method: "get",
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `token ${localStorage.getItem('token')}`
-      },
-    })
-    const data = await response.json();
-
-    return data;
-  });
-
-
-  export const togglenotification = createAsyncThunk('togglenotification', async (body) => {
-    const res = await fetch("https://cold-hat-40370.botics.co/notification/toggle-email", {
-        method: "PUT",
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `token ${localStorage.getItem('token')}`
-        },
-        body: JSON.stringify(body)
-    })
-    return await res.json();
-})
-
 export const signinuser = createAsyncThunk('signinuser', async (body) => {
     const res = await fetch("https://round-unit-43333.botics.co/rest-auth/login/", {
         method: "post",
@@ -154,7 +115,7 @@ export const getUserProfile = createAsyncThunk('getuserprofile', async (body) =>
 
 
 export const getUserData = createAsyncThunk('getUserData', async (body) => {
-    const res = await fetch("https://cold-hat-40370.botics.co/users/", {
+    const res = await fetch("https://round-unit-43333.botics.co/users/", {
         method: "get",
         headers: {
             'Content-Type': 'application/json',
@@ -192,6 +153,18 @@ export const getQuestion = createAsyncThunk('getQuestion', async (body) => {
     return await res.json();
 })
 
+export const helpme = createAsyncThunk('helpme', async (body) => {
+    const res = await fetch("https://round-unit-43333.botics.co/help/chatgpt/helpme/completion/", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `token ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(body)
+    })
+    return await res.json();
+})
+
 export const extractText = createAsyncThunk('extractText', async (body) => {
     const res = await fetch("https://round-unit-43333.botics.co/api-docs/#/extract_text", {
         method: "POST",
@@ -206,7 +179,7 @@ export const extractText = createAsyncThunk('extractText', async (body) => {
 
 
 export const  pasteResume= createAsyncThunk('pasteResume', async (body) => {
-    const res = await fetch("https://round-unit-43333.botics.co/paste_resume/resumes/", {
+    const res = await fetch("https://round-unit-43333.botics.co/paste_resume/paste_form/", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
@@ -247,6 +220,114 @@ export const  favoriteAnswer= createAsyncThunk('favoriteAnswer', async (body) =>
     return await res.json();
 })
 
+export const getFavoriteAnswer = createAsyncThunk('getFavoriteAnswer', async () => {
+    const res = await fetch("https://round-unit-43333.botics.co/favourite_answer/favorite_answers/", {
+        method: "get",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `token ${localStorage.getItem('token')}`
+        }
+    })
+    return await res.json();
+})
+
+export const getFavoriteAnswerbyId = createAsyncThunk('getFavoriteAnswerbyId', async (id) => {
+    const res = await fetch(`https://round-unit-43333.botics.co/favourite_answer/favorite_answers/${id}`, {
+        method: "get",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `token ${localStorage.getItem('token')}`
+        }
+    })
+    return await res.json();
+})
+
+
+export const  InitiationQuestions= createAsyncThunk('InitiationQuestions', async (body) => {
+    const res = await fetch("https://round-unit-43333.botics.co/initiation_questions/save_job_applicant/", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `token ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(body)
+    })
+    return await res.json();
+})
+
+export const getInitiationQuestions = createAsyncThunk('getInitiationQuestions', async () => {
+    const res = await fetch("https://round-unit-43333.botics.co/initiation_questions/get_job_applicants/", {
+        method: "get",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `token ${localStorage.getItem('token')}`
+        }
+    })
+    return await res.json();
+})
+
+
+export const getResume = createAsyncThunk('getResume', async () => {
+    const res = await fetch("https://round-unit-43333.botics.co/resumeget/", {
+        method: "get",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `token ${localStorage.getItem('token')}`
+        }
+    })
+    return await res.json();
+})
+
+export const getPasteResume = createAsyncThunk('getPasteResume', async () => {
+    const res = await fetch("https://round-unit-43333.botics.co/paste_resume/resume/detail/", {
+        method: "get",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `token ${localStorage.getItem('token')}`
+        }
+    })
+    return await res.json();
+})
+
+
+export const  saveInterviewSession= createAsyncThunk('saveInterviewSession', async (body) => {
+    const res = await fetch("https://round-unit-43333.botics.co/savesave-interview-session/", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `token ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(body)
+    })
+    return await res.json();
+})
+
+export const getInterviewSession = createAsyncThunk('getInterviewSession', async () => {
+    const res = await fetch("https://round-unit-43333.botics.co/saveget-interview-sessions/", {
+        method: "get",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `token ${localStorage.getItem('token')}`
+        }
+    })
+    return await res.json();
+})
+
+
+export const  updateExperience= createAsyncThunk('updateExperience', async (body) => {
+    const res = await fetch("https://round-unit-43333.botics.co/initiation_questions/update_job_applicants/", {
+        method: "PUT",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `token ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(body)
+    })
+    return await res.json();
+})
+
+
+// /favourite_answer/favorite_answers/
 
 //https://cold-hat-40370.botics.co/users/update-profile
 
@@ -477,18 +558,18 @@ const authSlice = createSlice({
 
             if (action.payload) {
                 // alert('Data saved successfully')
-                toast.success('Profile updated successfully', {
-                    position: toast.POSITION.TOP_RIGHT,
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                });
+                // toast.success('Profile updated successfully', {
+                //     position: toast.POSITION.TOP_RIGHT,
+                //     autoClose: 2000,
+                //     hideProgressBar: false,
+                // });
             } else {
                 // alert('Error While saving data')
-                toast.error("Error While saving data", {
-                    position: toast.POSITION.TOP_RIGHT,
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                });
+                // toast.error("Error While saving data", {
+                //     position: toast.POSITION.TOP_RIGHT,
+                //     autoClose: 2000,
+                //     hideProgressBar: true,
+                // });
             }
 
 
@@ -615,16 +696,7 @@ const authSlice = createSlice({
         },
 
 
-        [notificationList.pending]: (state, action) => {
-            state.loading = true
-        },
-        [notificationList.fulfilled]: (state, action) => {
-
-
-        },
-        [notificationList.rejected]: (state, action) => {
-            state.loading = true
-        },
+       
 
 
 

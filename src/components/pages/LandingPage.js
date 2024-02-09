@@ -156,7 +156,7 @@ export default function LandingPage() {
                     <Col xs={12} lg={4} className="image-col ">
 
                         <span className='customheader'>Foundational Experiences</span>
-                        <p className='customtxt'>Generic is out, specificity is in. Your interviews deserve more than one-size-fits-all.</p>
+                        <p className='customtxt'>We highlight your professional milestones, ensuring they shine in the spotlight.</p>
                     </Col>
                     <Col xs={12} lg={2} className="image-col ">
                         <Image variant="top" fluid src={phone} />

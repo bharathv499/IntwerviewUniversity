@@ -59,96 +59,104 @@ export default function WelcomePage({ closeModal }) {
   }, []);
 
 
+  const handleDotClick = (index) => {
+    setCurrentStep(index);
+  };
+
+
+
+  const handleSelect = (event) => {
+
+    setExperience(event.target.value)
+  };
+  const [tnc, setTnc] = useState(false);
+  const handleOptionChecked = () => {
+    setTnc(!tnc);
+  }
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
+  const saveData = () => {
+    closeModal()
+    formData.experience = experience
+    formData.remote_option = tnc
+    console.log(formData, "formData")
+    localStorage.setItem('username', formData.full_name)
+    dispatch(InitiationQuestions(formData))
+    dispatch(updateProfile(formData))
+    toast.success('Data saved successfully', {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 2000,
+      hideProgressBar: true,
+    });
+
+    
+    // .then((result) => {
+    //   console.log(result.payload, "onboarding")
+
+
+    // })
+    // .catch((error) => {
+    //   console.log(error)
+    // });
+  }
+
 
   ///////////validation
 
-  const [currentStep, setCurrentStep] = useState(0);
 
-   const [formData, setFormData] = useState({
-    full_name: '',
-    email: '',
-    phone_number: '',
-    linkedin: '',
-    desired_job_role: '',
-    preferred_industry: '',
-    job_location: "",
-    experience: "",
-    career_goal: "",
-    remote_option: false
+
+  const [currentStep, setCurrentStep] = useState(0);
+  const [formData, setFormData] = useState({
+    step1Data: '',
+    step2Data: '',
+    step3Data: '',
+    step4Data: '',
+    // Add more fields for each step as needed
   });
   const [errors, setErrors] = useState({
-    fullNameError: '',
-    phoneNumberError: '',
-    linkedinError: '',
-    jobRoleError: '',
-    industryError:'',
-    locationError:'',
-    experienceError:'',
-    goalError:''
-
+    step1Error: '',
+    step2Error: '',
+    step3Error: '',
+    step4Error: '',
     // Add more fields for each step as needed
   });
 
   // Validation logic for each step
   const validateStep1 = () => {
-    let isValid = true;
-   
-    const linkedinRegex = /(https?)?:?(\/\/)?(([w]{3}||\w\w)\.)?linkedin.com(\w+:{0,1}\w*@)?(\S+)(:([0-9])+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
-    const url=formData.linkedin;
-   
-    if (!formData.linkedin.trim()) {
-      setErrors({ ...errors, linkedinError: 'linkedin url is required' });
-      isValid = false;
-    }else if (!linkedinRegex.test(url)) {
-      setErrors({ ...errors, linkedinError: 'Please enter a valid LinkedIn URL' });
-      isValid = false;
-    } 
-
-    if (!formData.phone_number.trim()) {
-      setErrors({ ...errors, phoneNumberError: 'Phone Number is required' });
-      isValid = false;
-    }
-    if (!formData.full_name.trim()) {
-      setErrors({ ...errors, fullNameError: 'Full Name is required' });
-      isValid = false;
-    }
-    
-    
-    return isValid;
-  };
-
-  const validateStep2 = () => {
-    if (!formData.desired_job_role.trim()) {
-      setErrors({ ...errors, jobRoleError: 'Job role is required' });
+    if (!formData.step1Data.trim()) {
+      setErrors({ ...errors, step1Error: 'User Profile data is required' });
       return false;
     }
-    if (!formData.preferred_industry.trim()) {
-      setErrors({ ...errors, industryError: 'Industry is required' });
-      return false;
-    }
-    if (!formData.job_location.trim()) {
-      setErrors({ ...errors, locationError: 'Location is required' });
-      return false;
-    }
-    
-   
     return true;
   };
 
-  const handleOptionChecked = () => {
-    setFormData({ ...formData, remote_option: !formData.remote_option });
-  }
+  const validateStep2 = () => {
+    if (!formData.step2Data.trim()) {
+      setErrors({ ...errors, step2Error: 'Job Preferences are required' });
+      return false;
+    }
+    return true;
+  };
+
+  
   const validateStep3 = () => {
-    if (!formData.experience) {
-      setErrors({ ...errors, experienceError: 'Experience Level is required' });
+    if (!formData.step3Data.trim()) {
+      setErrors({ ...errors, step3Error: 'Experience Level is required' });
       return false;
     }
     return true;
   };
 
   const validateStep4 = () => {
-    if (!formData.career_goal.trim()) {
-      setErrors({ ...errors, goalError: ' Career Goals are required' });
+    if (!formData.step4Data.trim()) {
+      setErrors({ ...errors, step4Error: ' Career Goals are required' });
       return false;
     }
     return true;
@@ -166,7 +174,10 @@ export default function WelcomePage({ closeModal }) {
         break;
       case 2:
           isValid = validateStep3();
-          break;     
+          break; 
+      case 3:
+            isValid = validateStep4();
+            break;      
       // Add cases for additional steps as needed
       default:
         break;
@@ -177,82 +188,8 @@ export default function WelcomePage({ closeModal }) {
       setCurrentStep(currentStep + 1);
     }
   };
-  const handleDotClick = (index) => {
-    setCurrentStep(index);
-  };
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-    if (name === 'full_name' && errors.fullNameError) {
-      setErrors({ ...errors, fullNameError: '' }); 
-    }
-    if (name === 'phone_number' && errors.phoneNumberError) {
-      setErrors({ ...errors, phoneNumberError: '' }); 
-    }
-    if (name === 'linkedin' && errors.linkedinError) {
-      setErrors({ ...errors, linkedinError: '' }); 
-    }
 
-    if (name === 'desired_job_role' && errors.jobRoleError) {
-      setErrors({ ...errors, jobRoleError: '' }); 
-    }
-    if (name === 'preferred_industry' && errors.industryError) {
-      setErrors({ ...errors, industryError: '' }); 
-    }
-    if (name === 'job_location' && errors.locationError) {
-      setErrors({ ...errors, locationError: '' }); 
-    }
-
-    if (name === 'experience' && errors.experienceError) {
-      setErrors({ ...errors, experienceError: '' }); 
-    }
-    if (name === 'career_goal' && errors.goalError) {
-      setErrors({ ...errors, goalError: '' }); 
-    }
-  };
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value
-    }));
-  };
-  const saveData = () => {
-    // closeModal()
-    // formData.experience = experience
-    // formData.remote_option = tnc
-    // console.log(formData, "formData")
-    // localStorage.setItem('username', formData.full_name)
-    // dispatch(InitiationQuestions(formData))
-    // dispatch(updateProfile(formData))
-    // toast.success('Data saved successfully', {
-    //   position: toast.POSITION.TOP_RIGHT,
-    //   autoClose: 2000,
-    //   hideProgressBar: true,
-    // });
-   
-if(validateStep4()){
- 
-  closeModal()
-  const formDataToSubmit = { ...formData };
-    dispatch(InitiationQuestions(formDataToSubmit))
-    .then((result) => {
-    console.log(result,"result")
-
-      dispatch(updateProfile(formDataToSubmit))
-      toast.success('Data saved successfully', {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 2000,
-        hideProgressBar: true,
-      });
-    })
-    .catch((errordata) => {
-
-    });
-   
-}
-  }
+  
   return (
     <div className="container mt-5">
       <ToastContainer />
@@ -283,14 +220,16 @@ if(validateStep4()){
                     <Form.Label className="d-flex labelcss">Full Name</Form.Label>
                     <Form.Control
                       type='text'
+                      
                       name='full_name'
-                      value={formData.full_name}
-                      onChange={handleInputChange}
+                      value={formData.step1Data}
+                      onChange={(e) =>
+                        setFormData({ ...formData, step1Data: e.target.value })
+                      }
                       required
                     />
-                    {errors.fullNameError && <p className='step-error'>{errors.fullNameError}</p>}
-
                     
+                    <Form.Control.Feedback type="invalid">Please enter full name</Form.Control.Feedback>
                   </Form.Group>
 
                 </div>
@@ -322,12 +261,10 @@ if(validateStep4()){
                       className='textcontainer'
                       name='phone_number'
                       value={formData.phone_number}
-                      onChange={handleInputChange}
+                      onChange={handleChange}
                       required
                     />
-                    {errors.phoneNumberError && <p className='step-error'>{errors.phoneNumberError}</p>}
-
-                    
+                    <Form.Control.Feedback type="invalid">Please enter number</Form.Control.Feedback>
                   </Form.Group>
                 </div>
               </div>
@@ -339,17 +276,17 @@ if(validateStep4()){
                     <Form.Control
                       type='text'
                       className='textcontainer'
-                      name='linkedin'
-                      required
                       value={formData.linkedin}
-                      onChange={handleInputChange}
-                      
+                      name='linkedin'
+                      onChange={handleChange}
+                      required
                     />
-                    {errors.linkedinError && <p className='step-error'>{errors.linkedinError}</p>}
+                    <Form.Control.Feedback type="invalid">Please enter linkedin</Form.Control.Feedback>
                   </Form.Group>
                 </div>
               </div>
-              
+              {errors.step1Error && <p className='step-error'>{errors.step1Error}</p>}
+
             </Col>
           </Row>
         </Container>
@@ -366,11 +303,13 @@ if(validateStep4()){
                     <Form.Label className="d-flex labelcss">Desired Job Role</Form.Label>
                     <Form.Control
                       type='text'
-                      value={formData.desired_job_role}
-                      onChange={handleInputChange}
+                      value={formData.step2Data}
+                      onChange={(e) =>
+                        setFormData({ ...formData, step2Data: e.target.value })
+                      }
                       name='desired_job_role'
                     />
-                    {errors.jobRoleError && <p className='step-error'>{errors.jobRoleError}</p>}
+                    <Form.Control.Feedback type="invalid">Please enter role</Form.Control.Feedback>
                   </Form.Group>
 
                 </div>
@@ -383,12 +322,12 @@ if(validateStep4()){
                     <Form.Control
                       type='text'
                       className='textcontainer'
+                      defaultValue={formData.preferred_industry}
                       name='preferred_industry'
-                      value={formData.preferred_industry}
-                      onChange={handleInputChange}
+                      onChange={handleChange}
                       required
                     />
-                     {errors.industryError && <p className='step-error'>{errors.industryError}</p>}
+                    <Form.Control.Feedback type="invalid">Please Enter Preferred Industry</Form.Control.Feedback>
                   </Form.Group>
                 </div>
               </div>
@@ -402,10 +341,10 @@ if(validateStep4()){
                       className='textcontainer'
                       name='job_location'
                       value={formData.job_location}
-                      onChange={handleInputChange}
+                      onChange={handleChange}
                       required
                     />
-                    {errors.locationError && <p className='step-error'>{errors.locationError}</p>}
+                    <Form.Control.Feedback type="invalid">Please enter job location</Form.Control.Feedback>
                   </Form.Group>
                 </div>
               </div>
@@ -418,8 +357,8 @@ if(validateStep4()){
                       className='labelcss1'
                       name="remote_option"
                       label="Remote"
+                      checked={tnc}
                       onChange={handleOptionChecked}
-                      checked={formData.remote_option}
                     />
                   </Form.Group>
                 </div></div>
@@ -440,17 +379,15 @@ if(validateStep4()){
                     <Form.Control
                       as="select"
                       name="experience"
-                      value={formData.experience}
-                      onChange={handleInputChange}
+                      onChange={handleSelect}
+                      value={experience}
                     >
                       <option value=""></option>
-                      <option value="entry-level">Entry Level</option>
-                      <option value="mid-career">Mid Career</option>
-                      <option value="senior">Senior</option>
+                      <option value="Level1">Level 1</option>
+                      <option value="Level2">Level 2</option>
+                      <option value="Level3">Level 3</option>
                     </Form.Control>
-                    {errors.experienceError && <p className='step-error'>{errors.experienceError}</p>}
-
-                   
+                    <Form.Control.Feedback type="invalid">Please select Experience Level</Form.Control.Feedback>
                   </Form.Group>
 
                 </div>
@@ -472,11 +409,8 @@ if(validateStep4()){
                   <Form.Group controlId="exampleForm.ControlTextarea1">
 
                     <Form.Control as="textarea" name="career_goal" required style={{ minHeight: '10rem' }}
-                      value={formData.career_goal}
-                      onChange={handleInputChange}
+                      onChange={handleChange} defaultValue={formData.career_goal}
                     />
-                    {errors.goalError && <p className='step-error'>{errors.goalError}</p>}
-
                     <Form.Control.Feedback type="invalid">Please enter terms</Form.Control.Feedback>
                   </Form.Group>
                 </div>

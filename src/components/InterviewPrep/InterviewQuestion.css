@@ -27,8 +27,8 @@
 }
 
 .questionsave {
-    background: rgba(174, 174, 174, 1) !important;
-    border-color: rgba(174, 174, 174, 1) !important;
+    /* background: rgba(174, 174, 174, 1) !important;
+    border-color: rgba(174, 174, 174, 1) !important; */
     font-family: "DMSans-Medium" !important;
     border-radius: 24px;
     padding: 8px !important;

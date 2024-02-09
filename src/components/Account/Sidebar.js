@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './Account.css';
-import { Nav, Modal, Button, Card, Row, Col, Container } from 'react-bootstrap';
+import { Nav, Modal, Button, Card, Row, Col, Container,Image } from 'react-bootstrap';
 import ChangePassword from './ChangePassword';
 import { logout } from '../../redux/authSlice';
 import { useDispatch, useSelector } from "react-redux"
@@ -8,16 +8,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import Account from './Account';
 import ProfessionalExperience from '../ProfessionalExperience/ProfessionalExperience';
 import Feedback from './Feedback';
-
+import axios from "axios";
+import ep_back from '../../assets/images/ep_back.png'
 
 export default function Sidebar() {
     const dispatch = useDispatch()
 
     const [showLogout, setshowLogout] = useState(false);
     const [deleteacc, setdeleteacc] = useState(false);
-    const [showProfile,setShowProfile]=useState(true);
-    const [showExperience,setshowExperience]=useState(false);
-    const [showFeedback,setShowFeedback]=useState(false);
+    const [showProfile, setShowProfile] = useState(true);
+    const [showExperience, setshowExperience] = useState(false);
+    const [showFeedback, setShowFeedback] = useState(false);
 
     const navigate = useNavigate()
     const handleClose1 = () => setshowLogout(false);
@@ -90,8 +91,39 @@ export default function Sidebar() {
 
 
     }
+
+    const deleteAccount = () => {
+        let config = {
+            method: 'DELETE',
+            url: 'https://round-unit-43333.botics.co/deleteuser',
+            headers: {
+                'X-CSRFTOKEN': `rN3gD7X9fMWNBXec7Y4naOPY4jvc8yvzOAZvMblW4pChKVH0pKZegdontyYtuN1c`,
+                'Authorization': `token ${localStorage.getItem('token')}`
+            }
+        };
+
+        axios.request(config)
+            .then((response) => {
+                localStorage.removeItem('token')
+                localStorage.removeItem('username')
+                localStorage.removeItem('role')
+                localStorage.removeItem('userId')
+                localStorage.removeItem('isAuthenticated')
+                localStorage.setItem('isAuthenticated', false)
+                localStorage.clear();
+                navigate('/')
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
     return (
         <div>
+            <Row className="smallscreenque seesionHeader  mb-2 ms-2">
+
+                <Col className="mt-lg-4 ms-lg-5 cursor backsmall" onClick={() => navigate('/interview')}><Image src={ep_back} height={20} /><span className='ms-1 backcss'>Back</span></Col>
+                
+            </Row>
             <Container fluid>
                 <Row>
                     <Col lg={4} className='d-none d-lg-block'>
@@ -109,9 +141,9 @@ export default function Sidebar() {
                         </Card>
                     </Col>
                     <Col lg={8} className='mt-3'>
-                       {showProfile ?  <Account/> :''}
-                       {showExperience ? <ProfessionalExperience/> :''}
-                       {showFeedback ? <Feedback/> :''}
+                        {showProfile ? <Account /> : ''}
+                        {showExperience ? <ProfessionalExperience /> : ''}
+                        {showFeedback ? <Feedback /> : ''}
 
                     </Col>
                 </Row>
@@ -151,7 +183,7 @@ export default function Sidebar() {
                         <span className="logoutlabel">Are you sure you want to delete the account?
                         </span>
                         <span>
-                            <Button className='cancelbtn' type="submit"  >Yes</Button>
+                            <Button className='cancelbtn' type="submit" onClick={deleteAccount}>Yes</Button>
                             <Button className='savebtn' style={{ marginLeft: 5 }} type="submit"  >No</Button>
                         </span>
                     </div>

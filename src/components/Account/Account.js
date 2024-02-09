@@ -28,7 +28,7 @@ export default function Account() {
     const [errors, setErrors] = useState({});
     const [selectedImage, setSelectedImage] = useState(null);
     const fileInputRef = useRef(null);
-
+    const [userData, setuserData] = useState([]);
     const [formData, setFormData] = useState({
         email: '',
         full_name: '',
@@ -46,6 +46,7 @@ export default function Account() {
             .then((result) => {
                 console.log(result.payload,"result")
                 const data=result.payload;
+                setuserData(data)
 
                 formData.email = data.email;
                 formData.full_name = data.full_name;
@@ -184,7 +185,7 @@ export default function Account() {
                                         </div>
                                     </div>
                                     <span className='flexAccount'>
-                                        <Button className='quotebtncss ' type="button" onClick={handleButtonClick} >Uplaod Picture</Button></span>
+                                        <Button className='quotebtncss ' type="button" onClick={handleButtonClick} >Upload Picture</Button></span>
                                 </Col>
                                 <Col lg={8}>
                                     <div className="row mb-2 account-row">
@@ -193,7 +194,7 @@ export default function Account() {
                                                 <Form.Label className="text-start labelcss">Full Name</Form.Label>
                                                 <Form.Control
                                                     type='text'
-                                                    value={formData.full_name}
+                                                    value={userData?.full_name}
                                                     name='full_name'
                                                     onChange={handleChange}
                                                     required
@@ -208,7 +209,7 @@ export default function Account() {
                                                 <Form.Control
                                                     type='text'
                                                     className='textcontainer'
-                                                    value={formData.linkedin}
+                                                    value={userData?.linkedin}
                                                     name='linkedin'
                                                     onChange={handleChange}
                                                     required
@@ -226,7 +227,7 @@ export default function Account() {
                                                     type='text'
                                                     className='textcontainer'
                                                     disabled
-                                                    defaultValue={formData.email}
+                                                    defaultValue={userData?.email}
                                                     name='email'
                                                     onChange={handleChange}
                                                     required
@@ -240,12 +241,11 @@ export default function Account() {
                                                 <Form.Control
                                                     type='password'
                                                     className='textcontainer'
-                                                    value={formData.password}
+                                                    value={userData?.password}
                                                     name='password'
                                                     onChange={handleChange}
-                                                    required
                                                 />
-                                                <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
+                                               
                                             </Form.Group>
                                         </div>
 
@@ -280,7 +280,7 @@ export default function Account() {
                                                     type='text'
                                                     className='textcontainer'
                                                     name='phone_number'
-                                                    value={formData.phone_number}
+                                                    value={userData?.phone_number}
                                                     onChange={handleChange}
                                                     required
                                                 />

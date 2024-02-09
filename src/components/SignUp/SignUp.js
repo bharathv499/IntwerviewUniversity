@@ -149,6 +149,7 @@ export default function SignUp() {
             setConfirm_password("");
             setTnc(false);
             dispatch(signUpUser(body))
+            
         }
         setErrors({});
     };
@@ -446,14 +447,14 @@ export default function SignUp() {
                     <div style={backgroundImageStyle1}></div></div>
                 <span className='loginrow'>
                     <Row className="no-gutters mx-1 " >
-                        <Col className="d-flex d-none d-lg-block" xl={6}>
-                            <Card className="flex-fill no-margin loginImage">
+                        <Col className="d-flex d-none d-lg-block " xl={6} >
+                            <Card className="flex-fill no-margin loginImage imgcontainer">
                                 <Card.Body>
                                     <div className='logocss loginmargin1'>
                                     <Image variant="top" className="img-fluid" style={{height:48}} src={mainlogo} />
                                     </div>
                                     <div className='logocss d-none d-lg-block'>
-                                        <Image variant="top" className="img-fluid custom-img" src={loginside} />
+                                        <Image variant="top" className="img-fluid custom-img" style={{height:500}} src={loginside} />
                                     </div>
                                 </Card.Body>
                             </Card>

@@ -15,6 +15,8 @@ import ProfessionalExperience from './components/ProfessionalExperience/Professi
 import InterviewQuestion from './components/InterviewPrep/InterviewQuestion';
 import ResetPass from './components/ForgetPassword/ResetPass';
 import Sidebar from './components/Account/Sidebar';
+import Favorite from './components/InterviewPrep/Favorite';
+import ViewSavedSession from './components/InterviewPrep/ViewSavedSession';
 
 
 function App() {
@@ -37,6 +39,11 @@ function App() {
           <Route path='/question' element={<InterviewQuestion/>} />
           <Route exact path='/resetPassword' element={<ResetPass />} />
           <Route exact path='/sidebar' element={<Sidebar />} />
+          <Route exact path='/Favorite/:id' element={< Favorite />} />
+          <Route exact path='/viewsavedsession' element={<ViewSavedSession />} />
+
+          
+
         </Routes>
         <Footer />
       </Router>

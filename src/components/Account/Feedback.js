@@ -82,6 +82,13 @@ const Feedback = () => {
         }
         if (Object.keys(validationErrors).length === 0) {
             dispatch(feedbackuser(body))
+                .then((result) => {
+                    toast.success("Feedback send successfully", {
+                        position: toast.POSITION.TOP_RIGHT,
+                        autoClose: 5000,
+                        hideProgressBar: true,
+                    });
+                });
 
             setEmail("");
             setMessage("");
@@ -99,55 +106,55 @@ const Feedback = () => {
                     <Col lg={4} className='d-none d-lg-block'>
                         <Sidebar />
                     </Col> */}
-                    <Col xl={12} className='d-lg-none d-xl-none d-xl-block d-lg-block  d-flex justify-content-center'><Button className='myprofile' >Support/ Send Feedback</Button></Col>
-                    {/* <Col lg={8} className='mt-5'> */}
+            <Col xl={12} className='d-lg-none d-xl-none d-xl-block d-lg-block  d-flex justify-content-center'><Button className='myprofile' >Support/ Send Feedback</Button></Col>
+            {/* <Col lg={8} className='mt-5'> */}
 
-                        <ToastContainer />
+            <ToastContainer />
 
-                        <div className="mb-5">
-                            <Row>
-                                <Col lg={8}>
-                                    <Form onSubmit={handleFormSubmit} style={{ height: "420px" }}>
-                                        <Form.Group className="mb-3 mx-4" controlId="formBasicEmail">
-                                            <Form.Label className="text-start labelcss">
-                                                Subject
-                                            </Form.Label>
-                                            <Form.Control
-                                                type="email"
-                                                value={email}
-                                                onChange={handleEmailChange}
-                                                isInvalid={!!errors.email}
-                                            />
-                                            <Form.Control.Feedback type="invalid">
-                                                {errors.email}
-                                            </Form.Control.Feedback>
-                                        </Form.Group>
-                                        <Form.Group className="m-3 mx-4" controlId="formBasicName">
-                                            <Form.Label className="text-start labelcss">
-                                                Feedback
-                                            </Form.Label>
-                                            <Form.Control
-                                                type="text"
-                                                value={message}
-                                                as="textarea"
-                                                rows={3}
-                                                onChange={handleMessageChange}
-                                                isInvalid={!!errors.message}
-                                            />
-                                            <Form.Control.Feedback type="invalid">
-                                                {errors.message}
-                                            </Form.Control.Feedback>
-                                        </Form.Group>
+            <div className="mb-5">
+                <Row>
+                    <Col lg={8}>
+                        <Form onSubmit={handleFormSubmit} style={{ height: "420px" }}>
+                            <Form.Group className="mb-3 mx-4" controlId="formBasicEmail">
+                                <Form.Label className="text-start labelcss">
+                                    Subject
+                                </Form.Label>
+                                <Form.Control
+                                    type="email"
+                                    value={email}
+                                    onChange={handleEmailChange}
+                                    isInvalid={!!errors.email}
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    {errors.email}
+                                </Form.Control.Feedback>
+                            </Form.Group>
+                            <Form.Group className="m-3 mx-4" controlId="formBasicName">
+                                <Form.Label className="text-start labelcss">
+                                    Feedback
+                                </Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    value={message}
+                                    as="textarea"
+                                    rows={3}
+                                    onChange={handleMessageChange}
+                                    isInvalid={!!errors.message}
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    {errors.message}
+                                </Form.Control.Feedback>
+                            </Form.Group>
 
-                                        <span className="d-flex ms-xs-3 justify-content-end ms-auto">
-                                            <Button className='savebtn' type="submit"  >Submit</Button>
-                                        </span>
+                            <span className="d-flex ms-xs-3 justify-content-end ms-auto">
+                                <Button className='savebtn' type="submit"  >Submit</Button>
+                            </span>
 
-                                    </Form>
-                                </Col>
-                            </Row>
-                        </div>
-                    {/* </Col >
+                        </Form>
+                    </Col>
+                </Row>
+            </div>
+            {/* </Col >
                 </Row >
             </Container > */}
         </div >

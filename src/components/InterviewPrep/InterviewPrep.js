@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { Button, Modal, Row, Col, Image, Card, Container, Form, Carousel } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Button, Modal, Row, Col, Image, Card, Container, Form } from "react-bootstrap";
 import './InterviewPrep.css'
-
 import welcomeimg from '../../assets/images/welcome.png'
 import uploadimg from '../../assets/images/upload.png'
 import uploadActive from '../../assets/images/uploadActive.png'
@@ -10,67 +9,151 @@ import pasteActive from '../../assets/images/pasteActive.png'
 import uploadicon from '../../assets/images/uploadicon.png'
 import right from '../../assets/images/right.png'
 import view from '../../assets/images/view.png'
-import interview from '../../assets/images/interview.png'
 import arrow from '../../assets/images/arrow.png'
-import Multiselect from "multiselect-react-dropdown";
 import axios from "axios";
 import WelcomePage from './WelcomePage';
 import { Link, useNavigate } from 'react-router-dom';
-import Select from 'react-select';
 import { useDispatch } from "react-redux";
-import { pasteResume } from "../../redux/authSlice";
+import { getFavoriteAnswer, getFavoriteAnswerbyId, getInitiationQuestions, getInterviewSession, getPasteResume, getResume, getUserProfile, pasteResume } from "../../redux/authSlice";
 import { toast, ToastContainer } from 'react-toastify';
 
 export default function InterviewPrep() {
     const dispatch = useDispatch()
-    const [selectedOption, setSelectedOption] = useState(null);
     const [userrole, setUserRole] = useState('');
     const [userRole, setuserRole] = useState('');
-
-    const [options] = useState([
-        { value: 'user', label: 'user' },
-    ]);
-
-
-    // Splitting the string by dot and taking the second part
-
-    const [showText,setshowText]=useState(false);
-
-    const handleChange = (event) => {
-
-            if(event.target.value != 'other'){
-                setSelectedOption(event.target.value);
-                setuserRole(event.target.value)
-                setshowText(false)
-            }else{
-                setSelectedOption(event.target.value);
-                setshowText(true)
-            }
-       
-       
-    };
-
-    const handleChange1 = (event) => {
-
-            setuserRole('')
-            setuserRole(event.target.value)
-            setUserRole(event.target.value);
-           
-     
-    };
-
-    const [welcome, setWelcome] = useState(true)
+    const [favData, setFavData] = useState([]);
+    const [savedInterview, setSavedInterview] = useState([]);
+    const [welcome, setWelcome] = useState(false)
     const [welcome1, setWelcome1] = useState(false)
     const [extractData, setextractData] = useState('')
 
     const handleClose = () => setWelcome(false)
     const handleClose1 = () => setWelcome1(false)
     const navigate = useNavigate()
-    const [role, setRole] = useState('');
-    const [content, setContent] = useState('');
 
     const [upload, setupload] = useState(false)
     const [newInterview, setnewInterview] = useState(false)
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [hideOnUpload, sethideOnUpload] = useState(true);
+    const [activeMenuItem, setActiveMenuItem] = useState('upload');
+    const [isActive, setisActive] = useState('saved');
+    const [showdiv, setShowdiv] = useState(true)
+    const [showPasteDiv, setshowPasteDiv] = useState(false)
+
+    useEffect(() => {
+
+
+
+        dispatch(getResume())
+            .then((result) => {
+
+                console.log(result, "getresume")
+                if (result?.payload?.file_name) {
+
+                    setWelcome(false)
+
+                    dispatch(getInitiationQuestions())
+                        .then((result) => {
+                            console.log(result.payload, "favdata")
+                            const data = result?.payload
+                            if (data.length > 0) {
+                                setWelcome1(false)
+                            } else {
+                                setWelcome1(true)
+                            }
+
+                        })
+                        .catch((error) => {
+                            console.log(error)
+                        });
+
+                } else {
+
+                    dispatch(getPasteResume())
+                        .then((result) => {
+                            console.log(result.payload, "pasteresume")
+                            if (result?.payload?.content !='') {
+                                setWelcome(false)
+                                dispatch(getInitiationQuestions())
+                                    .then((result) => {
+                                        console.log(result.payload, "favdata")
+                                        const data = result?.payload
+                                        if (data.length > 0) {
+                                            setWelcome1(false)
+                                        } else {
+                                            setWelcome1(true)
+                                        }
+
+                                    })
+                                    .catch((error) => {
+                                        console.log(error)
+                                    });
+                            } else {
+                                setWelcome1(false)
+                                setWelcome(true)
+                            }
+
+
+                        })
+                        .catch((error) => {
+                            console.log(error)
+                        });
+
+                }
+
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+
+        dispatch(getFavoriteAnswer())
+            .then((result) => {
+                console.log(result.payload, "favdata")
+                setFavData(result.payload)
+
+            })
+            .catch((error) => {
+                console.log(error)
+            });
+
+
+
+
+
+        // const userData1 = [
+        //     {
+        //         "created_at": "2024-01-31",
+        //         "role": "Product Manager"
+        //     },
+        //     {
+        //         "created_at": "2024-01-31",
+        //         "role": "Product Manager"
+        //     }
+        // ]
+        // setSavedInterview(userData1)
+        dispatch(getInterviewSession())
+            .then((result) => {
+                console.log(result, "result")
+                setSavedInterview(result.payload)
+
+            })
+            .catch((error) => {
+                console.log(error)
+            });
+
+
+    }, []);
+
+
+    const handleChange1 = (event) => {
+
+        setuserRole(event.target.value)
+        setUserRole(event.target.value);
+
+
+    };
+
 
     const uploadClose = () => setupload(false)
 
@@ -83,9 +166,6 @@ export default function InterviewPrep() {
 
     //file upload
 
-    const [selectedFile, setSelectedFile] = useState(null);
-    const [errorMessage, setErrorMessage] = useState('');
-    const [hideOnUpload, sethideOnUpload] = useState(true);
 
 
     const allowedFileTypes = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
@@ -96,17 +176,52 @@ export default function InterviewPrep() {
 
         const file = event.dataTransfer.files[0];
         handleFile(file);
+
+        var formdata1 = new FormData();
+        setupload(false)
+        console.log("setupload(false)")
+        formdata1.append("file", file);
+        formdata1.append("bucket", "interview-universit-43333");
+        formdata1.append("file_name", file.name);
+
+
+        handleFile(file);
+        sethideOnUpload(false)
+        if (file) {
+
+
+            let config = {
+                method: 'post',
+                url: 'https://round-unit-43333.botics.co/resumeupload/',
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `token ${localStorage.getItem('token')}`,
+                },
+                data: formdata1
+            };
+            for (const value of formdata1.values()) {
+                console.log(value);
+            }
+
+            axios.request(config)
+                .then((response) => {
+                    setWelcome1(true)
+                    // setSelectedImage(response.data.avatar);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } else {
+            //setSelectedImage(null);
+        }
+
     };
 
     const handleDragOver = (event) => {
         event.preventDefault();
     };
 
-    const handleFileSelect = (event) => {
-        const file = event.target.files[0];
-        handleFile(file);
-        sethideOnUpload(false)
-    };
+
 
     const handleFile = (file) => {
         if (file) {
@@ -127,12 +242,7 @@ export default function InterviewPrep() {
             setSelectedFile(file);
         }
     };
-    const [activeMenuItem, setActiveMenuItem] = useState('upload');
 
-    const [isActive, setisActive] = useState('saved');
-
-    const [showdiv, setShowdiv] = useState(true)
-    const [showPasteDiv, setshowPasteDiv] = useState(false)
 
     // Function to handle menu item clicks
     const handleMenuItemClick = (menuItem) => {
@@ -176,25 +286,12 @@ export default function InterviewPrep() {
         content: '',
     });
 
-    const [contentData,setcontentData]=useState('')
+    const [contentData, setcontentData] = useState('')
 
     const handleInputChange = (e) => {
-        //let newString = "give me 5 questions based on this?";
-       
-         const contentData1 = e.target.value;
+        const contentData1 = e.target.value;
         setcontentData(contentData1)
 
-        // const userrole=`${userRole} ${'as a role with'}`;//userRole.concat('as a role with');
-        // const newString = "give me 5 questions based on this?";
-        // const resultString = `${contentData} ${newString}`; //extractData.concat(newString);
-        // const finalestr= `${userrole} ${resultString}`;
-        // console.log(finalestr,"aaaaa")
-
-        // const { name, value } = finalestr;
-        // setFormData((prevData) => ({
-        //     ...prevData,
-        //     [name]: value,
-        // }));
     }
 
     const handleSubmit = (e) => {
@@ -203,16 +300,16 @@ export default function InterviewPrep() {
         formData.role = userRole;
         if (extractData != '') {
             // <role> as a role with  <job description> job desricption can you give me 5 questions
-            const userrole=`${userRole} ${'as a role with'}`;//userRole.concat('as a role with');
-            const newString = "give me 5 questions based on this?";
+            const userrole = `${userRole} ${'as a role,'}`;//userRole.concat('as a role with');
+            const newString = "please give 5 questions on these skills?";
             const resultString = `${extractData} ${newString}`; //extractData.concat(newString);
-            const finalestr= `${userrole} ${resultString}`;//userrole.concat(resultString);
+            const finalestr = `${resultString}`;//userrole.concat(resultString);
             formData.content = finalestr;
-        }else if(contentData !=''){
-            const userrole=`${userRole} ${'as a role with'}`;//userRole.concat('as a role with');
-            const newString = "give me 5 questions based on this?";
+        } else if (contentData != '') {
+            const userrole = `${userRole} ${'as a role,'}`;//userRole.concat('as a role with');
+            const newString = "please give 5 questions on these skills?";
             const resultString = `${contentData} ${newString}`; //extractData.concat(newString);
-            const finalestr= `${userrole} ${resultString}`;//userrole.concat(resultString);
+            const finalestr = `${resultString}`;//userrole.concat(resultString);
             formData.content = finalestr;
         }
 
@@ -230,14 +327,14 @@ export default function InterviewPrep() {
         const file = event.target.files[0];
         const formdata = new FormData();
 
-        formdata.append("pdf_file", file);
+        formdata.append("file", file);
         console.log(file, "file")
 
         if (file) {
 
             let config = {
                 method: 'POST',
-                url: 'https://round-unit-43333.botics.co/extract_text/extract_skills/extract/forms/',
+                url: 'https://round-unit-43333.botics.co/readfile/',
                 headers: {
                     'X-CSRFTOKEN': `rN3gD7X9fMWNBXec7Y4naOPY4jvc8yvzOAZvMblW4pChKVH0pKZegdontyYtuN1c`,
                 },
@@ -250,11 +347,11 @@ export default function InterviewPrep() {
 
             axios.request(config)
                 .then((response) => {
-                    console.log(response.data.skills, "reponse")
-                    let data = response.data.skills;
-                    console.log(data.join(', '), "data")
-                    setextractData(data.join(', '))
-                    formData1.description = data.join(', ')
+                    console.log(response, "reponse")
+                     let data = response.data.content;
+                    // console.log(data.join(', '), "data")
+                     setextractData(data)
+                    // formData1.description = data.join(', ')
                     // setSelectedImage(response.data.avatar);
                 })
                 .catch((error) => {
@@ -267,30 +364,24 @@ export default function InterviewPrep() {
 
 
     const handleImageUpload = (event) => {
-
+        console.log(event.target.files[0].name, "data")
         const file = event.target.files[0];
         var formdata1 = new FormData();
-
+        setupload(false)
+        console.log("setupload(false)")
         formdata1.append("file", file);
         formdata1.append("bucket", "interview-universit-43333");
-        formdata1.append("user_id", "3");
+        formdata1.append("file_name", file.name);
 
 
         handleFile(file);
         sethideOnUpload(false)
         if (file) {
 
-            // setSelectedImage(URL.createObjectURL(file));
-            // formData1.append("avatar", file)
-
-            // var requestOptions = {
-            //     method: 'POST',
-            //     body: formdata
-            //   };
 
             let config = {
-                method: 'post',
-                url: 'https://round-unit-43333.botics.co/modules/s3-file-uploader/service/file/upload/',
+                method: 'POST',
+                url: 'https://round-unit-43333.botics.co/resumeupload/',
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `token ${localStorage.getItem('token')}`,
@@ -303,6 +394,7 @@ export default function InterviewPrep() {
 
             axios.request(config)
                 .then((response) => {
+                    setWelcome1(true)
                     // setSelectedImage(response.data.avatar);
                 })
                 .catch((error) => {
@@ -320,30 +412,84 @@ export default function InterviewPrep() {
     };
 
     const body1 = {
-        "id": 3,
         "content": text,
     }
 
     const PasteResume = () => {
-        dispatch(pasteResume(body1))
-            .then((result) => {
-                setupload(false)
+      
+       let formdata = new FormData();
+     
+       formdata.append("content",text);
 
+       let config = {
+        method: 'POST',
+        url: 'https://round-unit-43333.botics.co/paste_resume/paste_form/',
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            'Authorization': `token ${localStorage.getItem('token')}`,
+        },
+        data: formdata
+    };
+    for (const value of formdata.values()) {
+        console.log(value);
+    }
+
+    axios.request(config)
+        .then((response) => {
+                setupload(false)
+                setWelcome1(true)
                 toast.success("Resume saved successfully", {
                     position: toast.POSITION.TOP_RIGHT,
                     autoClose: 5000,
                     hideProgressBar: true,
                 });
+            // setSelectedImage(response.data.avatar);
+        })
+        .catch((error) => {
+        })
 
-            })
-            .catch((error) => {
-                console.log(error)
-            });
+        // dispatch(pasteResume(formdata))
+        //     .then((result) => {
+        //         setupload(false)
+
+        //         toast.success("Resume saved successfully", {
+        //             position: toast.POSITION.TOP_RIGHT,
+        //             autoClose: 5000,
+        //             hideProgressBar: true,
+        //         });
+
+        //     })
+        //     .catch((error) => {
+        //         console.log(error)
+        //     });
     }
+
+    const viewSavedAnswer = (id) => {
+
+        navigate(`/favorite/:${id}`);
+
+
+        // dispatch(getFavoriteAnswerbyId(1))
+        // .then((result) => {
+
+        // })
+        // .catch((error) => {
+        //     console.log(error)
+        // });
+
+
+    }
+
+    const viewSavedInterview = () => {
+
+        navigate('/viewsavedsession');
+
+    }
+
     return (
         <>
 
-            <Container fluid style={{ height: '90vh' }}>
+            <Container fluid style={{ height: '90vh', overflow: 'auto' }}>
                 <ToastContainer />
                 <Row className="smallscreen">
 
@@ -359,74 +505,47 @@ export default function InterviewPrep() {
 
 
                 {showSaved && <Row>
-                    <Col xl={3} className="ms-lg-5  my-lg-4 interviewcard">
+                    {savedInterview?.map(item => (<Col xl={3} className="ms-lg-5  my-lg-4 interviewcard">
                         <Card className="ps-1 cardBody pb-2" >
                             <Card.Body className="">
                                 <div className="d-flex justify-content-between " >
                                     <span className="spanText">Role</span>
-                                    <span className="spanText">08/11/2023</span>
+                                    <span className="spanText">{item.created_at.slice(0,10)}</span>
                                 </div>
                                 <div className="d-flex justify-content-between pt-2">
-                                    <span className="savedText">Product Manager</span>
-                                    <span><Image src={view} className="viewImage" /></span>
+                                    <span className="savedText">{item.role}</span>
+                                    <span className="cursor"><Image onClick={viewSavedInterview} src={view} className="viewImage" /></span>
                                 </div>
                             </Card.Body>
                         </Card>
-                    </Col>
-                    <Col xl={3} className="ms-lg-5  my-lg-4">
-                        <Card className=" ps-1 cardBody pb-2" >
-                            <Card.Body >
-                                <div className="d-flex justify-content-between">
-                                    <span className="spanText">Role</span>
-                                    <span className="spanText">08/11/2023</span>
-                                </div>
-                                <div className="d-flex justify-content-between pt-2">
-                                    <span className="savedText">Product Manager</span>
-                                    <span><Image src={view} className="viewImage" /></span>
-                                </div>
-                            </Card.Body>
-                        </Card>
+                    </Col>))}
 
-                    </Col>
                 </Row>}
 
                 {showFav &&
-                    <Row>
-                        <Col xl={3} className="ms-lg-5  my-lg-4 interviewcard me-lg-5">
-                            <Card className=" ps-1 cardBody" >
-                                <Card.Body >
-                                    <div className="d-flex justify-content-between">
-                                        <span className="spanText">Role</span>
-                                        <span className="spanText">08/11/2023</span>
-                                    </div>
-                                    <div className="d-flex justify-content-between pt-2">
-                                        <span className="savedText">Product Manager</span>
+                    <Row >
+                        {favData?.map((item) => (
+                            <Col xl={3} className="ms-lg-5  my-lg-4 interviewcard me-lg-5" >
 
-                                    </div>
-                                    <span className="questionText d-flex pt-1">Question</span>
-                                    <span className="cardText d-flex pt-1">How do you approach understanding customer needs and pain points?</span>
 
-                                    <span className="d-flex justify-content-end pt-2"><Image src={view} className="viewImage" /></span>
-                                </Card.Body>
-                            </Card></Col>
-                        <Col xl={3} className="ms-lg-2  my-lg-4">
-                            <Card className=" ps-1 cardBodyfav" >
-                                <Card.Body >
-                                    <div className="d-flex justify-content-between">
-                                        <span className="spanText">Role</span>
-                                        <span className="spanText">08/11/2023</span>
-                                    </div>
-                                    <div className="d-flex justify-content-between pt-2">
-                                        <span className="savedText">Product Manager</span>
+                                <Card className=" ps-1 cardBody" >
+                                    <Card.Body >
+                                        <div className="d-flex justify-content-between">
+                                            <span className="spanText">Role</span>
+                                            <span className="spanText">{item.created_at.slice(0, 10)}</span>
+                                        </div>
+                                        <div className="d-flex justify-content-between pt-2">
+                                            <span className="savedText">{item.role}</span>
 
-                                    </div>
-                                    <span className="questionText d-flex pt-1">Question</span>
-                                    <span className="cardText d-flex pt-1">How do you approach understanding customer needs and pain points?</span>
+                                        </div>
+                                        <span className="questionText d-flex pt-1">Question</span>
+                                        <span className="cardText d-flex pt-1">{item.question}</span>
 
-                                    <span className="d-flex justify-content-end pt-2"><Image src={view} className="viewImage" /></span>
-                                </Card.Body>
-                            </Card>
-                        </Col>
+                                        <span className="d-flex justify-content-end pt-2 cursor" ><Image src={view} className="viewImage" onClick={() => viewSavedAnswer(item.id)} /></span>
+                                    </Card.Body>
+                                </Card>
+                            </Col>))}
+
 
                     </Row>}
             </Container>
@@ -442,7 +561,8 @@ export default function InterviewPrep() {
                         <Image variant="top" className='socialImg' src={welcomeimg} />
                         <span className="welcomelable">Welcome to our app
                         </span>
-                        <span className="welcomeText">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry.</span>
+                        <span className="welcomeText mt-4">
+                            </span>
                         <span>
                             <Button className='letsGo' type="submit" onClick={showUpload}>Let’s Go!</Button>
                         </span>
@@ -507,20 +627,6 @@ export default function InterviewPrep() {
                                     {selectedFile.name} ({(selectedFile.size / (1024 * 1024)).toFixed(2)} MB)
 
                                 </p>
-
-                                <input
-                                    type="file"
-                                    id="fileInput"
-                                    style={{ display: 'none' }}
-                                    onChange={handleFileSelect}
-                                    accept=".pdf, .docx"
-                                />
-                                {/* <span htmlFor="fileInput" className="cursor logincss" >Replace</span> */}
-                                {/* <Button className='letsGo cursor' type="submit" htmlFor="fileInput"> */}
-
-                                <label htmlFor="fileInput" className="cursor logincss"> Replace
-                                </label>
-                                {/* </Button> */}
                             </div>
                         )}
                     </div>
@@ -534,14 +640,6 @@ export default function InterviewPrep() {
                             <Form.Control as="textarea" required style={{ maxHeight: '90vh', minHeight: '30vh', background: 'linear-gradient(0deg, #F5F5F5, #F5F5F5)' }}
                                 onChange={handleTextAreaChange}
                             />
-
-                            {/* <div
-                                onDrop={handleDrop}
-                                onDragOver={handleDragOver}
-                                className="filePasteContainer"
-                            >
- 
-                            </div> */}
                         </div>
                         <span className="d-flex justify-content-end me-2">
                             <Button className='submitbtncss' type="submit" onClick={PasteResume} >Submit</Button>
@@ -562,11 +660,8 @@ export default function InterviewPrep() {
                         <Image variant="top" className='socialImg' src={welcomeimg} />
                         <span className="welcomelable">Welcome to our app
                         </span>
-                        <WelcomePage />
-                        {/* <span className="welcomeText">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry.</span>
-                        <span>
-                            <Button className='letsGo' type="submit" onClick={showUpload}>Let’s Go!</Button>
-                        </span> */}
+                        <WelcomePage closeModal={handleClose1} />
+
                     </div>
                 </Modal.Body>
             </Modal>
@@ -582,36 +677,16 @@ export default function InterviewPrep() {
                                 <Row >
                                     <Col lg={6}>
                                         <Form.Control
-                                            as="select"
-                                            required
-                                            name='role'
-                                            value={selectedOption}
-                                            onChange={handleChange}
-                                        >
-                                            <option value="">Choose Role</option>
-                                            <option value="Product Manager">Product Manger</option>
-                                            <option value="Manager">Manager</option>
-                                            <option value="other">Other</option>
-                                        </Form.Control>
-                                    </Col>
-                                   {showText ? <Col lg={6}>
-                                        <Form.Control
                                             type='text'
                                             className='textcontainer'
                                             name='role'
                                             placeholder="Enter Role"
                                             onChange={handleChange1}
                                             required
-                                        /></Col> :''}
-                                        
-                                        </Row>
-                                {/* <Select
-                                    value={selectedOption}
-                                    onChange={handleChange}
-                                    options={options}
-                                    isClearable
-                                    placeholder="Type to search..."
-                                /> */}
+                                        /></Col>
+
+
+                                </Row>
                                 <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
                             </Form.Group>
                         </div>
@@ -628,11 +703,8 @@ export default function InterviewPrep() {
                                         onChange={handleImageUpload1}
                                         accept=".pdf, .docx"
                                     />
-                                    {/* <Button className='letsGo cursor' type="submit" htmlFor="fileInput"> */}
-
                                     <label htmlFor="fileInput" className="cursor"> Upload
                                     </label>
-                                    {/* </Button> */}
 
                                 </div>
 

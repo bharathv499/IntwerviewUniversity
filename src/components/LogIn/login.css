@@ -126,6 +126,10 @@
     padding-left: 0px;
 }
 
+.loginimgcontainer{
+    height: 578px !important;
+}
+
 .custom-img {
     height: 100vh;
     /* 100% of the viewport height */

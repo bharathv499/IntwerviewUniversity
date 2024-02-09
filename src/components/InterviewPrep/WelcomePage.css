@@ -2,7 +2,12 @@
     display: flex;
     align-items: center;
   }
-  
+  .step-error{
+    color: #dc3545;
+    font-size: 14px;
+    font-family: 'SpaceGrotesk-Medium';
+    display: flex;
+  }
   .dot-container {
     text-align: center;
     display: flex;

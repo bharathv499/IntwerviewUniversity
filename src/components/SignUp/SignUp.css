@@ -114,6 +114,10 @@
     /* Cover the entire container while maintaining aspect ratio */
 }
 
+.imgcontainer{
+    height: 775px !important;
+}
+
 .loginrow  .form-control {
     display: block;
     width: 100%;
