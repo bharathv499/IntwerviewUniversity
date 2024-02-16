@@ -101,13 +101,13 @@
 
 .customtxt {
   color: rgba(123, 123, 123, 1);
-  font-size: 18px;
+  font-size: 24px;
   font-family: 'DMSans-Regular';
 }
 
 .customtxt1 {
   color: rgba(0, 0, 0, 1);
-  font-size: 18px;
+  font-size: 24px;
   font-family: 'SpaceGrotesk-Bold';
 }
 
@@ -203,6 +203,11 @@
   display: block;
 }
 
+.success-img{
+  height: 800px;
+  max-width: 100%;
+}
+
 @media (max-width:991px) {
   .imagemargin {
     margin-top: 0px !important;
@@ -280,6 +285,51 @@
     font-family: 'DMSans-Medium';
     font-size: 20px;
   }
+
+  .customtxt {
+    color: rgba(123, 123, 123, 1);
+    font-size: 16px;
+    font-family: 'DMSans-Regular';
+  }
+  
+  .customtxt1 {
+    color: rgba(0, 0, 0, 1);
+    font-size: 16px;
+    font-family: 'SpaceGrotesk-Bold';
+  }
+  
+  .featuretxt {
+    font-family: 'SpaceGrotesk-Bold';
+    color: rgba(0, 115, 179, 1);
+    font-size: 28px;
+  }
+
+  .customheader {
+    font-family: 'SpaceGrotesk-Bold';
+    color: rgba(0, 0, 0, 1);
+    font-size: 22px;
+  }
+  
+  .landing-text {
+    padding: 10px !important;
+  }
+  .success-img{
+    height: 500px;
+    max-width: 100%;
+  }
+
+  .startbtn {
+    font-family: 'DMSans-Bold';
+    font-size: 20px !important;
+    background: #00A877 !important;
+    border-color: #00A877 !important;
+    border-radius: 12px;
+    margin-top: 15px !important;
+    padding: 7px !important;
+    box-shadow: 0px 0px 39px 0px rgba(0, 168, 119, 0.5);
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+}
 }
 
 
@@ -292,4 +342,49 @@
   .socialimg1 {
     height: 6px;
   }
+
+  .customtxt {
+    color: rgba(123, 123, 123, 1);
+    font-size: 14px;
+    font-family: 'DMSans-Regular';
+  }
+  
+  .customtxt1 {
+    color: rgba(0, 0, 0, 1);
+    font-size: 14px;
+    font-family: 'SpaceGrotesk-Bold';
+  }
+
+  .featuretxt {
+    font-family: 'SpaceGrotesk-Bold';
+    color: rgba(0, 115, 179, 1);
+    font-size: 28px;
+  }
+
+  .customheader {
+    font-family: 'SpaceGrotesk-Bold';
+    color: rgba(0, 0, 0, 1);
+    font-size: 20px;
+  }
+  .landing-text {
+    padding: 10px !important;
+  }
+
+  .success-img{
+    height: 400px;
+    max-width: 100%;
+  }
+
+  .startbtn {
+    font-family: 'DMSans-Bold';
+    font-size: 18px !important;
+    background: #00A877 !important;
+    border-color: #00A877 !important;
+    border-radius: 12px;
+    margin-top: 15px !important;
+    padding: 7px !important;
+    box-shadow: 0px 0px 39px 0px rgba(0, 168, 119, 0.5);
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+}
 }

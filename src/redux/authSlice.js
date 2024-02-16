@@ -422,20 +422,20 @@ const authSlice = createSlice({
         [signUpUser.fulfilled]: (state,action) => {
             state.loading = false;
 
-            if(action.payload.key){
-                toast.success('Sign-up Successful!', {
-                    position: toast.POSITION.TOP_RIGHT,
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                });
-            } else{
-                const error= action.payload.email[0];
-                toast.error(error, {
-                    position: toast.POSITION.TOP_RIGHT,
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                });
-            }
+            // if(action.payload.key){
+            //     toast.success('Sign-up Successful!', {
+            //         position: toast.POSITION.TOP_RIGHT,
+            //         autoClose: 2000,
+            //         hideProgressBar: true,
+            //     });
+            // } else{
+            //     const error= action.payload.email[0];
+            //     toast.error(error, {
+            //         position: toast.POSITION.TOP_RIGHT,
+            //         autoClose: 2000,
+            //         hideProgressBar: true,
+            //     });
+            // }
 
 
 

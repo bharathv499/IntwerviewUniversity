@@ -47,7 +47,7 @@ export default function LandingPage() {
                         <p className="banner-desc gray-text  pe-lg-5 me-lg-3">
                             Stop Losing $300K Throughout Your Career - Embrace Personalized Interview Coaching and Custom Questions Tailored Just for You.
                         </p>
-                        <div>
+                        <div className='d-flex d-md-block d-xl-block d-lg-block  justify-content-center'>
                             <Button className='startbtn'>Get Started  <Image src={arrow1} variant="top" /></Button>
                             {/* <Image src={startimg}  variant="top" /> */}
                         </div>
@@ -76,8 +76,8 @@ export default function LandingPage() {
 
                     </Col>
                     <Col xs={12} lg={5} className="text-col">
-                        <Image variant="top" src={rectangle} /><br></br>
-                        <span className='featuretxt'>Credibility boost</span>
+                    <span className='d-flex d-md-block d-xl-block d-lg-block  justify-content-center'> <Image  variant="top" src={rectangle} /></span>
+                        <span className='featuretxt d-flex d-md-block d-xl-block d-lg-block  justify-content-center'>Credibility boost</span>
                         <p className='customtxt'>Multiple offers yield increased negotiating leverage, don’t leave $1000’s on the table</p>
 
                     </Col>
@@ -85,11 +85,11 @@ export default function LandingPage() {
 
             </Container>
 
-            <Container fluid className='ms-lg-3 me-lg-3 landing-text'>
+            <Container fluid className='ms-lg-3 me-lg-3 landing-text pb-0'>
                 <Row className="no-gutters ms-lg-2">
-                    <Col xs={12} lg={5} className="text-col">
-                        <Image variant="top" src={rectangle} /><br></br>
-                        <span className='featuretxt'>How it Works</span>
+                    <Col xs={12} lg={5} className="text-col ">
+                       <span className='d-flex d-md-block d-xl-block d-lg-block  justify-content-center'> <Image  variant="top" src={rectangle} /></span>
+                        <span className='featuretxt d-flex d-md-block d-xl-block d-lg-block  justify-content-center'>How it Works</span>
                         <p>
                             <h6 className='customtxt1'>Personalized AI Interview Coaching:</h6>
                             <p className='customtxt'>Upload your resume and job description — Zunamu's AI Interview preparation does the rest, curating interview questions precisely, so they are handpicked for your goals.</p>
@@ -102,7 +102,7 @@ export default function LandingPage() {
 
                     </Col>
                     <Col xs={12} lg={7} className="image-col d-flex d-none d-lg-block">
-                        <Image variant="top" fluid src={success} />
+                        <Image variant="top"  src={success} className='success-img' />
 
                     </Col>
                     <Col xs={12} lg={7} className="image-col d-flex d-block d-lg-none">
@@ -113,13 +113,13 @@ export default function LandingPage() {
                 </Row>
 
             </Container>
-            <Container fluid className='ms-lg-3 me-lg-3 landing-text'>
-                <Row className="no-gutters ms-lg-2">
+            <Container fluid className='ms-lg-3 me-lg-3 landing-text  '>
+                <Row className="no-gutters ms-lg-2 ">
 
                     <Col xs={12} lg={6} className="image-col ">
-                        <Image variant="top" src={rectangle} /><br></br>
+                    <span className='d-flex d-md-block d-xl-block d-lg-block  justify-content-center'> <Image  variant="top" src={rectangle} /></span>
 
-                        <span className='featuretxt'>Features</span>
+                        <span className='featuretxt d-flex d-md-block d-xl-block d-lg-block  justify-content-center'>Features</span>
                     </Col>
                     <Col xs={12} lg={6} className="text-col">
 
@@ -127,20 +127,20 @@ export default function LandingPage() {
                 </Row>
 
             </Container>
-            <Container fluid className='ms-lg-3 me-lg-3 landing-text pb-0'>
+            <Container fluid className='ms-lg-3 me-lg-3 landing-text pb-0 '>
                 <Row className="no-gutters ms-lg-2">
-                    <Col xs={12} lg={2} className="image-col">
+                    <Col xs={12} lg={2} className="image-col  d-flex d-md-block d-xl-block d-lg-block  justify-content-center">
                         <Image variant="top" fluid src={feature} />
                     </Col>
-                    <Col xs={12} lg={4} className="image-col">
+                    <Col xs={12} lg={4} className="image-col ">
 
                         <span className='customheader'>Custom AI Questions</span>
                         <p className='customtxt'>Generic is out, specificity is in. Your interviews deserve more than one-size-fits-all.</p>
                     </Col>
-                    <Col xs={12} lg={2} className="image-col ">
+                    <Col xs={12} lg={2} className="image-col  d-flex d-md-block d-xl-block d-lg-block justify-content-center">
                         <Image variant="top" fluid src={offer} />
                     </Col>
-                    <Col xs={12} lg={4} className="image-col ">
+                    <Col xs={12} lg={4} className="image-col mt-xl-0 mt-lg-0 mt-3">
 
                         <span className='customheader'>Narrative Crafting</span>
                         <p className='customtxt'>You're not just answering questions; you're telling your story, chapter by impressive chapter.</p>
@@ -150,7 +150,7 @@ export default function LandingPage() {
 
             <Container fluid className='ms-lg-3 me-lg-3 landing-text pb-0'>
                 <Row className="no-gutters ms-lg-2">
-                    <Col xs={12} lg={2} className="image-col ">
+                    <Col xs={12} lg={2} className="image-col  d-flex d-md-block d-xl-block d-lg-block justify-content-center">
                         <Image variant="top" fluid src={phone} />
                     </Col>
                     <Col xs={12} lg={4} className="image-col ">
@@ -158,7 +158,7 @@ export default function LandingPage() {
                         <span className='customheader'>Foundational Experiences</span>
                         <p className='customtxt'>We highlight your professional milestones, ensuring they shine in the spotlight.</p>
                     </Col>
-                    <Col xs={12} lg={2} className="image-col ">
+                    <Col xs={12} lg={2} className="image-col  d-flex d-md-block d-xl-block d-lg-block justify-content-center">
                         <Image variant="top" fluid src={phone} />
                     </Col>
                     <Col xs={12} lg={4} className="image-col ">

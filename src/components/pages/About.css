@@ -1,7 +1,6 @@
 /* AboutUsPage.css */
 .about-us-container {
-  /* padding: 30px; */
-  /* Add padding for spacing */
+  padding: 40px !important;
 }
 
 .no-gutters {
@@ -23,9 +22,8 @@
 
 .our-origin {
   height: 285px !important;
-  /* Full height of the container */
+  width: 600px;
   object-fit: cover;
-  /* Cover the entire container while maintaining aspect ratio */
 }
 .text-col {
   padding: 25px;
@@ -41,6 +39,18 @@
   font-family: 'SpaceGrotesk-Bold';
 }
 
+.uniquetext{
+  color: rgba(0, 115, 179, 1);
+  font-family: 'SpaceGrotesk-Bold';
+  font-size: 36px;
+}
+.aboutus-text {
+  color: rgba(0, 115, 179, 1);
+  font-family: 'SpaceGrotesk-Bold';
+  display: flex;
+  align-items: center;
+  justify-content:center
+}
 .aboutustext {
   color: #A9A9A9;
   font-size: 40px;
@@ -65,8 +75,20 @@
   justify-content: center;
   align-items: center;
 }
-
-
+.journyimg{
+  height: 360px;
+  width: 500px;
+}
+.customabttxt {
+  color: rgba(123, 123, 123, 1);
+  font-size: 22px;
+  font-family: 'DMSans-Regular';
+}
+.firsttext{
+  color: rgba(255, 255, 255, 1);
+  font-family: 'SpaceGrotesk-Bold';
+  font-size: 36px;
+}
 @media (max-width: 767px) {
 
   .image-col,
@@ -82,5 +104,63 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+  }
+
+  .our-origin {
+    height: 200px !important;
+    width: 600px;
+    object-fit: cover;
+  }
+
+  .journyimg{
+    height: 260px;
+    width: 500px;
+  }
+  .customabttxt {
+    color: rgba(123, 123, 123, 1);
+    font-size: 18px;
+    font-family: 'DMSans-Regular';
+  }
+
+  .uniquetext{
+    color: rgba(0, 115, 179, 1);
+    font-family: 'SpaceGrotesk-Bold';
+    font-size: 23px;
+  }
+  .firsttext{
+    color: rgba(255, 255, 255, 1);
+    font-family: 'SpaceGrotesk-Bold';
+    font-size: 23px;
+  }
+  .about-us-container {
+    padding: 25px !important;
+    padding-top: 1px !important;
+  }
+}
+
+@media (max-width:290px) {
+  .our-origin {
+    height: 180px !important;
+    width: 600px;
+    object-fit: cover;
+  }
+  .customabttxt {
+    color: rgba(123, 123, 123, 1);
+    font-size: 18px;
+    font-family: 'DMSans-Regular';
+  }
+  .uniquetext{
+    color: rgba(0, 115, 179, 1);
+    font-family: 'SpaceGrotesk-Bold';
+    font-size: 23px;
+  }
+  .firsttext{
+    color: rgba(255, 255, 255, 1);
+    font-family: 'SpaceGrotesk-Bold';
+    font-size: 23px;
+  }
+  .about-us-container {
+    padding: 22px !important;
+    padding-top: 1px !important;
   }
 }

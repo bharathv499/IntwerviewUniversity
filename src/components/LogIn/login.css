@@ -17,20 +17,19 @@
     font-family: "Roboto-bold";
 }
 
-.socialgoogle {
+/* .socialgoogle {
     height: 36px;
-    margin-left: 25px;
     cursor: pointer;
-}
+} */
 
 .socialface {
     height: 40px;
     cursor: pointer;
 }
 
-.socialapple {
+/* .socialapple {
     height: 45px;
-}
+} */
 
 .applebtn {
     background-color: white;
@@ -243,20 +242,19 @@
 
   
 
-    .socialgoogle {
+    /* .socialgoogle {
         height: 15px;
-        margin-left: 18px;
         cursor: pointer;
-    }
+    } */
 
     .socialface {
         height: 18px;
         cursor: pointer;
     }
 
-    .socialapple {
+    /* .socialapple {
         height: 20px;
-    }
+    } */
 
     .applebtn {
         background-color: white;
@@ -335,7 +333,7 @@
 
     .labelforget {
         font-family: 'SpaceGrotesk-Medium';
-        font-size: 6px;
+        font-size: 11px;
         cursor: pointer;
         margin-left: 0px;
     }
@@ -358,20 +356,19 @@
         font-family: "Roboto-bold";
     }
 
-    .socialgoogle {
+    /* .socialgoogle {
         height: 15px;
-        margin-left: 18px;
         cursor: pointer;
-    }
+    } */
 
     .socialface {
         height: 18px;
         cursor: pointer;
     }
 
-    .socialapple {
+    /* .socialapple {
         height: 20px;
-    }
+    } */
 
     .applebtn {
         background-color: white;
@@ -451,7 +448,7 @@
 
     .labelforget {
         font-family: 'SpaceGrotesk-Medium';
-        font-size: 7px;
+        font-size: 11px;
         cursor: pointer;
         margin-left: 0px;
     }
@@ -474,20 +471,19 @@
         font-family: "Roboto-bold";
     }
 
-    .socialgoogle {
+    /* .socialgoogle {
         height: 15px;
-        margin-left: 18px;
         cursor: pointer;
-    }
+    } */
 
     .socialface {
         height: 18px;
         cursor: pointer;
     }
 
-    .socialapple {
+    /* .socialapple {
         height: 20px;
-    }
+    } */
 
     .applebtn {
         background-color: white;

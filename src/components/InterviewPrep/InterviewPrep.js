@@ -608,10 +608,11 @@ export default function InterviewPrep() {
                                         onChange={handleImageUpload}
                                         accept=".pdf, .docx"
                                     />
-                                    <Button className='letsGo cursor' type="submit" htmlFor="fileInput">
+                                    {/* <Button className='letsGo cursor' type="submit" htmlFor="fileInput"> */}
 
-                                        <label htmlFor="fileInput" className="cursor"> Browse file
-                                        </label></Button>
+                                        <label htmlFor="fileInput" className="cursor letsGo"> Browse file
+                                        </label>
+                                        {/* </Button> */}
                                     <p className="support">Supports: docx, pdf</p>
 
                                 </div>

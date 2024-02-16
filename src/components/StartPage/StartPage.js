@@ -172,8 +172,7 @@ const StartPage = () => {
         method: "post",
         url: 'https://round-unit-43333.botics.co/modules/social-auth/apple/login/',
         headers: {
-          "Content-Type": "application/json",
-          'Authorization': `token ${localStorage.getItem('token')}`
+          "Content-Type": "application/json"
         },
         data: data
       }
@@ -190,7 +189,9 @@ const StartPage = () => {
               hideProgressBar: true,
             });
 
-            if (appleResponse.payload.key) {
+            if (appleResponse.data.key) {
+              localStorage.setItem('token', appleResponse.data.key)
+              localStorage.setItem('isAuthenticated',true)
               navigate('/interview')
               toast.success('Login Successful!', {
                 position: toast.POSITION.TOP_RIGHT,
@@ -309,7 +310,7 @@ const StartPage = () => {
                           </button>
                         )}
                       />
-                      <FacebookLoginButton onFacebookLogin={responseFacebook} />
+                      {/* <FacebookLoginButton onFacebookLogin={responseFacebook} /> */}
 
                       <Image src={google} alt="Image" className='socialgoogle' onClick={() => {
                         handleGoogleSignInAPI()

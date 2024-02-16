@@ -29,7 +29,7 @@ export default function InterviewQuestion() {
   
     const [questionData, setQuestionData] = useState([]);
     const [answerData, setanswerData] = useState('');
-
+   
     const location = useLocation();
     const [selectedItem, setSelectedItem] = useState('');
     const [isClicked, setIsClicked] = useState(false);
@@ -112,7 +112,9 @@ export default function InterviewQuestion() {
                 userdata
             ]
         }
-
+        setAnswers([])
+        setanswerData('')
+        setInputAnswerData('')
         dispatch(getQuestion(body))
             .then((result) => {
                 console.log(result, "res")
@@ -170,8 +172,7 @@ export default function InterviewQuestion() {
             });
 
     }
-    console.log(answerData, "answerData")
-
+  
     const favanswer = () => {
 
         if (answerData.length === 0 && inputAnswerData === '') {
@@ -225,8 +226,7 @@ export default function InterviewQuestion() {
             [`answer_${num}`]: answer
         }));
     };
-    console.log(answers, "answers")
-
+   
     const saveData = () => {
         setLoading(true)
         answers.role = userdata.role
@@ -236,7 +236,7 @@ export default function InterviewQuestion() {
 
         if (questionKeys.length !== 5 || answerKeys.length !== 5) {
             setLoading(false)
-            toast.error("Please provide all questions answers", {
+            toast.error("Answering all questions should be required", {
                 position: toast.POSITION.TOP_RIGHT,
                 autoClose: 2000,
                 hideProgressBar: true,
@@ -251,7 +251,9 @@ export default function InterviewQuestion() {
                         hideProgressBar: true,
                     });
 
-                    console.log(result, "re")
+                    // setAnswers([])
+                    // setanswerData('')
+                    // setInputAnswerData('')
 
                 })
                 .catch((error) => {

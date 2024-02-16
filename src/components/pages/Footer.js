@@ -8,8 +8,8 @@ import facebook from '../../assets/images/facebook1.svg'
 import './Footer.css'
 const Footer = () => {
   return (
-    <footer className="text-light py-3 px-3" style={{ backgroundColor: '#0073B3', color: '#FFFFFF', marginTop: 'auto' }}>
-      <Container>
+    <footer className="text-light py-3 px-3 px-3 px-sm-4 px-md-5 px-lg-5 px-xl-5" style={{ backgroundColor: '#0073B3', color: '#FFFFFF', marginTop: 'auto' }}>
+      {/* <Container> */}
     
         <Row >
           <Col xl={6} className='footerContainer'>
@@ -30,7 +30,7 @@ const Footer = () => {
         <span className='footerrow'>
         <Row xl={12} >
           <Col className='footertext1 order' xs={12} lg={4} md={4}>
-            <span>© 2023 Interview University. All rights reserved.</span>
+            <span>© 2023 Zunamu. All rights reserved.</span>
           </Col>
           <Col className='footerText' xs={12} lg={4} md={4}>
             <Image variant="top" className='footerimg' src={footerlogo} />
@@ -49,7 +49,7 @@ const Footer = () => {
             scelerisque ac auctor. Diam pellentesque elit odio elementum est vel bibendum at curabitur. Morbi et ipsum ante quis sapien sed.
           </Col>
         </Row>
-      </Container>
+      {/* </Container> */}
     </footer>
   );
 };

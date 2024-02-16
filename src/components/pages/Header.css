@@ -84,6 +84,10 @@
 
 }
 
+.mainContainer{
+    display: flex;
+    justify-content: space-around;
+}
 
 .notification {
     height: 25px !important;
@@ -155,6 +159,9 @@
         z-index: 9999;
         color: white;
     }
+    .img {
+        height: 40px !important;
+    }
 }
 
 @media (max-width:650px) {
@@ -174,6 +181,9 @@
         height: 100vh;
         z-index: 9999;
         color: white;
+    }
+    .img {
+        height: 22px !important;
     }
 
 }
@@ -197,4 +207,7 @@
         color: white;
     }
 
+    .img {
+        height: 20px !important;
+    }
 }

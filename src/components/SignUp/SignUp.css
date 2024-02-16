@@ -78,12 +78,6 @@
     font-size: 14px;
 }
 
-.labelforget {
-    font-family: 'SpaceGrotesk-Medium';
-    font-size: 14px;
-    cursor: pointer;
-    margin-left: 50px;
-}
 
 .formgr {
     margin-bottom: 20px;
@@ -192,12 +186,7 @@
         font-size: 12px;
     }
 
-    .labelforget {
-        font-family: 'SpaceGrotesk-Medium';
-        font-size: 12px;
-        cursor: pointer;
-        margin-left: 16px;
-    }
+   
 
     .formgr {
         margin-bottom: 12px;
@@ -293,15 +282,10 @@
 
     .labelcss1 {
         font-family: 'SpaceGrotesk-Medium';
-        font-size: 6px;
+        font-size: 12px;
     }
 
-    .labelforget {
-        font-family: 'SpaceGrotesk-Medium';
-        font-size: 6px;
-        cursor: pointer;
-        margin-left: 0px;
-    }
+ 
 
     .formgr {
         margin-bottom: 4px;
@@ -322,7 +306,7 @@
     }
 
     .socialgoogle {
-        height: 15px;
+        height: 30px;
         margin-left: 18px;
     }
 
@@ -331,7 +315,7 @@
     }
 
     .socialapple {
-        height: 20px;
+        height: 37px;
     }
 
     .applebtn {
@@ -429,7 +413,7 @@
     }
 
     .socialgoogle {
-        height: 15px;
+        height: 28px;
         margin-left: 18px;
     }
 
@@ -438,7 +422,7 @@
     }
 
     .socialapple {
-        height: 20px;
+        height: 35px;
     }
 
     .applebtn {

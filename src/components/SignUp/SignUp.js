@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, redirect, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import AppleLogin from 'react-apple-login'
@@ -126,9 +126,13 @@ export default function SignUp() {
         if (!isEmailValid(email)) {
             validationErrors.email = "Please enter a valid email address.";
         }
+        // if(password.length < 8){
+        //     validationErrors.password = "password length should be 8 character long";
+        // }
         if (!isPasswordValid(password)) {
             validationErrors.password = "Please enter a valid password";
         }
+        
         if (!isConfirmPasswordValid(confirm_password)) {
             validationErrors.confirm_password = "Please enter a valid password";
         }
@@ -149,7 +153,24 @@ export default function SignUp() {
             setConfirm_password("");
             setTnc(false);
             dispatch(signUpUser(body))
-            
+                .then((result) => {
+                    if(result.payload.key){
+                        toast.success('Sign-up Successful!', {
+                            position: toast.POSITION.TOP_RIGHT,
+                            autoClose: 2000,
+                            hideProgressBar: true,
+                        });
+                        navigate('/')
+                    } else{
+                        const error= result.payload.email[0];
+                        toast.error(error, {
+                            position: toast.POSITION.TOP_RIGHT,
+                            autoClose: 2000,
+                            hideProgressBar: true,
+                        });
+                    }
+                })
+
         }
         setErrors({});
     };
@@ -309,8 +330,7 @@ export default function SignUp() {
                 method: "post",
                 url: 'https://round-unit-43333.botics.co/modules/social-auth/apple/login/',
                 headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': `token ${localStorage.getItem('token')}`
+                    "Content-Type": "application/json"
                 },
                 data: data
             }
@@ -327,7 +347,9 @@ export default function SignUp() {
                             hideProgressBar: true,
                         });
 
-                        if (appleResponse.payload.key) {
+                        if (appleResponse.data.key) {
+                            localStorage.setItem('token', appleResponse.data.key)
+                            localStorage.setItem('isAuthenticated',true)
                             navigate('/interview')
                             toast.success('Login Successful!', {
                                 position: toast.POSITION.TOP_RIGHT,
@@ -433,6 +455,7 @@ export default function SignUp() {
             const updatedErrors = { ...errors };
 
             delete updatedErrors.confirm_password_matches;
+            delete updatedErrors.confirm_password;
 
             setErrors(updatedErrors);
         }
@@ -451,10 +474,10 @@ export default function SignUp() {
                             <Card className="flex-fill no-margin loginImage imgcontainer">
                                 <Card.Body>
                                     <div className='logocss loginmargin1'>
-                                    <Image variant="top" className="img-fluid" style={{height:48}} src={mainlogo} />
+                                        {/* <Image variant="top" className="img-fluid" style={{ height: 48 }} src={mainlogo} /> */}
                                     </div>
                                     <div className='logocss d-none d-lg-block'>
-                                        <Image variant="top" className="img-fluid custom-img" style={{height:500}} src={loginside} />
+                                        <Image variant="top" className="img-fluid custom-img" style={{ height: 500 }} src={loginside} />
                                     </div>
                                 </Card.Body>
                             </Card>
@@ -488,7 +511,7 @@ export default function SignUp() {
                                                 </button>
                                             )}
                                         />
-                                        <FacebookLoginButton onFacebookLogin={responseFacebook} />
+                                        {/* <FacebookLoginButton onFacebookLogin={responseFacebook} /> */}
 
                                         <Image src={google} alt="Image" className='socialgoogle' onClick={() => {
                                             handleGoogleSignInAPI()

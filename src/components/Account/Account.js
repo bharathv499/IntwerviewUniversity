@@ -56,6 +56,7 @@ export default function Account() {
                 formData.linkedin = data.linkedin;
                 setgender(data.gender)
                 setSelectedImage(data.avatar_signed_url);
+                
             })
             .catch((error) => {
                 console.log(error)
@@ -85,10 +86,22 @@ export default function Account() {
                 },
                 data: formData1
             };
-
+            localStorage.removeItem('photo')
             axios.request(config)
                 .then((response) => {
-                    setSelectedImage(response.data.avatar);
+                    //window.location.reload();
+                    
+                   
+                    dispatch(getUserProfile())
+                    .then((result) => {
+                        const data=result.payload;
+                        setSelectedImage(data.avatar_signed_url);
+                        localStorage.setItem('photo',true)
+                        
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    });
                 })
                 .catch((error) => {
                     console.log(error);
@@ -189,7 +202,7 @@ export default function Account() {
                                 </Col>
                                 <Col lg={8}>
                                     <div className="row mb-2 account-row">
-                                        <div className="col-sm">
+                                        <div className="col-sm"  style={{ paddingTop: 5 }}>
                                             <Form.Group controlId="exampleForm.SelectCustom">
                                                 <Form.Label className="text-start labelcss">Full Name</Form.Label>
                                                 <Form.Control
@@ -205,7 +218,7 @@ export default function Account() {
                                         </div>
                                         <div className="col-sm" style={{ paddingTop: 5 }}>
                                             <Form.Group controlId="exampleForm.SelectCustom">
-                                                <Form.Label className="text-start labelcss">Linkedin</Form.Label>
+                                                <Form.Label className="text-start labelcss">Linkedin Url</Form.Label>
                                                 <Form.Control
                                                     type='text'
                                                     className='textcontainer'

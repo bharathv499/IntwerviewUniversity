@@ -17,37 +17,41 @@ import ResetPass from './components/ForgetPassword/ResetPass';
 import Sidebar from './components/Account/Sidebar';
 import Favorite from './components/InterviewPrep/Favorite';
 import ViewSavedSession from './components/InterviewPrep/ViewSavedSession';
-
+import React, { useState } from 'react'
 
 function App() {
+
+  const [profilePhoto, setProfilePhoto] = useState(null);
+
   return (
     <div className="App">
-     
+
       <Router>
-      <Header />
+      <Header  />
         <Routes>
-          <Route path='/login' element={<LogIn/>} />
-          <Route path='/home' element={<LandingPage/>} />
-          <Route path='/about' element={<About/>} />
-          <Route path='/signup' element={<SignUp/>} />
-          <Route path='/forgetpassword' element={<ForgetPassword/>} />
-          <Route path='/account' element={<Account/>}/>
-          <Route path='/feedback' element={<Feedback/>}/>
-          <Route path='/' element={<StartPage/>}/>
-          <Route path='/interview' element={<InterviewPrep/>}/>
-          <Route path='/experience' element={<ProfessionalExperience/>} />
-          <Route path='/question' element={<InterviewQuestion/>} />
+         
+          <Route path='/login' element={<LogIn />} />
+          <Route path='/home' element={<LandingPage />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/signup' element={<SignUp />} />
+          <Route path='/forgetpassword' element={<ForgetPassword />} />
+          <Route path='/account' element={<Account />} />
+          <Route path='/feedback' element={<Feedback />} />
+          <Route path='/' element={<StartPage />} />
+          <Route path='/interview' element={<InterviewPrep />} />
+          <Route path='/experience' element={<ProfessionalExperience />} />
+          <Route path='/question' element={<InterviewQuestion />} />
           <Route exact path='/resetPassword' element={<ResetPass />} />
           <Route exact path='/sidebar' element={<Sidebar />} />
           <Route exact path='/Favorite/:id' element={< Favorite />} />
           <Route exact path='/viewsavedsession' element={<ViewSavedSession />} />
 
-          
+
 
         </Routes>
         <Footer />
       </Router>
-     
+
     </div>
   );
 }

@@ -17,23 +17,59 @@ export default function Header() {
   // const userName = localStorage.getItem('username')
   const userEmail = localStorage.getItem('email')
   const [userName, setUserName] = useState('');
+  const[selectedImage,setSelectedImage]=useState('');
   const [show, setShow] = useState(false);
   const [isloggedIn, setIsloggedIn] = useState(false);
   const dispatch=useDispatch();
   const isAuthenticated = localStorage.getItem('isAuthenticated');
+  const photo = localStorage.getItem('photo');
+ 
+  const [count, setCount] = useState(0);
+
   useEffect(() => {
+    const intervalId = setInterval(() => {
+      // Update component or state here
+      
+      setCount(prevCount => prevCount + 1);
+    }, 100); // 5000 milliseconds = 5 seconds
+   
+
+    return () => clearInterval(intervalId); // Cleanup function to clear interval on component unmount
+  }, []); 
+  useEffect(() => {
+
+    dispatch(getUserProfile())
+    .then((result) => {
+
+      const data = result.payload;
+      const full_name = data.full_name;
+      setUserName(full_name)
+      setSelectedImage(data.avatar_signed_url);
+    })
+    .catch((error) => {
+      console.log(error)
+    });
+
+  }, [isAuthenticated])
+
+  useEffect(() => {
+    setSelectedImage('')
     dispatch(getUserProfile())
       .then((result) => {
+        setSelectedImage('')
+        console.log(result,"resultdata")
 
         const data = result.payload;
         const full_name = data.full_name;
         setUserName(full_name)
+        setSelectedImage(data.avatar_signed_url);
       })
       .catch((error) => {
         console.log(error)
       });
 
-  }, [isAuthenticated])
+  }, [photo])
+ 
   const [menuDisplay, setMenuDisplay] = useState(false);
   const modalClose = () => setShow(false);
   const modalShow = () => setShow(true);
@@ -108,9 +144,10 @@ export default function Header() {
   }
   return (
     <div>
-      <Navbar expand="lg" className='headercss'>
+      <Navbar expand="xl" className='headercss px-3 px-sm-4 px-md-5 px-lg-5 px-xl-5'>
 
-        {isAuthenticated ? (<Container>
+        {isAuthenticated ? (
+         < >
           <Navbar.Brand href="/">
             <Image variant="top" className='img' src={mainlogo} />
           </Navbar.Brand>
@@ -122,15 +159,20 @@ export default function Header() {
             </Nav>
             <Nav className='headerimage'>
               <Image variant="top" className='notification cursor' src={notification} />
-              <Image variant="top" className='userimg cursor' onClick={() => setShow(true)} src={user} />
+              {!selectedImage &&<Image variant="top" className='userimg cursor' onClick={() => setShow(true)} src={user} />}
+              {selectedImage && <Image src={selectedImage} roundedCircle style={{ width: '45px',height: '45px', cursor: 'pointer' }} onClick={() => setShow(true)}/>}
               <span className='headercss1 ms-2' >
                 {userName}
                 {/* Greesky Schweirald */}
               </span>
             </Nav>
           </Navbar.Collapse>
-        </Container>) : (
-          <Container>
+        </>
+        
+        ) : (
+          <>
+            {/* fluid className="mainContainer mx-5 px-5" */}
+           
             <Navbar.Brand href="/">
               <Image variant="top" className='img' src={mainlogo} />
             </Navbar.Brand>
@@ -148,7 +190,8 @@ export default function Header() {
 
               </Nav>
             </Navbar.Collapse>
-          </Container>
+           </>
+          
         )}
 
         {menuDisplay && (
@@ -178,9 +221,9 @@ export default function Header() {
               (
                 <>
                   <div className='text-center '>
-                    <span className='navHeader my-2'>Home</span><hr />
+                    <span className='navHeader my-2' onClick={() => navigate("/home")}>Home</span><hr />
                     <span className='navHeader my-2'>FAQ</span><hr />
-                    <span className='navHeader my-2'>About us</span><hr />
+                    <span className='navHeader my-2' onClick={() => navigate("/about")}>About us</span><hr />
                     <span className='navHeader my-2'>Contact Us</span>
                   </div>
 
@@ -196,7 +239,10 @@ export default function Header() {
         <Modal show={show} onHide={modalClose} className="modalnotification">
 
           <Modal.Body style={{ padding: 0 }} className="modalcss">
-            <div className='header-modal mt-3' style={{ borderBottom: '1px solid rgba(255, 255, 255, 1)', paddingBottom: '10px' }}> <Image src={user} alt="User Photo" roundedCircle />
+            <div className='header-modal mt-3' style={{ borderBottom: '1px solid rgba(255, 255, 255, 1)', paddingBottom: '10px' }}>
+            {!selectedImage &&<Image src={user} alt="User Photo" roundedCircle />}
+              {selectedImage && <Image src={selectedImage} roundedCircle style={{ width: '45px',height: '45px', cursor: 'pointer' }} onClick={() => setShow(true)}/>}
+
               <Nav.Link className='modaltext mt-2'>{userName}</Nav.Link>
               <Nav.Link className='modaltext1'> {userEmail}</Nav.Link></div>
 
@@ -260,3 +306,4 @@ export default function Header() {
     </div>
   )
 }
+

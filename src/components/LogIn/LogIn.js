@@ -275,18 +275,18 @@ const LogIn = () => {
     if (response?.authorization?.id_token) {
       const { authorization } = response || {}
       const { id_token, code } = authorization || {}
-
+     
       const body = {
         id_token: id_token,
         access_token: code
       }
       let data = JSON.stringify(body)
+      
       let config = {
         method: "post",
         url: 'https://round-unit-43333.botics.co/modules/social-auth/apple/login/',
         headers: {
-          "Content-Type": "application/json",
-          'Authorization': `token ${localStorage.getItem('token')}`
+          "Content-Type": "application/json"
         },
         data: data
       }
@@ -303,7 +303,9 @@ const LogIn = () => {
               hideProgressBar: true,
             });
 
-            if (appleResponse.payload.key) {
+            if (appleResponse.data.key) {
+              localStorage.setItem('token', appleResponse.data.key)
+              localStorage.setItem('isAuthenticated',true)
               navigate('/interview')
               toast.success('Login Successful!', {
                 position: toast.POSITION.TOP_RIGHT,
@@ -386,7 +388,7 @@ const LogIn = () => {
               <Card className="flex-fill no-margin loginImage loginimgcontainer">
                 <Card.Body>
                   <div className='logocss loginmargin1 '>
-                    <Image variant="top" className="img-fluid" style={{height:48}} src={mainlogo} />
+                    {/* <Image variant="top" className="img-fluid" style={{height:48}} src={mainlogo} /> */}
                   </div>
                   <div className='logocss d-none d-lg-block' >
                     <Image variant="top" className="img-fluid custom-img"  src={loginside} />
@@ -405,6 +407,7 @@ const LogIn = () => {
                     <div className='lgimageflex'>
 
                       <AppleLogin
+                        // clientId={"com.round-unit-43333.serviceId"}
                         clientId={"com.round-unit-43333.serviceId"}
                         redirectURI={"https://round-unit-43333.botics.co/"}
                         usePopup={true}
@@ -423,7 +426,7 @@ const LogIn = () => {
                           </button>
                         )}
                       />
-                      <FacebookLoginButton onFacebookLogin={responseFacebook} />
+                      {/* <FacebookLoginButton onFacebookLogin={responseFacebook} /> */}
 
                       <Image src={google} alt="Image" className='socialgoogle' onClick={() => {
                         handleGoogleSignInAPI()

@@ -70,14 +70,15 @@
 
 .letsGo {
     font-family: 'DMSans-Bold';
-    font-size: 12px;
+    font-size: 16px;
     background: #00A877 !important;
     border-color: #00A877 !important;
-    border-radius: 24px;
+    border-radius: 14px;
     margin-top: 15px !important;
-    padding: 8px !important;
+    padding: 12px !important;
     padding-left: 70px !important;
     padding-right: 70px !important;
+    color: #F5F5F5;
 }
 
 .submitbtncss {

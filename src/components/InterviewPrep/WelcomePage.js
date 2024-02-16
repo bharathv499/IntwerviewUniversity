@@ -335,7 +335,7 @@ if(validateStep4()){
               <div className="row mb-2 account-row">
                 <div className="col-sm" style={{ paddingTop: 5 }}>
                   <Form.Group controlId="exampleForm.SelectCustom">
-                    <Form.Label className="d-flex labelcss">Linkedin</Form.Label>
+                    <Form.Label className="d-flex labelcss">Linkedin Url</Form.Label>
                     <Form.Control
                       type='text'
                       className='textcontainer'
