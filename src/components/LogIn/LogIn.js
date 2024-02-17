@@ -209,6 +209,7 @@ const LogIn = () => {
             axios
               .request(config)
               .then(response => {
+                localStorage.setItem("oauth","oauth")
                 localStorage.setItem("token", response.data.key)
                 googlelogin(response.data.key)
               })

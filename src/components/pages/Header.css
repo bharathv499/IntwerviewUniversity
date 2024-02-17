@@ -95,6 +95,8 @@
 
 .userimg {
     height: 45px !important;
+    border-radius: 50%;
+    border: 1px solid #fff;
     margin-left: 20px;
     cursor: pointer;
 }

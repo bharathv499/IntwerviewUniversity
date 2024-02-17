@@ -130,7 +130,21 @@ export default function SignUp() {
         //     validationErrors.password = "password length should be 8 character long";
         // }
         if (!isPasswordValid(password)) {
-            validationErrors.password = "Please enter a valid password";
+            if(!/[A-Z]/.test(password)){
+                validationErrors.password = "Password must contain at least one uppercase letter.";
+            }
+            if(!/[@$!%*?&]/.test(password)){
+                validationErrors.password = "Password must contain at least one special character.";
+            }
+            if(!/[a-z]/.test(password)){
+                validationErrors.password = "Password must contain at least one lowercase letter.";
+            }
+            if(!/[0-9]/.test(password)){
+                validationErrors.password = "Password must contain at least one numeric number.";
+            }
+            if(password.length < 8){
+                validationErrors.password = "Password must be at least 8 characters long.";
+            }
         }
 
         if (!isConfirmPasswordValid(confirm_password)) {
@@ -181,7 +195,8 @@ export default function SignUp() {
     };
     const isPasswordValid = (inputPassword) => {
         // return inputPassword.trim().length > 8;
-        const regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$/;
+        // const regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$/;
+        const regex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}/;
         return regex.test(inputPassword);
     };
 
