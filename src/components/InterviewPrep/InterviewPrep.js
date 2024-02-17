@@ -45,8 +45,9 @@ export default function InterviewPrep() {
   const [welcome1, setWelcome1] = useState(false);
   const [extractData, setextractData] = useState("");
 
-  const handleClose = () => setWelcome(false);
-  const handleClose1 = () => setWelcome1(false);
+  const getinitpopval = localStorage.getItem('initialquestpopup')
+
+
   const navigate = useNavigate();
 
   const [upload, setupload] = useState(false);
@@ -59,58 +60,76 @@ export default function InterviewPrep() {
   const [showdiv, setShowdiv] = useState(true);
   const [showPasteDiv, setshowPasteDiv] = useState(false);
 
-  useEffect(() => {
-    dispatch(getResume())
-      .then((result) => {
-        console.log(result, "getresume");
-        if (result?.payload?.file_name) {
-          setWelcome(false);
+  const handleClose = () => {
+    setWelcome(false);
+    localStorage.setItem('initialquestpopup', false)
+  }
 
-          dispatch(getInitiationQuestions())
-            .then((result) => {
-              console.log(result.payload, "favdata");
-              const data = result?.payload;
-              if (data.length > 0) {
-                setWelcome1(false);
-              } else {
-                setWelcome1(true);
-              }
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        } else {
-          dispatch(getPasteResume())
-            .then((result) => {
-              console.log(result.payload, "pasteresume");
-              if (result?.payload?.content != "") {
-                setWelcome(false);
-                dispatch(getInitiationQuestions())
-                  .then((result) => {
-                    console.log(result.payload, "favdata");
-                    const data = result?.payload;
-                    if (data.length > 0) {
-                      setWelcome1(false);
-                    } else {
-                      setWelcome1(true);
-                    }
-                  })
-                  .catch((error) => {
-                    console.log(error);
-                  });
-              } else {
-                setWelcome1(false);
-                setWelcome(true);
-              }
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const handleClose1 = () => {
+    setWelcome1(false);
+    localStorage.setItem('initialquestpopup', false)
+  };
+
+  const uploadClose = () => {
+    setupload(false);
+    localStorage.setItem('initialquestpopup', false)
+  }
+
+  useEffect(() => {
+    
+    if (getinitpopval == "true") {
+      dispatch(getResume())
+        .then((result) => {
+          console.log(result, "getresume");
+          if (result?.payload?.file_name) {
+            setWelcome(false);
+
+            dispatch(getInitiationQuestions())
+              .then((result) => {
+                console.log(result.payload, "favdata");
+                const data = result?.payload;
+                if (data.length > 0) {
+                  setWelcome1(false);
+                } else {
+                  setWelcome1(true);
+                }
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          } else {
+            dispatch(getPasteResume())
+              .then((result) => {
+                console.log(result.payload, "pasteresume");
+                if (result?.payload?.content != "") {
+                  setWelcome(false);
+                  dispatch(getInitiationQuestions())
+                    .then((result) => {
+                      console.log(result.payload, "favdata");
+                      const data = result?.payload;
+                      if (data.length > 0) {
+                        setWelcome1(false);
+                      } else {
+                        setWelcome1(true);
+                      }
+                    })
+                    .catch((error) => {
+                      console.log(error);
+                    });
+                } else {
+                  setWelcome1(false);
+                  setWelcome(true);
+                }
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
 
     dispatch(getFavoriteAnswer())
       .then((result) => {
@@ -147,7 +166,7 @@ export default function InterviewPrep() {
     setUserRole(event.target.value);
   };
 
-  const uploadClose = () => setupload(false);
+
 
   const newInterviewClose = () => setnewInterview(false);
   const showUpload = () => {
@@ -309,39 +328,39 @@ export default function InterviewPrep() {
     formdata.append("file", file);
     console.log(file, "file");
 
-        if (file) {
+    if (file) {
 
-            let config = {
-                method: 'POST',
-                url: 'https://round-unit-43333.botics.co/readfile/',
-                headers: {
-                    'X-CSRFTOKEN': `rN3gD7X9fMWNBXec7Y4naOPY4jvc8yvzOAZvMblW4pChKVH0pKZegdontyYtuN1c`,
-                },
-                data: formdata
-            };
-            for (const value of formdata.values()) {
-                console.log(value, "resume");
-            }
-            console.log(config, "config")
-            setcontentData('')
-            setextractData('')
-            axios.request(config)
-                .then((response) => {
-                    
-                    console.log(response, "reponse")
-                     let data = response.data.content;
-                    // console.log(data.join(', '), "data")
-                     setextractData(data)
-                    // formData1.description = data.join(', ')
-                    // setSelectedImage(response.data.avatar);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        } else {
-            //setSelectedImage(null);
-        }
+      let config = {
+        method: 'POST',
+        url: 'https://round-unit-43333.botics.co/readfile/',
+        headers: {
+          'X-CSRFTOKEN': `rN3gD7X9fMWNBXec7Y4naOPY4jvc8yvzOAZvMblW4pChKVH0pKZegdontyYtuN1c`,
+        },
+        data: formdata
+      };
+      for (const value of formdata.values()) {
+        console.log(value, "resume");
+      }
+      console.log(config, "config")
+      setcontentData('')
+      setextractData('')
+      axios.request(config)
+        .then((response) => {
+
+          console.log(response, "reponse")
+          let data = response.data.content;
+          // console.log(data.join(', '), "data")
+          setextractData(data)
+          // formData1.description = data.join(', ')
+          // setSelectedImage(response.data.avatar);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      //setSelectedImage(null);
     }
+  }
 
 
   const handleImageUpload = (event) => {
@@ -424,7 +443,7 @@ export default function InterviewPrep() {
         });
         // setSelectedImage(response.data.avatar);
       })
-      .catch((error) => {});
+      .catch((error) => { });
 
     // dispatch(pasteResume(formdata))
     //     .then((result) => {
@@ -454,44 +473,42 @@ export default function InterviewPrep() {
     // });
   };
 
-    const viewSavedInterview = () => {
+  const viewSavedInterview = () => {
 
-        navigate('/viewsavedsession');
+    navigate('/viewsavedsession');
 
-    }
+  }
 
-    const newInterviewPrep = () =>{
-        setcontentData('')
-        setextractData('')
-        setnewInterview(true)
-    }
+  const newInterviewPrep = () => {
+    setcontentData('')
+    setextractData('')
+    setnewInterview(true)
+  }
 
-    
-    return (
-        <>
 
-            <Container fluid style={{ height: '90vh', overflow: 'auto' }}>
-                <ToastContainer />
-                <Row className="smallscreen">
+  return (
+    <>
 
-                    <Col className="prepText mt-lg-4 ms-lg-5 cursor" >Interview Preparation</Col>
-                    <Col className="d-flex justify-content-end  mt-lg-2 me-lg-5 mx-auto"> <Button className='inteviewbtncss ' type="submit" onClick={newInterviewPrep}>New Interview Preparation <Image src={arrow} className="arrimg" /></Button></Col>
-                </Row>
+      <Container fluid style={{ height: '90vh', overflow: 'auto' }}>
+        <ToastContainer />
+        <Row className="smallscreen">
+
+          <Col className="prepText mt-lg-4 ms-lg-5 cursor" >Interview Preparation</Col>
+          <Col className="d-flex justify-content-end  mt-lg-2 me-lg-5 mx-auto"> <Button className='inteviewbtncss ' type="submit" onClick={newInterviewPrep}>New Interview Preparation <Image src={arrow} className="arrimg" /></Button></Col>
+        </Row>
 
 
         <div className="tabItem d-flex justify-content-start mx-lg-5 interviewprep1 mt-4">
           <span
-            className={`${
-              isActive == "saved" ? "active" : "inactive"
-            } cursor py-lg-2 tabText me-4`}
+            className={`${isActive == "saved" ? "active" : "inactive"
+              } cursor py-lg-2 tabText me-4`}
             onClick={() => menuCLick("saved")}
           >
             Saved Interviews
           </span>
           <span
-            className={`${
-              isActive == "fav" ? "active" : "inactive"
-            } cursor ms-lg-3 py-lg-2 tabText favanstab`}
+            className={`${isActive == "fav" ? "active" : "inactive"
+              } cursor ms-lg-3 py-lg-2 tabText favanstab`}
             onClick={() => menuCLick("fav")}
           >
             Favorite Answers
@@ -566,12 +583,12 @@ export default function InterviewPrep() {
 
       <Modal
         show={welcome}
-        onHide={handleClose}
+        // onHide={handleClose}
         aria-labelledby="contained-modal-title-vcenter"
         centered
         className="interviewprep"
       >
-        <Modal.Header closeButton></Modal.Header>
+        <Modal.Header onClick={handleClose} closeButton></Modal.Header>
         <Modal.Body>
           <div className="wlecomeContainer">
             <Image variant="top" className="socialImg" src={welcomeimg} />
@@ -588,16 +605,15 @@ export default function InterviewPrep() {
 
       <Modal
         show={upload}
-        onHide={uploadClose}
+        // onHide={uploadClose}
         aria-labelledby="contained-modal-title-vcenter"
         centered
         className="interviewprep2"
       >
-        <Modal.Header closeButton>
+        <Modal.Header onClick={uploadClose} closeButton>
           <span
-            className={`${
-              activeMenuItem == "upload" ? "active" : ""
-            } p-2 cursor `}
+            className={`${activeMenuItem == "upload" ? "active" : ""
+              } p-2 cursor `}
             onClick={() => handleMenuItemClick("upload")}
           >
             <Image
@@ -608,9 +624,8 @@ export default function InterviewPrep() {
             Upload
           </span>
           <span
-            className={`${
-              activeMenuItem == "paste" ? "active" : ""
-            } p-2 cursor`}
+            className={`${activeMenuItem == "paste" ? "active" : ""
+              } p-2 cursor`}
             onClick={() => handleMenuItemClick("paste")}
           >
             <Image
@@ -717,7 +732,7 @@ export default function InterviewPrep() {
 
       <Modal
         show={welcome1}
-        onHide={handleClose1}
+        // onHide={handleClose1}
         aria-labelledby="contained-modal-title-vcenter"
         centered
         className="interviewprep"
@@ -771,41 +786,41 @@ export default function InterviewPrep() {
               </Form.Group>
             </div>
 
-                        <div className="row jobescription">
+            <div className="row jobescription">
 
-                            <Form.Label className="text-start labelcss" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Job Description</span>  <span style={{ color: '#FF7F50', cursor: 'pointer' }} >
-                                <div
-                                >
-                                    <input
-                                        type="file"
-                                        id="fileInput"
-                                        style={{ display: 'none' }}
-                                        onChange={handleImageUpload1}
-                                        accept=".pdf, .docx"
-                                    />
-                                    <label htmlFor="fileInput" className="cursor"> Upload
-                                    </label>
+              <Form.Label className="text-start labelcss" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Job Description</span>  <span style={{ color: '#FF7F50', cursor: 'pointer' }} >
+                <div
+                >
+                  <input
+                    type="file"
+                    id="fileInput"
+                    style={{ display: 'none' }}
+                    onChange={handleImageUpload1}
+                    accept=".pdf, .docx"
+                  />
+                  <label htmlFor="fileInput" className="cursor"> Upload
+                  </label>
 
-                                </div>
+                </div>
 
-                            </span></Form.Label>
-                            <Form.Group controlId="exampleForm.ControlTextarea1">
+              </span></Form.Label>
+              <Form.Group controlId="exampleForm.ControlTextarea1">
 
-                               {extractData ? <Form.Control as="textarea" required
-                                    name="content"
-                                    onChange={handleInputChange}
-                                    className='cardBody'
-                                    value={extractData}
-                                />: <Form.Control as="textarea" required
-                                name="content"
-                                onChange={handleInputChange}
-                                className='cardBody'
-                                defaultValue={extractData}
-                            />}
-                                <Form.Control.Feedback type="invalid">Please enter terms</Form.Control.Feedback>
-                            </Form.Group>
+                {extractData ? <Form.Control as="textarea" required
+                  name="content"
+                  onChange={handleInputChange}
+                  className='cardBody'
+                  value={extractData}
+                /> : <Form.Control as="textarea" required
+                  name="content"
+                  onChange={handleInputChange}
+                  className='cardBody'
+                  defaultValue={extractData}
+                />}
+                <Form.Control.Feedback type="invalid">Please enter terms</Form.Control.Feedback>
+              </Form.Group>
 
-                        </div>
+            </div>
 
             <span className="d-flex ms-xs-3 justify-content-end ms-auto">
               <Button className="savebtn" type="submit">

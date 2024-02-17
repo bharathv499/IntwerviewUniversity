@@ -18,6 +18,8 @@ import Sidebar from './components/Account/Sidebar';
 import Favorite from './components/InterviewPrep/Favorite';
 import ViewSavedSession from './components/InterviewPrep/ViewSavedSession';
 import React, { useState } from 'react'
+import Faq from './components/pages/Faq';
+import Contact from './components/pages/Contact';
 
 function App() {
 
@@ -27,9 +29,9 @@ function App() {
     <div className="App">
 
       <Router>
-      <Header  />
+        <Header />
         <Routes>
-         
+
           <Route path='/login' element={<LogIn />} />
           <Route path='/home' element={<LandingPage />} />
           <Route path='/about' element={<About />} />
@@ -45,6 +47,11 @@ function App() {
           <Route exact path='/sidebar' element={<Sidebar />} />
           <Route exact path='/Favorite/:id' element={< Favorite />} />
           <Route exact path='/viewsavedsession' element={<ViewSavedSession />} />
+
+          <Route exact path='/contact' element={<Contact />} />
+          <Route exact path='/faq' element={<Faq />} />
+          <Route exact path='/terms' element={<Contact />} />
+          <Route exact path='/privacy' element={<Faq />} />
 
 
 
