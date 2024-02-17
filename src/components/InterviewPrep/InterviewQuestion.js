@@ -379,7 +379,7 @@ export default function InterviewQuestion() {
                                                 {selectedItem}
                                             </Form.Label>
                                             <span className='answer'>Answer:</span>
-                                            <p>
+                                            <p style={{ minHeight: '90vh',overflow:'auto' }}>
                                                 {/* <Form.Control as="textarea" required style={{ minHeight: '90vh',overflow:'auto' }}
                                                 value={answerData} onChange={(e) => setInputAnswerData(e.target.value)}
                                                 /> */}

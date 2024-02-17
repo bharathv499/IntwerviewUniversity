@@ -81,6 +81,9 @@
     color: #F5F5F5;
 }
 
+.interviewcard .card-body{
+    min-height: 360px;
+}
 .submitbtncss {
     font-family: 'DMSans-Bold';
     font-size: 12px;
@@ -206,8 +209,8 @@
 
 .cardBody {
     background: linear-gradient(0deg, #F5F5F5, #F5F5F5);
-    width: 355px;
-    border-radius: 8px;
+    /* width: 355px;
+    border-radius: 8px; */
 
 }
 

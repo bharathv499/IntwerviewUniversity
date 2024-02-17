@@ -499,9 +499,9 @@ export default function InterviewPrep() {
         </div>
 
         {showSaved && (
-          <Row>
+          <Row className="ps-5">
             {savedInterview?.map((item) => (
-              <Col xl={3} className="ms-lg-5  my-lg-4 interviewcard">
+              <Col xl={3} className="my-lg-4">
                 <Card className="ps-1 cardBody pb-2">
                   <Card.Body className="">
                     <div className="d-flex justify-content-between ">
@@ -528,10 +528,11 @@ export default function InterviewPrep() {
         )}
 
         {showFav && (
-          <Row>
+          <Row className="ps-5">
             {favData?.map((item) => (
-              <Col xl={3} className="ms-lg-5  my-lg-4 interviewcard me-lg-5">
-                <Card className=" ps-1 cardBody">
+              <Col xl={3} className="  my-lg-4 ">
+                <div className="interviewcard">
+                <Card className="cardBody">
                   <Card.Body>
                     <div className="d-flex justify-content-between">
                       <span className="spanText">Role</span>
@@ -556,6 +557,7 @@ export default function InterviewPrep() {
                     </span>
                   </Card.Body>
                 </Card>
+                </div>
               </Col>
             ))}
           </Row>
