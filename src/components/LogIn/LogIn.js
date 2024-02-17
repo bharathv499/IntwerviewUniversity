@@ -107,6 +107,7 @@ const LogIn = () => {
         //console.log(result,"result")
         if (result.payload.key) {
           navigate('/interview')
+          localStorage.setItem('initialquestpopup', true)
           dispatch(getUserProfile())
             .then((result) => {
               // console.log(result,"result")
