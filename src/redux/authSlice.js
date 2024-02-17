@@ -63,7 +63,7 @@ export const googleLogin = createAsyncThunk('googleLogin', async (response) => {
     //     },
     //     body: body
     // })
-    const res=response;
+    const res = response;
     return await res.json();
 })
 
@@ -86,6 +86,21 @@ export const forgetPassword = createAsyncThunk('forgetpassword', async (body) =>
         body: JSON.stringify(body)
     })
     const resData = await res.json()
+
+    if (resData?.non_field_errors) {
+        toast.error(resData.non_field_errors[0], {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 2000,
+            hideProgressBar: true,
+        });
+    }
+    // else if (resData) (
+    //     toast.error('something went wrong', {
+    //         position: toast.POSITION.TOP_RIGHT,
+    //         autoClose: 2000,
+    //         hideProgressBar: true,
+    //     })
+    // )
     return resData
 })
 export const resetPassword = createAsyncThunk('resetpassword', async (body) => {
@@ -178,7 +193,7 @@ export const extractText = createAsyncThunk('extractText', async (body) => {
 })
 
 
-export const  pasteResume= createAsyncThunk('pasteResume', async (body) => {
+export const pasteResume = createAsyncThunk('pasteResume', async (body) => {
     const res = await fetch("https://round-unit-43333.botics.co/paste_resume/paste_form/", {
         method: "POST",
         headers: {
@@ -208,7 +223,7 @@ export const uploadPhoto = createAsyncThunk('uploadPhoto', async (body) => {
 })
 
 
-export const  favoriteAnswer= createAsyncThunk('favoriteAnswer', async (body) => {
+export const favoriteAnswer = createAsyncThunk('favoriteAnswer', async (body) => {
     const res = await fetch("https://round-unit-43333.botics.co/favourite_answer/favorite_answers/", {
         method: "POST",
         headers: {
@@ -243,7 +258,7 @@ export const getFavoriteAnswerbyId = createAsyncThunk('getFavoriteAnswerbyId', a
 })
 
 
-export const  InitiationQuestions= createAsyncThunk('InitiationQuestions', async (body) => {
+export const InitiationQuestions = createAsyncThunk('InitiationQuestions', async (body) => {
     const res = await fetch("https://round-unit-43333.botics.co/initiation_questions/save_job_applicant/", {
         method: "POST",
         headers: {
@@ -290,7 +305,7 @@ export const getPasteResume = createAsyncThunk('getPasteResume', async () => {
 })
 
 
-export const  saveInterviewSession= createAsyncThunk('saveInterviewSession', async (body) => {
+export const saveInterviewSession = createAsyncThunk('saveInterviewSession', async (body) => {
     const res = await fetch("https://round-unit-43333.botics.co/savesave-interview-session/", {
         method: "POST",
         headers: {
@@ -314,7 +329,7 @@ export const getInterviewSession = createAsyncThunk('getInterviewSession', async
 })
 
 
-export const  updateExperience= createAsyncThunk('updateExperience', async (body) => {
+export const updateExperience = createAsyncThunk('updateExperience', async (body) => {
     const res = await fetch("https://round-unit-43333.botics.co/initiation_questions/update_job_applicants/", {
         method: "PUT",
         headers: {
@@ -343,10 +358,10 @@ const authSlice = createSlice({
         addUser: (state, action) => {
             state.key = localStorage.getItem('token')
         },
-        addAuthenticator: (state,action) => {
+        addAuthenticator: (state, action) => {
             state.isAuthenticated = true;
             state.token = localStorage.getItem('token')
-            localStorage.setItem('isAuthenticated',true)
+            localStorage.setItem('isAuthenticated', true)
         },
         logout: (state) => {
             state.key = null
@@ -358,22 +373,22 @@ const authSlice = createSlice({
             localStorage.clear();
             state.isAuthenticated = false;
 
-        //     if (typeof window.FB !== 'undefined') {
-        //     window.FB.getLoginStatus(function (response) {
-        //         if (response.status === 'connected') {
-        //             ;
-        //             const accessToken = response.authResponse.accessToken;
+            //     if (typeof window.FB !== 'undefined') {
+            //     window.FB.getLoginStatus(function (response) {
+            //         if (response.status === 'connected') {
+            //             ;
+            //             const accessToken = response.authResponse.accessToken;
 
 
-        //             window.FB.logout(function (response) {
-        //                 ;
-        //                 ;
-        //                 ;
+            //             window.FB.logout(function (response) {
+            //                 ;
+            //                 ;
+            //                 ;
 
-        //             });
-        //         }
-        //     });
-        // }
+            //             });
+            //         }
+            //     });
+            // }
 
         },
 
@@ -419,7 +434,7 @@ const authSlice = createSlice({
         [signUpUser.pending]: (state, action) => {
             state.loading = true
         },
-        [signUpUser.fulfilled]: (state,action) => {
+        [signUpUser.fulfilled]: (state, action) => {
             state.loading = false;
 
             // if(action.payload.key){
@@ -468,7 +483,7 @@ const authSlice = createSlice({
         },
         [forgetPassword.fulfilled]: (state, { payload: { error, msg } }) => {
             state.loading = false;
-            if(msg){
+            if (msg) {
                 toast.success('Email Sent Sucessfully!', {
                     position: toast.POSITION.TOP_RIGHT,
                     autoClose: 2000,
@@ -496,14 +511,14 @@ const authSlice = createSlice({
         [resetPassword.fulfilled]: (state, { payload: { error, detail } }) => {
             state.loading = false;
 
-            if(detail) {
+            if (detail) {
 
                 toast.success('Password has been Reset', {
                     position: toast.POSITION.TOP_RIGHT,
                     autoClose: 2000,
                     hideProgressBar: true,
                 });
-            }else{
+            } else {
                 toast.error("Invalid Password", {
                     position: toast.POSITION.TOP_RIGHT,
                     autoClose: 2000,
@@ -712,7 +727,7 @@ const authSlice = createSlice({
         },
 
 
-       
+
 
 
 
@@ -720,5 +735,5 @@ const authSlice = createSlice({
 })
 
 export const selectIsAuthenticated = (state) => state.user.isAuthenticated;
-export const { addToken, addUser, logout,addAuthenticator } = authSlice.actions
+export const { addToken, addUser, logout, addAuthenticator } = authSlice.actions
 export default authSlice.reducer

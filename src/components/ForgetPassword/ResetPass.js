@@ -10,6 +10,8 @@ import blue from '../../assets/images/blue.svg'
 import ellipse from '../../assets/images/ellipse.png'
 import loginside from '../../assets/images/loginside.png'
 import logo from '../../assets/images/logo.svg'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 const ResetPass = () => {
   // let { token } = useParams();
   const currentURL = window.location.href;
@@ -24,8 +26,17 @@ const ResetPass = () => {
   const [rePassword, setRePassword] = useState("")
   const [errors, setErrors] = useState("");
   const response = useSelector(state => state?.user?.detail)
+  const [showEyePass, setShowEyePass] = useState(false);
+  const [showEye, setShowEye] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordPass, setShowPasswordPass] = useState(false);
 
-
+  const handleTogglePasswordVisibilityPassword = () => {
+    setShowPasswordPass((prevShowPassword) => !prevShowPassword);
+  };
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
   useEffect(() => {
     // console.log(token.split("-")[2],"uid")
     // console.log(token.split("-")[0] + "-" + token.split("-")[1],"key")
@@ -41,11 +52,11 @@ const ResetPass = () => {
     token: tokenKey
   }
   const handlePasswordChange = (event) => {
-    // if (event.target.value.length > 0) {
-    //   setShowEyePass(true);
-    // } else {
-    //   setShowEyePass(false);
-    // }
+    if (event.target.value.length > 0) {
+      setShowEyePass(true);
+    } else {
+      setShowEyePass(false);
+    }
     const inputPassword = event.target.value;
 
     setPassword(inputPassword);
@@ -60,11 +71,11 @@ const ResetPass = () => {
     }
   };
   const handleConfirmPasswordChange = (event) => {
-    // if (event.target.value.length > 0) {
-    //   setShowEye(true);
-    // } else {
-    //   setShowEye(false);
-    // }
+    if (event.target.value.length > 0) {
+      setShowEye(true);
+    } else {
+      setShowEye(false);
+    }
     const inputPassword = event.target.value;
 
     setRePassword(inputPassword);
@@ -177,22 +188,43 @@ const ResetPass = () => {
                     <Form onSubmit={handleSubmit}>
                       <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label className="text-start labelcss">Enter Password</Form.Label>
-                        <Form.Control type="password"
-                          className='inputcss'
-                          value={password}
-                          onChange={handlePasswordChange}
-                          isInvalid={!!errors.password} />
+                        <div className='position-relative'>
+                          <Form.Control
+                            type={showPasswordPass ? "text" : "password"}
+                            className='inputcss'
+                            value={password}
+                            onChange={handlePasswordChange}
+                            isInvalid={!!errors.password} />
+                          {showEyePass && (
+                            <FontAwesomeIcon
+                              className="eyeiconcp"
+                              icon={showPasswordPass ? faEye : faEyeSlash}
+                              onClick={handleTogglePasswordVisibilityPassword}
+                            />
+                          )}
+                        </div>
                         <Form.Control.Feedback type="invalid">
                           {errors.password}
-                        </Form.Control.Feedback>            </Form.Group>
+                        </Form.Control.Feedback>
+                      </Form.Group>
                       <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label className="text-start labelcss">Enter Re-Password</Form.Label>
-                        <Form.Control type="password"
-                          className='inputcss'
-                          value={rePassword}
-                          onChange={handleConfirmPasswordChange}
-                          isInvalid={!!errors.confirm_password || !!errors.confirm_password_matches}
-                        />
+                        <div className='position-relative'>
+                          <Form.Control
+                            type={showPassword ? "text" : "password"}
+                            className='inputcss'
+                            value={rePassword}
+                            onChange={handleConfirmPasswordChange}
+                            isInvalid={!!errors.confirm_password || !!errors.confirm_password_matches}
+                          />
+                          {showEye && (
+                            <FontAwesomeIcon
+                              className="eyeiconp"
+                              icon={showPassword ? faEye : faEyeSlash}
+                              onClick={handleTogglePasswordVisibility}
+                            />
+                          )}
+                        </div>
                         <Form.Control.Feedback type="invalid">
                           {errors.confirm_password_matches || errors.confirm_password}
                         </Form.Control.Feedback>
@@ -210,7 +242,7 @@ const ResetPass = () => {
                           Back to Login
                         </Link></p>
                     </Form>
-                                     </Card.Body>
+                  </Card.Body>
                 </Card>
               </Col>
             </Row>

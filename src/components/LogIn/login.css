@@ -148,7 +148,8 @@
     position: absolute;
     right: 42px;
     transition-duration: 0s;
-    top: 262px;
+    top: 50%;
+    transform: translateY(-50%);
 
 }
 
@@ -156,8 +157,10 @@
     position: absolute;
     right: 30px;
     transition-duration: 0s;
-    top: 324px; 
+    top: 50%;
+    transform: translateY(-50%);
 }
+
 
 /* .loginrow .form-control {
     display: block;
@@ -512,4 +515,10 @@
     .loginlogo {
         height: 38px;
     }
+}
+
+
+/* New css */
+.passcss {
+    padding-right: 3.5rem !important;
 }

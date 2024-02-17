@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import './Account.css';
+import user1 from '../../assets/images/user1.jpg'
 import Sidebar from './Sidebar';
 import Camera from '../../assets/images/Camera.svg'
 import Upload_icon from '../../assets/images/Upload_icon.svg'
@@ -29,6 +30,7 @@ export default function Account() {
     const [selectedImage, setSelectedImage] = useState(null);
     const fileInputRef = useRef(null);
     const [userData, setuserData] = useState([]);
+    const [otherGender, setOtherGender] = useState(false);
     const [formData, setFormData] = useState({
         email: '',
         full_name: '',
@@ -62,7 +64,13 @@ export default function Account() {
 
     }, []);
     const handleSelect = (event) => {
-        setgender(event.target.value)
+        if(event.target.value === "Others"){
+         setOtherGender(true)
+        }
+        else{
+            setOtherGender(false)
+            setgender(event.target.value)
+        }
     };
 
     const handleImageUpload = (event) => {
@@ -205,7 +213,10 @@ export default function Account() {
                                 />
                                 {/* {!selectedImage && <Image src={Upload_icon} alt="Image" style={{ width: '145px', height: '145px', cursor: 'pointer' }} onClick={handleButtonClick} />} */}
 
-                                {selectedImage && <Image src={selectedImage} alt="User Photo" roundedCircle style={{ width: '145px', height: '145px', cursor: 'pointer' }} />}
+                                         <span className='ms-3'>
+                                 {selectedImage ? <Image src={selectedImage} alt="User Photo" roundedCircle style={{ width: '145px', height: '145px', cursor: 'pointer' }} />
+                                            : <Image src={user1} alt="User Photo" roundedCircle style={{ width: '145px', height: '145px', cursor: 'pointer' }} />}
+                                            </span>  
                                 {/* {selectedImage && <span className="e-badge e-badge-info e-badge-notification e-badge-overlap cameraimage" ><Image src={Camera} alt="Image" style={{ width: '26px', height: '30px', cursor: 'pointer' }} onClick={handleButtonClick} /></span>} */}
                                 <span className='profiletextcss'>{formData.username}</span>
                             </div>
@@ -284,39 +295,53 @@ export default function Account() {
                                 <Form.Group controlId="exampleForm.SelectCustom">
                                     <Form.Label className="text-start labelcss">Gender</Form.Label>
 
-                                    <Form.Control
-                                        as="select"
-                                        required
-                                        name='gender'
-                                        value={gender}
-                                        onChange={handleSelect}
-                                    >
-                                        <option value="">Select Gender</option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
-                                    </Form.Control>
-                                    <Form.Control.Feedback type="invalid">
-                                        Please select an gender
-                                    </Form.Control.Feedback>
-                                </Form.Group>
-                            </div>
-                            <div className="col-sm" style={{ paddingTop: 5 }}>
-                                <Form.Group controlId="exampleForm.SelectCustom">
-                                    <Form.Label className="text-start labelcss">Phone Number</Form.Label>
-                                    <Form.Control
-                                        type='text'
-                                        className='textcontainer'
-                                        name='phone_number'
-                                        value={formData?.phone_number}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                    <Form.Control.Feedback type="invalid">Please enter number</Form.Control.Feedback>
-                                </Form.Group>
-                            </div>
-                        </div>
-                    </Col>
-                </Row>
+                                                <Form.Control
+                                                    as="select"
+                                                    required
+                                                    name='gender'
+                                                    value={gender}
+                                                    onChange={handleSelect}
+                                                >
+                                                    <option value="">Select Gender</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                    <option value="Others">Others</option>
+                                                </Form.Control>
+                                                <Form.Control.Feedback type="invalid">
+                                                    Please select an gender
+                                                </Form.Control.Feedback>
+                                            </Form.Group>
+                                            {otherGender && 
+                                              <Form.Group controlId="exampleForm.SelectCustom" className='otherGender'>
+                                              <Form.Label className="text-start labelcss">Other Gender</Form.Label>
+                                              <Form.Control
+                                                  type='text'
+                                                //   className='textcontainer'
+                                                  name='gender'
+                                                  value={gender}
+                                                  onChange={(e)=>setgender(e.target.value)}
+                                                  required
+                                              />
+                                              <Form.Control.Feedback type="invalid">Please enter number</Form.Control.Feedback>
+                                          </Form.Group>}
+                                        </div>
+                                        <div className="col-sm" style={{ paddingTop: 5 }}>
+                                            <Form.Group controlId="exampleForm.SelectCustom">
+                                                <Form.Label className="text-start labelcss">Phone Number</Form.Label>
+                                                <Form.Control
+                                                    type='text'
+                                                    className='textcontainer'
+                                                    name='phone_number'
+                                                    value={userData?.phone_number}
+                                                    onChange={handleChange}
+                                                    // required
+                                                />
+                                                <Form.Control.Feedback type="invalid">Please enter number</Form.Control.Feedback>
+                                            </Form.Group>
+                                        </div>
+                                    </div>
+                                </Col>
+                            </Row>
 
                 <span className='d-flex ms-auto me-lg-5 justify-content-end pb-3'>
 

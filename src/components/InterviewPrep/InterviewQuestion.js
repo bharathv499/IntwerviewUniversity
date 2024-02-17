@@ -75,6 +75,8 @@ export default function InterviewQuestion() {
         // setLoading(true)
         console.log(answers, "answers")
         // console.log(index, "ques")
+       
+
 
         if (answers.hasOwnProperty(`answer_${index}`)) {
             const ques=`answer_${index}`
@@ -83,9 +85,13 @@ export default function InterviewQuestion() {
             
              settypeanswer(true) 
             setInputAnswerData(answers[ques])
+
+            setEnablebtn(true)
+            
         } else {
             // "answer_1" is not available in the object
             setanswerData('')
+            setEnablebtn(false)
             setInputAnswerData('')
         }
 
@@ -176,7 +182,7 @@ export default function InterviewQuestion() {
     const favanswer = () => {
 
         if (answerData.length === 0 && inputAnswerData === '') {
-            toast.error("Answer equired", {
+            toast.error("Answer is required", {
                 position: toast.POSITION.TOP_RIGHT,
                 autoClose: 2000,
                 hideProgressBar: true,
@@ -187,7 +193,7 @@ export default function InterviewQuestion() {
                 "question": selectedItem,
                 "role": userdata.role
             }
-
+           if(isClicked != true){
             dispatch(favoriteAnswer(body1))
                 .then((result) => {
                     setIsClicked(!isClicked);
@@ -197,6 +203,9 @@ export default function InterviewQuestion() {
                 .catch((error) => {
                     console.log(error)
                 });
+            }else{
+              
+            }
 
         }
 

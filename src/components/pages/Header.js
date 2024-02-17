@@ -3,6 +3,7 @@ import { Navbar, Nav, Container, Image, Modal, Button, Card, Form } from 'react-
 import mainlogo from '../../assets/images/mainlogo.png'
 import notification from '../../assets/images/notification.png'
 import user from '../../assets/images/user.png'
+import user1 from '../../assets/images/user1.jpg'
 import setting from '../../assets/images/setting.png'
 import logout from '../../assets/images/logout.png'
 import cross from '../../assets/images/cross.png'
@@ -17,38 +18,38 @@ export default function Header() {
   // const userName = localStorage.getItem('username')
   const userEmail = localStorage.getItem('email')
   const [userName, setUserName] = useState('');
-  const[selectedImage,setSelectedImage]=useState('');
+  const [selectedImage, setSelectedImage] = useState('');
   const [show, setShow] = useState(false);
   const [isloggedIn, setIsloggedIn] = useState(false);
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const isAuthenticated = localStorage.getItem('isAuthenticated');
   const photo = localStorage.getItem('photo');
- 
+
   const [count, setCount] = useState(0);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
       // Update component or state here
-      
+
       setCount(prevCount => prevCount + 1);
     }, 100); // 5000 milliseconds = 5 seconds
-   
+
 
     return () => clearInterval(intervalId); // Cleanup function to clear interval on component unmount
-  }, []); 
+  }, []);
   useEffect(() => {
 
     dispatch(getUserProfile())
-    .then((result) => {
+      .then((result) => {
 
-      const data = result.payload;
-      const full_name = data.full_name;
-      setUserName(full_name)
-      setSelectedImage(data.avatar_signed_url);
-    })
-    .catch((error) => {
-      console.log(error)
-    });
+        const data = result.payload;
+        const full_name = data.full_name;
+        setUserName(full_name)
+        setSelectedImage(data.avatar_signed_url);
+      })
+      .catch((error) => {
+        console.log(error)
+      });
 
   }, [isAuthenticated])
 
@@ -57,7 +58,7 @@ export default function Header() {
     dispatch(getUserProfile())
       .then((result) => {
         setSelectedImage('')
-        console.log(result,"resultdata")
+        console.log(result, "resultdata")
 
         const data = result.payload;
         const full_name = data.full_name;
@@ -69,7 +70,7 @@ export default function Header() {
       });
 
   }, [photo])
- 
+
   const [menuDisplay, setMenuDisplay] = useState(false);
   const modalClose = () => setShow(false);
   const modalShow = () => setShow(true);
@@ -147,32 +148,32 @@ export default function Header() {
       <Navbar expand="xl" className='headercss px-3 px-sm-4 px-md-5 px-lg-5 px-xl-5'>
 
         {isAuthenticated ? (
-         < >
-          <Navbar.Brand href="/">
-            <Image variant="top" className='img' src={mainlogo} />
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setMenuDisplay(!menuDisplay)} />
-          <Navbar.Collapse id="basic-navbar-nav" className='d-none d-lg-block'>
-            <Nav className="mx-auto">
-              <Nav.Link className='interviewprep'>Interview Preparation</Nav.Link>
+          < >
+            <Navbar.Brand href="/">
+              <Image variant="top" className='img' src={mainlogo} />
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setMenuDisplay(!menuDisplay)} />
+            <Navbar.Collapse id="basic-navbar-nav" className='d-none d-lg-block'>
+              <Nav className="mx-auto">
+                <Nav.Link className='interviewprep'>Interview Preparation</Nav.Link>
 
-            </Nav>
-            <Nav className='headerimage'>
-              <Image variant="top" className='notification cursor' src={notification} />
-              {!selectedImage &&<Image variant="top" className='userimg cursor' onClick={() => setShow(true)} src={user} />}
-              {selectedImage && <Image src={selectedImage} roundedCircle style={{ width: '45px',height: '45px', cursor: 'pointer' }} onClick={() => setShow(true)}/>}
-              <span className='headercss1 ms-2' >
-                {userName}
-                {/* Greesky Schweirald */}
-              </span>
-            </Nav>
-          </Navbar.Collapse>
-        </>
-        
+              </Nav>
+              <Nav className='headerimage'>
+                <Image variant="top" className='notification cursor' src={notification} />
+                {!selectedImage && <Image variant="top" className='userimg cursor' onClick={() => setShow(true)} src={user1} />}
+                {selectedImage && <Image src={selectedImage} roundedCircle style={{ width: '45px', height: '45px', cursor: 'pointer' }} onClick={() => setShow(true)} />}
+                <span className='headercss1 ms-2' >
+                  {userName}
+                  {/* Greesky Schweirald */}
+                </span>
+              </Nav>
+            </Navbar.Collapse>
+          </>
+
         ) : (
           <>
             {/* fluid className="mainContainer mx-5 px-5" */}
-           
+
             <Navbar.Brand href="/">
               <Image variant="top" className='img' src={mainlogo} />
             </Navbar.Brand>
@@ -180,9 +181,9 @@ export default function Header() {
             <Navbar.Collapse id="basic-navbar-nav" className='d-none d-lg-block'>
               <Nav className="mx-auto">
                 <Nav.Link className='headercss1' onClick={() => navigate("/home")}>Home</Nav.Link>
-                <Nav.Link className='headercss1'>FAQ</Nav.Link>
+                <Nav.Link className='headercss1' onClick={() => navigate("/faq")}>FAQ</Nav.Link>
                 <Nav.Link className='headercss1' onClick={() => navigate("/about")}>About us</Nav.Link>
-                <Nav.Link className='headercss1'>Contact Us</Nav.Link>
+                <Nav.Link className='headercss1' onClick={() => navigate("/contact")}>Contact Us</Nav.Link>
               </Nav>
               <Nav className='headerimage'>
                 <Image variant="top" className='socialImg cursor' onClick={() => navigate("/signup")} src={signup} />
@@ -190,8 +191,8 @@ export default function Header() {
 
               </Nav>
             </Navbar.Collapse>
-           </>
-          
+          </>
+
         )}
 
         {menuDisplay && (
@@ -222,9 +223,9 @@ export default function Header() {
                 <>
                   <div className='text-center '>
                     <span className='navHeader my-2' onClick={() => navigate("/home")}>Home</span><hr />
-                    <span className='navHeader my-2'>FAQ</span><hr />
+                    <span className='navHeader my-2' onClick={() => navigate("/faq")}>FAQ</span><hr />
                     <span className='navHeader my-2' onClick={() => navigate("/about")}>About us</span><hr />
-                    <span className='navHeader my-2'>Contact Us</span>
+                    <span className='navHeader my-2' onClick={() => navigate("/contact")}>Contact Us</span>
                   </div>
 
                 </>
@@ -240,8 +241,8 @@ export default function Header() {
 
           <Modal.Body style={{ padding: 0 }} className="modalcss">
             <div className='header-modal mt-3' style={{ borderBottom: '1px solid rgba(255, 255, 255, 1)', paddingBottom: '10px' }}>
-            {!selectedImage &&<Image src={user} alt="User Photo" roundedCircle />}
-              {selectedImage && <Image src={selectedImage} roundedCircle style={{ width: '45px',height: '45px', cursor: 'pointer' }} onClick={() => setShow(true)}/>}
+              {!selectedImage && <Image src={user1} alt="User Photo" roundedCircle />}
+              {selectedImage && <Image src={selectedImage} roundedCircle style={{ width: '45px', height: '45px', cursor: 'pointer' }} onClick={() => setShow(true)} />}
 
               <Nav.Link className='modaltext mt-2'>{userName}</Nav.Link>
               <Nav.Link className='modaltext1'> {userEmail}</Nav.Link></div>
