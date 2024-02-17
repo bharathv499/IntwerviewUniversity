@@ -344,9 +344,11 @@ export default function InterviewPrep() {
                 console.log(value, "resume");
             }
             console.log(config, "config")
-
+            setcontentData('')
+            setextractData('')
             axios.request(config)
                 .then((response) => {
+                    
                     console.log(response, "reponse")
                      let data = response.data.content;
                     // console.log(data.join(', '), "data")
@@ -486,6 +488,13 @@ export default function InterviewPrep() {
 
     }
 
+    const newInterviewPrep = () =>{
+        setcontentData('')
+        setextractData('')
+        setnewInterview(true)
+    }
+
+    
     return (
         <>
 
@@ -494,7 +503,7 @@ export default function InterviewPrep() {
                 <Row className="smallscreen">
 
                     <Col className="prepText mt-lg-4 ms-lg-5 cursor" >Interview Preparation</Col>
-                    <Col className="d-flex justify-content-end  mt-lg-2 me-lg-5 mx-auto"> <Button className='inteviewbtncss ' type="submit" onClick={() => setnewInterview(true)}>New Interview Preparation <Image src={arrow} className="arrimg" /></Button></Col>
+                    <Col className="d-flex justify-content-end  mt-lg-2 me-lg-5 mx-auto"> <Button className='inteviewbtncss ' type="submit" onClick={newInterviewPrep}>New Interview Preparation <Image src={arrow} className="arrimg" /></Button></Col>
                 </Row>
 
 
@@ -712,12 +721,17 @@ export default function InterviewPrep() {
                             </span></Form.Label>
                             <Form.Group controlId="exampleForm.ControlTextarea1">
 
-                                <Form.Control as="textarea" required
+                               {extractData ? <Form.Control as="textarea" required
                                     name="content"
                                     onChange={handleInputChange}
                                     className='cardBody'
-                                    defaultValue={extractData}
-                                />
+                                    value={extractData}
+                                />: <Form.Control as="textarea" required
+                                name="content"
+                                onChange={handleInputChange}
+                                className='cardBody'
+                                defaultValue={extractData}
+                            />}
                                 <Form.Control.Feedback type="invalid">Please enter terms</Form.Control.Feedback>
                             </Form.Group>
 
