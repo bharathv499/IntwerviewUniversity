@@ -283,10 +283,8 @@ export default function Account() {
                                         disabled
                                         onChange={handleChange}
                                     />
-
                                 </Form.Group>
                             </div>
-
                         </div>
 
                         <div className="row mb-2 account-row">
@@ -332,7 +330,7 @@ export default function Account() {
                                                     type='text'
                                                     className='textcontainer'
                                                     name='phone_number'
-                                                    value={userData?.phone_number}
+                                                    value={formData?.phone_number}
                                                     onChange={handleChange}
                                                     // required
                                                 />
