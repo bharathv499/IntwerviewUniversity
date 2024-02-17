@@ -214,6 +214,10 @@
     font-family: 'DMSans-bold';
 }
 
+.otherGender{
+    padding-top: 13px;
+}
+
 @media (max-width:991px) {
     .flexAccount {
         display: flex;

@@ -3,6 +3,7 @@ import { Navbar, Nav, Container, Image, Modal, Button, Card, Form } from 'react-
 import mainlogo from '../../assets/images/mainlogo.png'
 import notification from '../../assets/images/notification.png'
 import user from '../../assets/images/user.png'
+import user1 from '../../assets/images/user1.jpg'
 import setting from '../../assets/images/setting.png'
 import logout from '../../assets/images/logout.png'
 import cross from '../../assets/images/cross.png'
@@ -159,7 +160,7 @@ export default function Header() {
             </Nav>
             <Nav className='headerimage'>
               <Image variant="top" className='notification cursor' src={notification} />
-              {!selectedImage &&<Image variant="top" className='userimg cursor' onClick={() => setShow(true)} src={user} />}
+              {!selectedImage &&<Image variant="top" className='userimg cursor' onClick={() => setShow(true)} src={user1} />}
               {selectedImage && <Image src={selectedImage} roundedCircle style={{ width: '45px',height: '45px', cursor: 'pointer' }} onClick={() => setShow(true)}/>}
               <span className='headercss1 ms-2' >
                 {userName}
@@ -240,7 +241,7 @@ export default function Header() {
 
           <Modal.Body style={{ padding: 0 }} className="modalcss">
             <div className='header-modal mt-3' style={{ borderBottom: '1px solid rgba(255, 255, 255, 1)', paddingBottom: '10px' }}>
-            {!selectedImage &&<Image src={user} alt="User Photo" roundedCircle />}
+            {!selectedImage &&<Image src={user1} alt="User Photo" roundedCircle />}
               {selectedImage && <Image src={selectedImage} roundedCircle style={{ width: '45px',height: '45px', cursor: 'pointer' }} onClick={() => setShow(true)}/>}
 
               <Nav.Link className='modaltext mt-2'>{userName}</Nav.Link>
