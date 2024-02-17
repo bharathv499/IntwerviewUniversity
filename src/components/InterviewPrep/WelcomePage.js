@@ -35,28 +35,7 @@ export default function WelcomePage({ closeModal }) {
   //   career_goal: "",
   //   remote_option: ""
   // });
-  useEffect(() => {
 
-    dispatch(getInitiationQuestions())
-      .then((result) => {
-        console.log(result, "question")
-        // formData.full_name=result.payload.full_name
-
-      })
-      .catch((error) => {
-        console.log(error)
-      });
-
-      dispatch(getUserProfile())
-      .then((result) => {
-         
-          const data=result.payload;
-          console.log(data.email,"data.email")
-
-          formData.email = data.email;
-      })
-
-  }, []);
 
 
 
@@ -64,7 +43,7 @@ export default function WelcomePage({ closeModal }) {
 
   const [currentStep, setCurrentStep] = useState(0);
 
-   const [formData, setFormData] = useState({
+  var [formData, setFormData] = useState({
     full_name: '',
     email: '',
     phone_number: '',
@@ -81,10 +60,10 @@ export default function WelcomePage({ closeModal }) {
     phoneNumberError: '',
     linkedinError: '',
     jobRoleError: '',
-    industryError:'',
-    locationError:'',
-    experienceError:'',
-    goalError:''
+    industryError: '',
+    locationError: '',
+    experienceError: '',
+    goalError: ''
 
     // Add more fields for each step as needed
   });
@@ -92,28 +71,43 @@ export default function WelcomePage({ closeModal }) {
   // Validation logic for each step
   const validateStep1 = () => {
     let isValid = true;
-   
+
     const linkedinRegex = /(https?)?:?(\/\/)?(([w]{3}||\w\w)\.)?linkedin.com(\w+:{0,1}\w*@)?(\S+)(:([0-9])+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
-    const url=formData.linkedin;
-   
-    if (!formData.linkedin.trim()) {
-      setErrors({ ...errors, linkedinError: 'linkedin url is required' });
-      isValid = false;
-    }else if (!linkedinRegex.test(url)) {
+    const onlyAlphabet = /^[a-zA-Z]+$/;
+    const onlyNumber = /^[0-9]{10}$/;
+    const url = formData.linkedin;
+    const fullName = formData.full_name;
+    const phoneNumber = formData.phone_number
+
+
+
+    // if (!formData.linkedin.trim()) {
+    //   setErrors({ ...errors, linkedinError: 'linkedin url is required' });
+    //   isValid = false;
+    // }
+    if (url && !linkedinRegex.test(url)) {
       setErrors({ ...errors, linkedinError: 'Please enter a valid LinkedIn URL' });
       isValid = false;
-    } 
+    }
 
     if (!formData.phone_number.trim()) {
       setErrors({ ...errors, phoneNumberError: 'Phone Number is required' });
+      isValid = false;
+    }
+    else if (!onlyNumber.test(phoneNumber)) {
+      setErrors({ ...errors, phoneNumberError: 'Number format is wrong' });
       isValid = false;
     }
     if (!formData.full_name.trim()) {
       setErrors({ ...errors, fullNameError: 'Full Name is required' });
       isValid = false;
     }
-    
-    
+    else if (!onlyAlphabet.test(fullName)) {
+      setErrors({ ...errors, fullNameError: 'Only Alphabet is Allowed' });
+      isValid = false;
+    }
+
+
     return isValid;
   };
 
@@ -130,8 +124,8 @@ export default function WelcomePage({ closeModal }) {
       setErrors({ ...errors, locationError: 'Location is required' });
       return false;
     }
-    
-   
+
+
     return true;
   };
 
@@ -153,7 +147,7 @@ export default function WelcomePage({ closeModal }) {
     }
     return true;
   };
- 
+
   // Function to handle "Next" button click
   const handleNextClick = () => {
     let isValid = true;
@@ -165,8 +159,8 @@ export default function WelcomePage({ closeModal }) {
         isValid = validateStep2();
         break;
       case 2:
-          isValid = validateStep3();
-          break;     
+        isValid = validateStep3();
+        break;
       // Add cases for additional steps as needed
       default:
         break;
@@ -184,30 +178,30 @@ export default function WelcomePage({ closeModal }) {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     if (name === 'full_name' && errors.fullNameError) {
-      setErrors({ ...errors, fullNameError: '' }); 
+      setErrors({ ...errors, fullNameError: '' });
     }
     if (name === 'phone_number' && errors.phoneNumberError) {
-      setErrors({ ...errors, phoneNumberError: '' }); 
+      setErrors({ ...errors, phoneNumberError: '' });
     }
     if (name === 'linkedin' && errors.linkedinError) {
-      setErrors({ ...errors, linkedinError: '' }); 
+      setErrors({ ...errors, linkedinError: '' });
     }
 
     if (name === 'desired_job_role' && errors.jobRoleError) {
-      setErrors({ ...errors, jobRoleError: '' }); 
+      setErrors({ ...errors, jobRoleError: '' });
     }
     if (name === 'preferred_industry' && errors.industryError) {
-      setErrors({ ...errors, industryError: '' }); 
+      setErrors({ ...errors, industryError: '' });
     }
     if (name === 'job_location' && errors.locationError) {
-      setErrors({ ...errors, locationError: '' }); 
+      setErrors({ ...errors, locationError: '' });
     }
 
     if (name === 'experience' && errors.experienceError) {
-      setErrors({ ...errors, experienceError: '' }); 
+      setErrors({ ...errors, experienceError: '' });
     }
     if (name === 'career_goal' && errors.goalError) {
-      setErrors({ ...errors, goalError: '' }); 
+      setErrors({ ...errors, goalError: '' });
     }
   };
 
@@ -231,28 +225,53 @@ export default function WelcomePage({ closeModal }) {
     //   autoClose: 2000,
     //   hideProgressBar: true,
     // });
-   
-if(validateStep4()){
- 
-  closeModal()
-  const formDataToSubmit = { ...formData };
-    dispatch(InitiationQuestions(formDataToSubmit))
-    .then((result) => {
-    console.log(result,"result")
 
-      dispatch(updateProfile(formDataToSubmit))
-      toast.success('Data saved successfully', {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 2000,
-        hideProgressBar: true,
-      });
-    })
-    .catch((errordata) => {
+    if (validateStep4()) {
 
-    });
-   
-}
+      closeModal()
+      const formDataToSubmit = { ...formData };
+      dispatch(InitiationQuestions(formDataToSubmit))
+        .then((result) => {
+          console.log(result, "result")
+
+          dispatch(updateProfile(formDataToSubmit))
+          toast.success('Data saved successfully', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 2000,
+            hideProgressBar: true,
+          });
+        })
+        .catch((errordata) => {
+
+        });
+
+    }
   }
+  useEffect(() => {
+
+    dispatch(getInitiationQuestions())
+      .then((result) => {
+        console.log(result, "question")
+        // formData.full_name=result.payload.full_name
+
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+
+      dispatch(getUserProfile())
+      .then((result) => {
+         
+          const data=result.payload;
+          console.log(data.email,"data.email")
+
+          setFormData({...formData, email:data.email})
+
+          // formData.email = data.email;
+      })
+
+  }, []);
+
   return (
     <div className="container mt-5">
       <ToastContainer />
@@ -262,8 +281,9 @@ if(validateStep4()){
             <div className="dot-container">
               <span
                 className={`dot ${currentStep === index ? 'active' : currentStep > index ? 'completed' : ''}`}
-                onClick={() => handleDotClick(index)}
+              // onClick={() => handleDotClick(index)}
               >
+                <span className='dotdot'></span>
                 {/* {index + 1} */}
               </span>
               <div className="dot-label">{step.name}</div>
@@ -290,7 +310,7 @@ if(validateStep4()){
                     />
                     {errors.fullNameError && <p className='step-error'>{errors.fullNameError}</p>}
 
-                    
+
                   </Form.Group>
 
                 </div>
@@ -306,6 +326,7 @@ if(validateStep4()){
                       defaultValue={formData.email}
                       name='email'
                       onChange={handleChange}
+                      disabled
                       required
                     />
                     <Form.Control.Feedback type="invalid">Please Enter Email</Form.Control.Feedback>
@@ -327,7 +348,7 @@ if(validateStep4()){
                     />
                     {errors.phoneNumberError && <p className='step-error'>{errors.phoneNumberError}</p>}
 
-                    
+
                   </Form.Group>
                 </div>
               </div>
@@ -335,7 +356,7 @@ if(validateStep4()){
               <div className="row mb-2 account-row">
                 <div className="col-sm" style={{ paddingTop: 5 }}>
                   <Form.Group controlId="exampleForm.SelectCustom">
-                    <Form.Label className="d-flex labelcss">Linkedin Url</Form.Label>
+                    <Form.Label className="d-flex labelcss">Linkedin Url (Optional)</Form.Label>
                     <Form.Control
                       type='text'
                       className='textcontainer'
@@ -343,13 +364,13 @@ if(validateStep4()){
                       required
                       value={formData.linkedin}
                       onChange={handleInputChange}
-                      
+
                     />
                     {errors.linkedinError && <p className='step-error'>{errors.linkedinError}</p>}
                   </Form.Group>
                 </div>
               </div>
-              
+
             </Col>
           </Row>
         </Container>
@@ -388,7 +409,7 @@ if(validateStep4()){
                       onChange={handleInputChange}
                       required
                     />
-                     {errors.industryError && <p className='step-error'>{errors.industryError}</p>}
+                    {errors.industryError && <p className='step-error'>{errors.industryError}</p>}
                   </Form.Group>
                 </div>
               </div>
@@ -423,7 +444,7 @@ if(validateStep4()){
                     />
                   </Form.Group>
                 </div></div>
-                {errors.step2Error && <p className='step-error'>{errors.step2Error}</p>}
+              {errors.step2Error && <p className='step-error'>{errors.step2Error}</p>}
             </Col>
           </Row>
         </Container>
@@ -450,7 +471,7 @@ if(validateStep4()){
                     </Form.Control>
                     {errors.experienceError && <p className='step-error'>{errors.experienceError}</p>}
 
-                   
+
                   </Form.Group>
 
                 </div>

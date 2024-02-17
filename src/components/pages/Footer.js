@@ -6,15 +6,17 @@ import Twitter from '../../assets/images/Twitter.svg'
 import YouTube from '../../assets/images/YouTube.svg'
 import facebook from '../../assets/images/facebook1.svg'
 import './Footer.css'
+import { useNavigate } from 'react-router-dom';
 const Footer = () => {
+ const navigate = useNavigate();
   return (
     <footer className="text-light py-3 px-3 px-3 px-sm-4 px-md-5 px-lg-5 px-xl-5" style={{ backgroundColor: '#0073B3', color: '#FFFFFF', marginTop: 'auto' }}>
       {/* <Container> */}
     
         <Row >
           <Col xl={6} className='footerContainer'>
-            <span className='me-3 footertext'>Home</span>
-            <span className='me-3 footertext'>About</span>
+            <span className='me-3 footertext cursor' onClick={()=> navigate('/home')}>Home</span>
+            <span className='me-3 footertext cursor' onClick={()=> navigate('/about')}>About</span>
             <span className='footertext'>Contact</span>
           </Col>
          
