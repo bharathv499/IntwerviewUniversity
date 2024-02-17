@@ -309,37 +309,40 @@ export default function InterviewPrep() {
     formdata.append("file", file);
     console.log(file, "file");
 
-    if (file) {
-      let config = {
-        method: "POST",
-        url: "https://round-unit-43333.botics.co/readfile/",
-        headers: {
-          "X-CSRFTOKEN": `rN3gD7X9fMWNBXec7Y4naOPY4jvc8yvzOAZvMblW4pChKVH0pKZegdontyYtuN1c`,
-        },
-        data: formdata,
-      };
-      for (const value of formdata.values()) {
-        console.log(value, "resume");
-      }
-      console.log(config, "config");
+        if (file) {
 
-      axios
-        .request(config)
-        .then((response) => {
-          console.log(response, "reponse");
-          let data = response.data.content;
-          // console.log(data.join(', '), "data")
-          setextractData(data);
-          // formData1.description = data.join(', ')
-          // setSelectedImage(response.data.avatar);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else {
-      //setSelectedImage(null);
+            let config = {
+                method: 'POST',
+                url: 'https://round-unit-43333.botics.co/readfile/',
+                headers: {
+                    'X-CSRFTOKEN': `rN3gD7X9fMWNBXec7Y4naOPY4jvc8yvzOAZvMblW4pChKVH0pKZegdontyYtuN1c`,
+                },
+                data: formdata
+            };
+            for (const value of formdata.values()) {
+                console.log(value, "resume");
+            }
+            console.log(config, "config")
+            setcontentData('')
+            setextractData('')
+            axios.request(config)
+                .then((response) => {
+                    
+                    console.log(response, "reponse")
+                     let data = response.data.content;
+                    // console.log(data.join(', '), "data")
+                     setextractData(data)
+                    // formData1.description = data.join(', ')
+                    // setSelectedImage(response.data.avatar);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } else {
+            //setSelectedImage(null);
+        }
     }
-  };
+
 
   const handleImageUpload = (event) => {
     console.log(event.target.files[0].name, "data");
@@ -451,29 +454,30 @@ export default function InterviewPrep() {
     // });
   };
 
-  const viewSavedInterview = () => {
-    navigate("/viewsavedsession");
-  };
+    const viewSavedInterview = () => {
 
-  return (
-    <>
-      <Container fluid style={{ height: "90vh", overflow: "auto" }}>
-        <ToastContainer />
-        <Row className="smallscreen">
-          <Col className="prepText mt-lg-4 ms-lg-5 cursor">
-            Interview Preparation
-          </Col>
-          <Col className="d-flex justify-content-end  mt-lg-2 me-lg-5 mx-auto">
-            {" "}
-            <Button
-              className="inteviewbtncss "
-              type="submit"
-              onClick={() => setnewInterview(true)}
-            >
-              New Interview Preparation <Image src={arrow} className="arrimg" />
-            </Button>
-          </Col>
-        </Row>
+        navigate('/viewsavedsession');
+
+    }
+
+    const newInterviewPrep = () =>{
+        setcontentData('')
+        setextractData('')
+        setnewInterview(true)
+    }
+
+    
+    return (
+        <>
+
+            <Container fluid style={{ height: '90vh', overflow: 'auto' }}>
+                <ToastContainer />
+                <Row className="smallscreen">
+
+                    <Col className="prepText mt-lg-4 ms-lg-5 cursor" >Interview Preparation</Col>
+                    <Col className="d-flex justify-content-end  mt-lg-2 me-lg-5 mx-auto"> <Button className='inteviewbtncss ' type="submit" onClick={newInterviewPrep}>New Interview Preparation <Image src={arrow} className="arrimg" /></Button></Col>
+                </Row>
+
 
         <div className="tabItem d-flex justify-content-start mx-lg-5 interviewprep1 mt-4">
           <span
@@ -765,42 +769,41 @@ export default function InterviewPrep() {
               </Form.Group>
             </div>
 
-            <div className="row jobescription">
-              <Form.Label
-                className="text-start labelcss"
-                style={{ display: "flex", justifyContent: "space-between" }}
-              >
-                <span>Job Description</span>{" "}
-                <span style={{ color: "#FF7F50", cursor: "pointer" }}>
-                  <div>
-                    <input
-                      type="file"
-                      id="fileInput"
-                      style={{ display: "none" }}
-                      onChange={handleImageUpload1}
-                      accept=".pdf, .docx"
-                    />
-                    <label htmlFor="fileInput" className="cursor">
-                      {" "}
-                      Upload
-                    </label>
-                  </div>
-                </span>
-              </Form.Label>
-              <Form.Group controlId="exampleForm.ControlTextarea1">
-                <Form.Control
-                  as="textarea"
-                  required
-                  name="content"
-                  onChange={handleInputChange}
-                  className="cardBody"
-                  defaultValue={extractData}
-                />
-                <Form.Control.Feedback type="invalid">
-                  Please enter terms
-                </Form.Control.Feedback>
-              </Form.Group>
-            </div>
+                        <div className="row jobescription">
+
+                            <Form.Label className="text-start labelcss" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Job Description</span>  <span style={{ color: '#FF7F50', cursor: 'pointer' }} >
+                                <div
+                                >
+                                    <input
+                                        type="file"
+                                        id="fileInput"
+                                        style={{ display: 'none' }}
+                                        onChange={handleImageUpload1}
+                                        accept=".pdf, .docx"
+                                    />
+                                    <label htmlFor="fileInput" className="cursor"> Upload
+                                    </label>
+
+                                </div>
+
+                            </span></Form.Label>
+                            <Form.Group controlId="exampleForm.ControlTextarea1">
+
+                               {extractData ? <Form.Control as="textarea" required
+                                    name="content"
+                                    onChange={handleInputChange}
+                                    className='cardBody'
+                                    value={extractData}
+                                />: <Form.Control as="textarea" required
+                                name="content"
+                                onChange={handleInputChange}
+                                className='cardBody'
+                                defaultValue={extractData}
+                            />}
+                                <Form.Control.Feedback type="invalid">Please enter terms</Form.Control.Feedback>
+                            </Form.Group>
+
+                        </div>
 
             <span className="d-flex ms-xs-3 justify-content-end ms-auto">
               <Button className="savebtn" type="submit">
