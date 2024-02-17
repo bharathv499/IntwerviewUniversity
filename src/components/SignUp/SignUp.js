@@ -146,7 +146,7 @@ export default function SignUp() {
                 validationErrors.password = "Password must be at least 8 characters long.";
             }
         }
-        
+
         if (!isConfirmPasswordValid(confirm_password)) {
             validationErrors.confirm_password = "Please enter a valid password";
         }
@@ -168,15 +168,15 @@ export default function SignUp() {
             setTnc(false);
             dispatch(signUpUser(body))
                 .then((result) => {
-                    if(result.payload.key){
+                    if (result.payload.key) {
                         toast.success('Sign-up Successful!', {
                             position: toast.POSITION.TOP_RIGHT,
                             autoClose: 2000,
                             hideProgressBar: true,
                         });
                         navigate('/')
-                    } else{
-                        const error= result.payload.email[0];
+                    } else {
+                        const error = result.payload.email[0];
                         toast.error(error, {
                             position: toast.POSITION.TOP_RIGHT,
                             autoClose: 2000,
@@ -364,7 +364,7 @@ export default function SignUp() {
 
                         if (appleResponse.data.key) {
                             localStorage.setItem('token', appleResponse.data.key)
-                            localStorage.setItem('isAuthenticated',true)
+                            localStorage.setItem('isAuthenticated', true)
                             navigate('/interview')
                             toast.success('Login Successful!', {
                                 position: toast.POSITION.TOP_RIGHT,
@@ -566,20 +566,23 @@ export default function SignUp() {
                                         </Form.Group>
                                         <Form.Group className='formgr' controlId="formBasicPassword">
                                             <Form.Label className="text-start labelcss">Create Password</Form.Label>
-                                            <Form.Control
-                                                type={showPasswordPass ? "text" : "password"}
-                                                className='inputcss'
-                                                value={password}
-                                                onChange={handlePasswordChange}
-                                                isInvalid={!!errors.password}
-                                            />
-                                            {showEyePass && (
-                                                <FontAwesomeIcon
-                                                    className="eyeiconcp"
-                                                    icon={showPasswordPass ? faEye : faEyeSlash}
-                                                    onClick={handleTogglePasswordVisibilityPassword}
+                                            <div className='position-relative'>
+                                                <Form.Control
+                                                    type={showPasswordPass ? "text" : "password"}
+                                                    className='inputcss passcss'
+                                                    value={password}
+                                                    onChange={handlePasswordChange}
+                                                    isInvalid={!!errors.password}
                                                 />
-                                            )}
+                                                {showEyePass && (
+                                                    <FontAwesomeIcon
+                                                        className="eyeiconcp"
+                                                        icon={showPasswordPass ? faEye : faEyeSlash}
+                                                        onClick={handleTogglePasswordVisibilityPassword}
+                                                    />
+                                                )}
+                                            </div>
+
                                             <Form.Control.Feedback type="invalid">
                                                 {errors.password}
                                             </Form.Control.Feedback>
@@ -589,20 +592,22 @@ export default function SignUp() {
                                             controlId="formBasicConfirmPassword"
                                         >
                                             <Form.Label className="text-start labelcss">Confirm Password</Form.Label>
-                                            <Form.Control
-                                                type={showPassword ? "text" : "password"}
-                                                className='inputcss'
-                                                value={confirm_password}
-                                                onChange={handleConfirmPasswordChange}
-                                                isInvalid={!!errors.confirm_password || !!errors.confirm_password_matches}
-                                            />
-                                            {showEye && (
-                                                <FontAwesomeIcon
-                                                    className="eyeiconp"
-                                                    icon={showPassword ? faEye : faEyeSlash}
-                                                    onClick={handleTogglePasswordVisibility}
+                                            <div className='position-relative'>
+                                                <Form.Control
+                                                    type={showPassword ? "text" : "password"}
+                                                    className='inputcss passcss'
+                                                    value={confirm_password}
+                                                    onChange={handleConfirmPasswordChange}
+                                                    isInvalid={!!errors.confirm_password || !!errors.confirm_password_matches}
                                                 />
-                                            )}
+                                                {showEye && (
+                                                    <FontAwesomeIcon
+                                                        className="eyeiconp"
+                                                        icon={showPassword ? faEye : faEyeSlash}
+                                                        onClick={handleTogglePasswordVisibility}
+                                                    />
+                                                )}
+                                            </div>
                                             <Form.Control.Feedback type="invalid">
                                                 {errors.confirm_password_matches || errors.confirm_password}
                                             </Form.Control.Feedback>

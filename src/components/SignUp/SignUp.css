@@ -124,7 +124,8 @@
     position: absolute;
     right: 30px;
     transition-duration: 0s;
-    top: 505px;
+    top: 50%;
+    transform: translateY(-50%);
 
 }
 .eyeiconcp{
@@ -132,7 +133,8 @@
     position: absolute;
     right: 30px;
     transition-duration: 0s;
-    top: 416px;
+    top: 50%;
+    transform: translateY(-50%);
 
 }
 
@@ -452,4 +454,10 @@
     .loginlogo {
         height: 38px;
     }
+}
+
+/* New css */
+/* New css */
+.passcss {
+    padding-right: 3.5rem !important;
 }

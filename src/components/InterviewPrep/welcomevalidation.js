@@ -199,8 +199,9 @@ export default function WelcomePage({ closeModal }) {
             <div className="dot-container">
               <span
                 className={`dot ${currentStep === index ? 'active' : currentStep > index ? 'completed' : ''}`}
-                onClick={() => handleDotClick(index)}
+                // onClick={() => handleDotClick(index)}
               >
+                <span className='dotdot'></span>
                 {/* {index + 1} */}
               </span>
               <div className="dot-label">{step.name}</div>
@@ -246,6 +247,7 @@ export default function WelcomePage({ closeModal }) {
                       name='email'
                       onChange={handleChange}
                       required
+                      disabled
                     />
                     <Form.Control.Feedback type="invalid">Please Enter Email</Form.Control.Feedback>
                   </Form.Group>
