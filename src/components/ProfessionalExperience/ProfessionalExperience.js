@@ -8,8 +8,10 @@ import uploadicon from '../../assets/images/uploadicon.png'
 import axios from "axios";
 import right from '../../assets/images/right.png'
 import { toast, ToastContainer } from 'react-toastify';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function ProfessionalExperience() {
+    const navigate = useNavigate()
     const [validated, setValidated] = useState(false);
     const [errors, setErrors] = useState({});
     const [resume, setResume] = useState('');
@@ -109,26 +111,22 @@ export default function ProfessionalExperience() {
         const form = event.currentTarget;
         if (form.checkValidity()) {
             // Perform form submission or other actions here
+            if (experience != '') {
+                formData.experience = experience
+            }
+            formData.remote_option = remote
+            console.log(formData, "formData")
 
-
+            dispatch(updateExperience(formData))
+            toast.success('Data saved successfully', {
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 2000,
+                hideProgressBar: true,
+            });
         } else {
             event.stopPropagation();
         }
         setValidated(true);
-        if (experience != '') {
-            formData.experience = experience
-        }
-        formData.remote_option = remote
-        console.log(formData, "formData")
-
-        dispatch(updateExperience(formData))
-        toast.success('Data saved successfully', {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 2000,
-            hideProgressBar: true,
-        });
-
-
 
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
@@ -424,7 +422,7 @@ export default function ProfessionalExperience() {
                         <span className='d-flex ms-auto  justify-content-end pb-3'>
 
                             <Button className='savebtn' type="submit"  >Save</Button>
-                            <Button className='cancelbtn ms-2 ' type="submit"  >Cancel</Button>
+                            <Button className='cancelbtn ms-2 ' onClick={() => navigate("/interview")}>Cancel</Button>
 
                         </span>
                     </Form>
@@ -527,8 +525,8 @@ export default function ProfessionalExperience() {
 
                     <span className='d-flex ms-auto  justify-content-end pb-3'>
 
-                        <Button className='savebtn' disabled type="submit"  >Save</Button>
-                        <Button className='cancelbtn ms-2 ' type="submit"  >Cancel</Button>
+                        <Button className='savebtn' type="submit"  >Save</Button>
+                        <Button className='cancelbtn ms-2 ' onClick={() => navigate("/interview")}  >Cancel</Button>
 
                     </span>
                 </Form>

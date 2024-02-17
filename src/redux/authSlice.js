@@ -21,7 +21,7 @@ export const changePassword = createAsyncThunk('changepassword', async (body) =>
         method: "post",
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `${localStorage.getItem('token')}`
+            'Authorization': `token ${localStorage.getItem('token')}`
         },
         body: JSON.stringify(body)
     })
@@ -532,11 +532,27 @@ const authSlice = createSlice({
         [changePassword.pending]: (state, action) => {
             state.loading = true
         },
-        [changePassword.fulfilled]: (state, { payload: { error, detail } }) => {
+        [changePassword.fulfilled]: (state, { payload: { error, detail, message } }) => {
             state.loading = false;
             if (detail) {
                 state.detail = detail
                 toast.success(detail, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                });
+            }
+            if (error) {
+                state.error = error[0]
+                toast.error(error[0], {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                });
+            }
+            if (message) {
+                state.message = message
+                toast.success(message, {
                     position: toast.POSITION.TOP_RIGHT,
                     autoClose: 2000,
                     hideProgressBar: true,

@@ -117,7 +117,7 @@ const Feedback = () => {
                         <Form onSubmit={handleFormSubmit} style={{ height: "420px" }}>
                             <Form.Group className="mb-3 mx-4" controlId="formBasicEmail">
                                 <Form.Label className="text-start labelcss">
-                                    Subject
+                                    Email
                                 </Form.Label>
                                 <Form.Control
                                     type="email"
