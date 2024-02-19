@@ -494,6 +494,22 @@ export default function SignUp() {
 
         setConfirm_password(inputPassword);
 
+        if (!inputPassword) {
+            const updatedErrors = { ...errors };
+      
+            updatedErrors.confirm_password = "Please enter Confirm Password"
+      
+            setErrors(updatedErrors);
+          }
+      
+          if (inputPassword != password) {
+            const updatedErrors = { ...errors };
+      
+            updatedErrors.confirm_password = "Password and Confirm Password does not match"
+      
+            setErrors(updatedErrors);
+          }
+
         // Clear the error for password field if it becomes non-empty
         const validationErrors = {};
         if (!isConfirmPasswordValid(inputPassword)) {
@@ -546,7 +562,7 @@ export default function SignUp() {
                 <span className='loginrow'>
                     <Row className="no-gutters mx-1 " >
                         <Col className="d-flex d-none d-lg-block " xl={6} >
-                            <Card className="flex-fill no-margin loginImage imgcontainer">
+                            <Card className="flex-fill no-margin loginImage imgcontainer box-shadow">
                                 <Card.Body>
                                     <div className='logocss loginmargin1'>
                                         {/* <Image variant="top" className="img-fluid" style={{ height: 48 }} src={mainlogo} /> */}
@@ -558,7 +574,7 @@ export default function SignUp() {
                             </Card>
                         </Col>
                         <Col className="d-flex" xl={6}>
-                            <Card className="flex-fill no-margin">
+                            <Card className="flex-fill no-margin box-shadow">
                                 <Card.Body>
                                     <div className="text-center p-2 loginmargin" >
                                         <Card.Title className='logintitle'>Sign up</Card.Title>
@@ -641,12 +657,11 @@ export default function SignUp() {
                                                         onClick={handleTogglePasswordVisibilityPassword}
                                                     />
                                                 )}
-                                                 <Form.Control.Feedback type="invalid">
+                                            </div>
+                                            <div style={{ color: "#DD5B51", marginTop:"3px", fontSize:"14px" }}>{errors.password}</div>
+                                            <Form.Control.Feedback type="invalid">
                                                 {errors.password}
                                             </Form.Control.Feedback>
-                                            </div>
-
-                                           
                                         </Form.Group>
                                         <Form.Group
                                             className='formgr'
@@ -668,11 +683,11 @@ export default function SignUp() {
                                                         onClick={handleTogglePasswordVisibility}
                                                     />
                                                 )}
-                                                 <Form.Control.Feedback type="invalid">
+                                            </div>
+                                            <div style={{ color: "#DD5B51", marginTop:"3px", fontSize:"14px" }}>{errors.confirm_password_matches || errors.confirm_password}</div>
+                                            <Form.Control.Feedback type="invalid">
                                                 {errors.confirm_password_matches || errors.confirm_password}
                                             </Form.Control.Feedback>
-                                            </div>
-                                           
                                         </Form.Group>
                                         <Form.Group className='formgr' controlId="formBasicCheckbox">
                                             <Form.Check

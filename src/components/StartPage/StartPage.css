@@ -29,6 +29,9 @@
     font-family: "DMSans-Medium";
 }
 
+.box-shadow{
+    box-shadow: 0px 4px 5px 0px #4B4B4B;
+}
 
 @media (max-width:991px) {
     .box-with-border {
