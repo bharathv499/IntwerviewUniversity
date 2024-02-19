@@ -36,7 +36,18 @@ export default function InterviewQuestion() {
 
     const [userdata] = useState(location.state?.userData);
     const [answers, setAnswers] = useState({
-        role: ''
+        role: '',
+        question_1:'',
+        answer_1:'',
+        question_2:'',
+        answer_2:'',
+        question_3:'',
+        answer_3:'',
+        question_4:'',
+        answer_4:'',
+        question_5:'',
+        answer_5:'',
+
     });
 
     const [enablebtn, setEnablebtn] = useState(false)
@@ -61,12 +72,21 @@ export default function InterviewQuestion() {
                 const questionArray = result?.payload?.choices[0].message.content.split('\n');
                 setQuestionData(questionArray?.filter((item) => item != ""))
 
+                {questionArray?.filter((item) => item != '')?.map((item, i) => (
+                    setAnswers(prevAnswers => ({
+                        ...prevAnswers,
+                        [`question_${i+1}`]: item
+                    }))
+                    ))}
+
                 { questionArray?.filter((item) => item != '')?.map((item, i) => ((i == 0) ? setSelectedItem(item) : '')) }
                 setLoading(false)
             })
             .catch((error) => {
                 console.log(error)
             });
+
+          
 
 
     }, []);
@@ -243,14 +263,15 @@ export default function InterviewQuestion() {
         const questionKeys = Object.keys(answers).filter(key => key.startsWith('question_'));
         const answerKeys = Object.keys(answers).filter(key => key.startsWith('answer_'));
 
-        if (questionKeys.length !== 5 || answerKeys.length !== 5) {
-            setLoading(false)
-            toast.error("Answering all questions should be required", {
-                position: toast.POSITION.TOP_RIGHT,
-                autoClose: 2000,
-                hideProgressBar: true,
-            });
-        } else {
+        // if (questionKeys.length !== 5) {
+
+        //     {questionData?.filter((item) => item != '')?.map((item, i) => (
+        //     setAnswers(prevAnswers => ({
+        //         ...prevAnswers,
+        //         [`question_${i}`]: item.split('.')[0]
+        //     }))
+        //     ))}
+        // } else {
             dispatch(saveInterviewSession(answers))
                 .then((result) => {
                     setLoading(false)
@@ -268,7 +289,7 @@ export default function InterviewQuestion() {
                 .catch((error) => {
                     console.log(error)
                 });
-        }
+        // }
     }
     const [feedbackText, setfeedbackText] = useState('')
 
@@ -312,7 +333,7 @@ export default function InterviewQuestion() {
                 )}
                 <Row className="smallscreenque seesionHeader  mb-3">
 
-                    <Col className="mt-lg-4 ms-lg-5 cursor backsmall" onClick={() => navigate('/interview')}><Image src={ep_back} height={20} /><span className='ms-1 backcss'>Back</span></Col>
+                <Col className="mt-lg-4 ms-lg-5  backsmall" ><span className='cursor' onClick={() => navigate('/interview')}><Image src={ep_back} height={20} /><span  className='ms-1 backcss'>Back</span></span></Col>
                     <Col className="d-flex justify-content-end  mt-lg-2 me-lg-5 mx-auto"> <Button className='sessionbtn' type="submit" onClick={saveData}>Save Interview Session</Button></Col>
                 </Row>
                 <Row className='d-lg-none seequestion'>
@@ -364,6 +385,7 @@ export default function InterviewQuestion() {
                                                     value={inputAnswerData}
                                                     placeholder='Type your answer..' onChange={(e) => handleAnswerChange(selectedItem, e.target.value)}
                                                 />
+                                              
                                                 <Form.Control.Feedback type="invalid">Please enter terms</Form.Control.Feedback>
                                             </Form.Group>
                                         </CardBody>
@@ -379,7 +401,7 @@ export default function InterviewQuestion() {
                                                 {selectedItem}
                                             </Form.Label>
                                             <span className='answer'>Answer:</span>
-                                            <p style={{ minHeight: '90vh',overflow:'auto' }}>
+                                            <p style={{ height: '90vh',overflow:'auto' }}>
                                                 {/* <Form.Control as="textarea" required style={{ minHeight: '90vh',overflow:'auto' }}
                                                 value={answerData} onChange={(e) => setInputAnswerData(e.target.value)}
                                                 /> */}
@@ -391,7 +413,7 @@ export default function InterviewQuestion() {
                             </div>}
                             <div className='questionBottom mb-2'>
                                 <span className='liketext cursor d-none d-lg-block' style={textStyle} onClick={() => favanswer()} >
-                                    {isClicked ? <FontAwesomeIcon icon={faHeart} style={{ color: 'red', paddingRight: 3 }} />
+                                    {isClicked ? <FontAwesomeIcon icon={faHeart} style={{ color: 'red', paddingRight: 5 }} />
                                         :
                                         <Image src={like} className='arrowimg' style={textStyle} />}
                                     Favorite this answer</span>

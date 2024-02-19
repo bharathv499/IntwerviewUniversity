@@ -108,6 +108,7 @@ const LogIn = () => {
         if (result.payload.key) {
           navigate('/interview')
           localStorage.setItem('initialquestpopup', true)
+        
           dispatch(getUserProfile())
             .then((result) => {
               // console.log(result,"result")
@@ -210,7 +211,7 @@ const LogIn = () => {
             axios
               .request(config)
               .then(response => {
-                localStorage.setItem("oauth","oauth")
+                // localStorage.setItem("oauth",true)
                 localStorage.setItem("token", response.data.key)
                 googlelogin(response.data.key)
               })
@@ -252,6 +253,8 @@ const LogIn = () => {
   const googlelogin = (response) => {
     dispatch(addAuthenticator(response))
     navigate('/interview')
+    localStorage.setItem('initialquestpopup', true)
+     localStorage.setItem('passworddisable', true)
     dispatch(getUserProfile())
       .then((result) => {
         // localStorage.setItem('role', result.payload.role)
@@ -261,8 +264,8 @@ const LogIn = () => {
         localStorage.setItem('username', result.payload.full_name)
         localStorage.setItem('email', result.payload.email)
         localStorage.setItem('userId', result.payload.id)
-
-
+       
+       
 
       })
       .catch((errordata) => {
@@ -314,13 +317,15 @@ const LogIn = () => {
                 autoClose: 2000,
                 hideProgressBar: true,
               });
+              localStorage.setItem('passworddisable', true)
+              localStorage.setItem('initialquestpopup', true)
               dispatch(getUserProfile())
                 .then((result) => {
                   localStorage.setItem('role', result.payload.role)
                   localStorage.setItem('username', result.payload.full_name)
                   localStorage.setItem('email', result.payload.email)
                   localStorage.setItem('userId', result.payload.id)
-
+                 
 
                 })
                 .catch((errordata) => {

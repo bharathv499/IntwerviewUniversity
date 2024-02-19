@@ -84,6 +84,11 @@
 .interviewcard .card-body{
     min-height: 360px;
 }
+
+.savedcard .card-body{
+    min-height: 150px;
+}
+
 .submitbtncss {
     font-family: 'DMSans-Bold';
     font-size: 12px;
@@ -127,7 +132,7 @@
     padding-top: 14px;
     padding-bottom: 10px;
     text-align: center;
-    cursor: pointer;
+    /* cursor: pointer; */
     background-color: rgba(245, 245, 245, 1);
     padding-left: 75px !important;
     padding-right: 75px !important;

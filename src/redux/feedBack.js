@@ -15,7 +15,7 @@ const initialState={
 
 }
 export const feedbackuser=createAsyncThunk('feedbackuser',async(body)=>{
-    const res =await fetch("https://cold-hat-40370.botics.co/support_feedback/sendfeedback",{
+    const res =await fetch("https://round-unit-43333.botics.co/support_feedback/sendfeedback",{
         method:"post",
         headers:{
             'Content-Type': 'application/json',

@@ -137,6 +137,9 @@ const StartPage = () => {
   const googlelogin = (response) => {
     dispatch(addAuthenticator(response))
     navigate('/interview')
+    localStorage.setItem('passworddisable', true)
+    localStorage.setItem('initialquestpopup', true)
+
     dispatch(getUserProfile())
       .then((result) => {
         // localStorage.setItem('role', result.payload.role)
@@ -146,7 +149,6 @@ const StartPage = () => {
         localStorage.setItem('username', result.payload.full_name)
         localStorage.setItem('email', result.payload.email)
         localStorage.setItem('userId', result.payload.id)
-
 
       
       })
@@ -192,6 +194,8 @@ const StartPage = () => {
             if (appleResponse.data.key) {
               localStorage.setItem('token', appleResponse.data.key)
               localStorage.setItem('isAuthenticated',true)
+              localStorage.setItem('passworddisable', true)
+              localStorage.setItem('initialquestpopup', true)
               navigate('/interview')
               toast.success('Login Successful!', {
                 position: toast.POSITION.TOP_RIGHT,
@@ -204,7 +208,6 @@ const StartPage = () => {
                   localStorage.setItem('username', result.payload.full_name)
                   localStorage.setItem('email', result.payload.email)
                   localStorage.setItem('userId', result.payload.id)
-    
     
                 })
                 .catch((errordata) => {
@@ -273,7 +276,7 @@ const StartPage = () => {
               <Card className="flex-fill no-margin loginImage">
                 <Card.Body>
                   <div className='logocss loginmargin1'>
-                  <Image variant="top" className="img-fluid" style={{height:48}} src={mainlogo} />
+                  {/* <Image variant="top" className="img-fluid" style={{height:48}} src={mainlogo} /> */}
                   </div>
                   <div className='logocss d-none d-lg-block' >
                     <Image variant="top" className="img-fluid custom-img" src={loginside} />

@@ -121,7 +121,7 @@ export default function Sidebar() {
         <div>
             <Row className="smallscreenque seesionHeader  mb-2 ms-2">
 
-                <Col className="mt-lg-4 ms-lg-5 cursor backsmall" onClick={() => navigate('/interview')}><Image src={ep_back} height={20} /><span className='ms-1 backcss'>Back</span></Col>
+                <Col className="mt-lg-4 ms-lg-5  backsmall" ><span className='cursor' onClick={() => navigate('/interview')}><Image src={ep_back} height={20} /><span  className='ms-1 backcss'>Back</span></span></Col>
                 
             </Row>
             <Container fluid>
