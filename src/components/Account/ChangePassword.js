@@ -11,7 +11,6 @@ const ChangePassword = () => {
   const dispatch = useDispatch()
   const [currPassword, setCurrPassword] = useState("");
   const [password, setPassword] = useState("");
-  const [password1, setPassword1] = useState("");
   const [confirm_password, setConfirm_password] = useState("");
 
   const [showEye, setShowEye] = useState(false);
@@ -21,9 +20,9 @@ const ChangePassword = () => {
   const [showCurrPassword, setShowCurrPassword] = useState(false);
   const [showNewPass, setShowNewPass] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);
-  const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$/;
+  const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$/;
   const [errors, setErrors] = useState("");
-
+  const [strength, setStrength] = useState(0);
   const body = {
     "old_password": currPassword,
     "password": password,
@@ -32,23 +31,22 @@ const ChangePassword = () => {
 
 
   const calculateStrength = (enteredPassword) => {
-    const strength = (/[A-Z]/.test(enteredPassword) ? 1 : 0) +
+    return (/[A-Z]/.test(enteredPassword) ? 1 : 0) +
       (/[a-z]/.test(enteredPassword) ? 1 : 0) +
+      (/\d/.test(enteredPassword) ? 1 : 0) +
       (/[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(enteredPassword) ? 1 : 0) +
       (enteredPassword.length >= 8 ? 1 : 0);
-
-    return strength;
   };
 
-  const getStrengthCategory = (strength) => {
-    if (strength === 0) return 'Weak';
-    if (strength === 1 || strength === 2) return 'Average';
-    if (strength === 3) return 'Medium';
-    return 'Strong';
-  };
+  // const getStrengthCategory = (strength) => {
+  //   if (strength === 0) return 'Weak';
+  //   if (strength === 1 || strength === 2) return 'Average';
+  //   if (strength === 3) return 'Medium';
+  //   return 'Strong';
+  // };
 
-  const passwordStrength = calculateStrength(password);
-  const strengthCategory = getStrengthCategory(passwordStrength);
+  // const passwordStrength = calculateStrength(password);
+  // const strengthCategory = getStrengthCategory(passwordStrength);
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -154,6 +152,8 @@ const ChangePassword = () => {
 
     setPassword(inputPassword);
     // Clear the error for password field if it becomes non-empty
+    const newStrength = calculateStrength(inputPassword);
+    setStrength(newStrength);
 
     if (!regex.test(inputPassword)) {
       const updatedErrors = { ...errors };
@@ -236,13 +236,34 @@ const ChangePassword = () => {
     return inputPassword === password;
   };
 
+  const getStrengthLabel = () => {
+    switch (strength) {
+      case 0:
+      case 1:
+        return <span style={{ color: 'red' }}>Weak</span>;
+      case 2:
+        return <span style={{ color: 'orange' }}>Average</span>;
+      case 3:
+        return <span style={{ color: 'yellow' }}>Medium</span>;
+      case 4:
+        return <span style={{ color: 'green' }}>Strong</span>;
+      case 5:
+        return <span style={{ color: 'darkgreen' }}>Strongest</span>;
+      default:
+        return null;
+    }
+  };
+
+  const getCriteriaLabel = (criteria, isValid) => {
+    return isValid ? null : <div style={{ color: 'red' }}>{criteria}</div>;
+  };
+
   return (
     <div>
       <ToastContainer></ToastContainer>
       <Row >
         <Col lg={10}>
           <Form onSubmit={handleFormSubmit} >
-
             <Form.Group className='formgr' controlId="formBasicConfirmPassword" >
               <Form.Label className="text-start labelcss">Current Password</Form.Label>
               <div className='position-relative'>
@@ -288,11 +309,24 @@ const ChangePassword = () => {
                   />
                 }
               </div>
-              <div style={{ marginTop: '5px' }}>
-                <progress value={passwordStrength * 25} max="100"></progress>
-                <p>Password Strength: {strengthCategory}</p>
-              </div>
               <div style={{ color: "red" }}>{errors.New_Pass}</div>
+              <div style={{ display: 'flex', alignItems: 'center', marginTop:"8px" }}>
+                <progress
+                  value={strength}
+                  max="5"
+                  style={{ width: '150px', height: '15px', marginRight: '10px' }}
+                />
+                <div>
+                  {getCriteriaLabel('At least one uppercase letter', /[A-Z]/.test(password))}
+                  {getCriteriaLabel('At least one lowercase letter', /[a-z]/.test(password))}
+                  {getCriteriaLabel('At least one numeric character', /\d/.test(password))}
+                  {getCriteriaLabel('At least one special character', /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(password))}
+                  {getCriteriaLabel('Minimum length of 8 characters', password.length >= 8)}
+                </div>
+              </div>
+              <div>
+                Password Strength: {getStrengthLabel()}
+              </div>
               <Form.Control.Feedback type="invalid">
                 {errors.New_Pass}</Form.Control.Feedback>
             </Form.Group>
