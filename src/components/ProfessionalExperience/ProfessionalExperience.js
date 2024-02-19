@@ -301,7 +301,7 @@ export default function ProfessionalExperience() {
             {proExperience.length > 0 ? <>
                 {proExperience?.map((item) => (
                     <Form className="me-lg-5" noValidate validated={validated} onSubmit={handleFormSubmit}>
-                        <div className="row">
+                        <div className="row " style={{marginBottom:"100px"}}>
                             <div className="col-sm">
                                 <Form.Group controlId="exampleForm.SelectCustom">
                                     <Form.Label className="text-start labelcss">Desired Job Role</Form.Label>
@@ -489,7 +489,7 @@ export default function ProfessionalExperience() {
                         <Form.Label className="text-start labelcss">  Career Goals</Form.Label>
                         <Form.Group controlId="exampleForm.ControlTextarea1">
 
-                            <Form.Control as="textarea" required onChange={handleChange}
+                            <Form.Control as="textarea" rows={5} required onChange={handleChange}
                             />
                             <Form.Control.Feedback type="invalid">Please enter  Career Goals</Form.Control.Feedback>
                         </Form.Group>
@@ -517,6 +517,7 @@ export default function ProfessionalExperience() {
 
                             <Form.Control as="textarea"
                                 value={pasteresume}
+                                rows={4} 
                             />
                             <Form.Control.Feedback type="invalid">Please enter terms</Form.Control.Feedback>
                         </Form.Group>
