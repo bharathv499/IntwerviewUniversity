@@ -26,10 +26,10 @@ export default function InterviewQuestion() {
     const [loading, setLoading] = useState(false);
     const [typeanswer, settypeanswer] = useState(true);
     const [showans, setshowans] = useState(false);
-  
+
     const [questionData, setQuestionData] = useState([]);
     const [answerData, setanswerData] = useState('');
-   
+
     const location = useLocation();
     const [selectedItem, setSelectedItem] = useState('');
     const [isClicked, setIsClicked] = useState(false);
@@ -37,16 +37,16 @@ export default function InterviewQuestion() {
     const [userdata] = useState(location.state?.userData);
     const [answers, setAnswers] = useState({
         role: '',
-        question_1:'',
-        answer_1:'',
-        question_2:'',
-        answer_2:'',
-        question_3:'',
-        answer_3:'',
-        question_4:'',
-        answer_4:'',
-        question_5:'',
-        answer_5:'',
+        question_1: '',
+        answer_1: '',
+        question_2: '',
+        answer_2: '',
+        question_3: '',
+        answer_3: '',
+        question_4: '',
+        answer_4: '',
+        question_5: '',
+        answer_5: '',
 
     });
 
@@ -72,12 +72,14 @@ export default function InterviewQuestion() {
                 const questionArray = result?.payload?.choices[0].message.content.split('\n');
                 setQuestionData(questionArray?.filter((item) => item != ""))
 
-                {questionArray?.filter((item) => item != '')?.map((item, i) => (
-                    setAnswers(prevAnswers => ({
-                        ...prevAnswers,
-                        [`question_${i+1}`]: item
-                    }))
-                    ))}
+                {
+                    questionArray?.filter((item) => item != '')?.map((item, i) => (
+                        setAnswers(prevAnswers => ({
+                            ...prevAnswers,
+                            [`question_${i + 1}`]: item
+                        }))
+                    ))
+                }
 
                 { questionArray?.filter((item) => item != '')?.map((item, i) => ((i == 0) ? setSelectedItem(item) : '')) }
                 setLoading(false)
@@ -86,28 +88,28 @@ export default function InterviewQuestion() {
                 console.log(error)
             });
 
-          
+
 
 
     }, []);
 
-    const handleItemClick = (item,index) => {
+    const handleItemClick = (item, index) => {
         // setLoading(true)
         console.log(answers, "answers")
         // console.log(index, "ques")
-       
+
 
 
         if (answers.hasOwnProperty(`answer_${index}`)) {
-            const ques=`answer_${index}`
-            console.log(ques,"ques")
-            console.log(answers[ques],"answers.ques")
-            
-             settypeanswer(true) 
+            const ques = `answer_${index}`
+            console.log(ques, "ques")
+            console.log(answers[ques], "answers.ques")
+
+            settypeanswer(true)
             setInputAnswerData(answers[ques])
 
             setEnablebtn(true)
-            
+
         } else {
             // "answer_1" is not available in the object
             setanswerData('')
@@ -117,10 +119,10 @@ export default function InterviewQuestion() {
 
         setSelectedItem(item);
         setIsClicked(false);
-      
+
         settypeanswer(true)
         setshowans(false)
-       
+
     };
 
 
@@ -164,7 +166,7 @@ export default function InterviewQuestion() {
         console.log(selectedItem, "selectedItem")
 
         const selectedquestion = selectedItem.split('.')[1];
-        const question=`${selectedquestion}${' answer this assuming you are the candidate'}`
+        const question = `${selectedquestion}${' answer this assuming you are the candidate'}`
         // answer this assuming you are the candidate
         const body = {
             "model": "gpt-4",
@@ -198,7 +200,7 @@ export default function InterviewQuestion() {
             });
 
     }
-  
+
     const favanswer = () => {
 
         if (answerData.length === 0 && inputAnswerData === '') {
@@ -213,18 +215,18 @@ export default function InterviewQuestion() {
                 "question": selectedItem,
                 "role": userdata.role
             }
-           if(isClicked != true){
-            dispatch(favoriteAnswer(body1))
-                .then((result) => {
-                    setIsClicked(!isClicked);
-                    console.log(result, "result")
+            if (isClicked != true) {
+                dispatch(favoriteAnswer(body1))
+                    .then((result) => {
+                        setIsClicked(!isClicked);
+                        console.log(result, "result")
 
-                })
-                .catch((error) => {
-                    console.log(error)
-                });
-            }else{
-              
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    });
+            } else {
+
             }
 
         }
@@ -255,7 +257,7 @@ export default function InterviewQuestion() {
             [`answer_${num}`]: answer
         }));
     };
-   
+
     const saveData = () => {
         setLoading(true)
         answers.role = userdata.role
@@ -272,27 +274,27 @@ export default function InterviewQuestion() {
         //     }))
         //     ))}
         // } else {
-            dispatch(saveInterviewSession(answers))
-                .then((result) => {
-                    setLoading(false)
-                    toast.success("Data saved successfully", {
-                        position: toast.POSITION.TOP_RIGHT,
-                        autoClose: 5000,
-                        hideProgressBar: true,
-                    });
-
-                    // setAnswers([])
-                    // setanswerData('')
-                    // setInputAnswerData('')
-
-                })
-                .catch((error) => {
-                    console.log(error)
+        dispatch(saveInterviewSession(answers))
+            .then((result) => {
+                setLoading(false)
+                toast.success("Data saved successfully", {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 5000,
+                    hideProgressBar: true,
                 });
+
+                // setAnswers([])
+                // setanswerData('')
+                // setInputAnswerData('')
+
+            })
+            .catch((error) => {
+                console.log(error)
+            });
         // }
     }
     const [feedbackText, setfeedbackText] = useState('')
-
+    const [isOpen, setIsOpen] = useState(false);
     const submitData = (question, answer) => {
         const selectedquestion = question.split('.')[1];
         setLoading(true)
@@ -318,7 +320,11 @@ export default function InterviewQuestion() {
             .catch((error) => {
                 console.log(error)
             });
+
     }
+    const toggleTab = () => {
+        setIsOpen(!isOpen);
+    };
     return (
         <div>
             <ToastContainer />
@@ -333,7 +339,7 @@ export default function InterviewQuestion() {
                 )}
                 <Row className="smallscreenque seesionHeader  mb-3">
 
-                <Col className="mt-lg-4 ms-lg-5  backsmall" ><span className='cursor' onClick={() => navigate('/interview')}><Image src={ep_back} height={20} /><span  className='ms-1 backcss'>Back</span></span></Col>
+                    <Col className="mt-lg-4 ms-lg-5  backsmall" ><span className='cursor' onClick={() => navigate('/interview')}><Image src={ep_back} height={20} /><span className='ms-1 backcss'>Back</span></span></Col>
                     <Col className="d-flex justify-content-end  mt-lg-2 me-lg-5 mx-auto"> <Button className='sessionbtn' type="submit" onClick={saveData}>Save Interview Session</Button></Col>
                 </Row>
                 <Row className='d-lg-none seequestion'>
@@ -342,34 +348,41 @@ export default function InterviewQuestion() {
                     </Col>
                 </Row>
                 <Row>
-                    <Col lg={4} className='d-none d-lg-block'>
+                    <Col lg={isOpen ? 1 : 4} className='d-none d-lg-block'>
 
                         <Card className="flex-column cardbackground1 ms-5 me-2 mt-2 mb-2" style={{ height: '120vh', overflow: 'auto' }} >
 
                             <div className='row ms-1 mt-3'>
                                 {/* <div className='col-sm d-flex justify-content-center cursor'><Image onClick={() => regenerateQ()} src={regenerate} style={{ height: 27 }} /></div> */}
                                 <div className='col-sm regen cursor'>
-                                    <Image onClick={() => regenerateQ()} src={regen} /><span className='retxt'>Regenerate Questions</span></div>
-                                <div className='col-sm d-flex justify-content-end me-2'><Image src={back} style={{ height: 30 }} /></div>
+                                    {!isOpen && <> <Image onClick={() => regenerateQ()} src={regen} />
+                                        <span className='retxt'>Regenerate Questions</span> </>}
+                                </div>
+                                <div className='col-sm d-flex justify-content-end me-2'><Image onClick={toggleTab} src={back} style={{ height: 30 }} /></div>
                             </div>
-                            <Nav className="flex-column mb-2">
 
-                                {questionData?.filter((item) => item != '')?.map((item, i) => (
+                            {!isOpen &&
+                                <Nav className="flex-column mb-2">
 
-                                    <Nav.Item key={item}
-                                        className={`${selectedItem === item ? 'sideActive' : 'sideInactive'} pb-2`}
-                                        onClick={() => handleItemClick(item,i+1)}>
-                                        <Nav.Link href="#section1" className={`profiletext ${selectedItem === item ? 'activetext1' : 'notactive1'}`} >{item}</Nav.Link>
-                                    </Nav.Item>
+                                    {questionData?.filter((item) => item != '')?.map((item, i) => (
 
-                                ))}
-                            </Nav>
+                                        <Nav.Item key={item}
+                                            className={`${selectedItem === item ? 'sideActive' : 'sideInactive'} pb-2`}
+                                            onClick={() => handleItemClick(item, i + 1)}>
+                                            <Nav.Link href="#section1" className={`profiletext ${selectedItem === item ? 'activetext1' : 'notactive1'}`} >{item}</Nav.Link>
+                                        </Nav.Item>
+
+                                    ))}
+                                </Nav>
+                            }
                         </Card>
 
 
                     </Col>
-                    <Col lg={8}>
-                        <Container>
+
+
+                    <Col lg={isOpen ? 11 : 8} >
+                        <div>
 
                             {typeanswer && <div className="row mb-2 mt-2">
                                 <div className="col-sm">
@@ -385,7 +398,7 @@ export default function InterviewQuestion() {
                                                     value={inputAnswerData}
                                                     placeholder='Type your answer..' onChange={(e) => handleAnswerChange(selectedItem, e.target.value)}
                                                 />
-                                              
+
                                                 <Form.Control.Feedback type="invalid">Please enter terms</Form.Control.Feedback>
                                             </Form.Group>
                                         </CardBody>
@@ -401,7 +414,7 @@ export default function InterviewQuestion() {
                                                 {selectedItem}
                                             </Form.Label>
                                             <span className='answer'>Answer:</span>
-                                            <p style={{ height: '90vh',overflow:'auto' }}>
+                                            <p style={{ height: '90vh', overflow: 'auto' }}>
                                                 {/* <Form.Control as="textarea" required style={{ minHeight: '90vh',overflow:'auto' }}
                                                 value={answerData} onChange={(e) => setInputAnswerData(e.target.value)}
                                                 /> */}
@@ -433,7 +446,7 @@ export default function InterviewQuestion() {
                                 </span>
                             </div>
 
-                        </Container>
+                        </div>
 
 
                     </Col>
