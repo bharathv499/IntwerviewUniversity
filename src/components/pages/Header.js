@@ -159,10 +159,10 @@ export default function Header() {
 
               </Nav>
               <Nav className='headerimage'>
-                <Image variant="top" className='notification cursor' src={notification} />
-                {!selectedImage && <Image variant="top" className='userimg cursor' onClick={() => setShow(true)} src={user1} />}
-                {selectedImage && <Image src={selectedImage} roundedCircle style={{ width: '45px', height: '45px', cursor: 'pointer' }} onClick={() => setShow(true)} />}
-                <span className='headercss1 ms-2' >
+                <Image variant="top" className='notification cursor' style={{marginRight:"20px"}} src={notification} />
+                {!selectedImage && <Image variant="top" className='userimg cursor' style={{marginRight:"5px"}} onClick={() => setShow(true)} src={user1} />}
+                {selectedImage && <Image src={selectedImage} roundedCircle style={{ width: '45px', height: '45px', cursor: 'pointer', marginRight:"5px"}} onClick={() => setShow(true)} />}
+                <span className='headercss1 ms-2'>
                   {userName}
                   {/* Greesky Schweirald */}
                 </span>

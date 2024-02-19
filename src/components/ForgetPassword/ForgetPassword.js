@@ -104,7 +104,7 @@ const ForgetPassword = () => {
             <span className='loginrow'>
                 <Row className="no-gutters mx-1 " >
                     <Col className="d-flex" xl={6}>
-                        <Card className="flex-fill no-margin loginImage">
+                        <Card className="flex-fill no-margin loginImage box-shadow">
                             <Card.Body>
                                 <div className='logocss loginmargin1'>
                                     <Image variant="top" className="img-fluid" src={logo} />
@@ -116,7 +116,7 @@ const ForgetPassword = () => {
                         </Card>
                     </Col>
                     <Col className="d-flex" xl={6}>
-                        <Card className="flex-fill no-margin">
+                        <Card className="flex-fill no-margin box-shadow">
                             <Card.Body className="margintop">
                                 <div className="text-center p-2  " >
                                     <Card.Title className='logintitle'>Forgot Password</Card.Title>

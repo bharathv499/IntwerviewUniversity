@@ -387,7 +387,7 @@ const LogIn = () => {
 
         <Row className="no-gutters mx-1 " >
           <Col className="d-flex d-none d-lg-block" xl={6}>
-            <Card className="flex-fill no-margin loginImage loginimgcontainer">
+            <Card className="flex-fill no-margin loginImage loginimgcontainer box-shadow">
               <Card.Body>
                 <div className='logocss loginmargin1 '>
                   {/* <Image variant="top" className="img-fluid" style={{height:48}} src={mainlogo} /> */}
@@ -399,7 +399,7 @@ const LogIn = () => {
             </Card>
           </Col>
           <Col className="d-flex" xl={6}>
-            <Card className="flex-fill no-margin">
+            <Card className="flex-fill no-margin box-shadow">
               <Card.Body>
 
                 <div className="text-center p-2 loginmargin" >
@@ -472,6 +472,7 @@ const LogIn = () => {
                             onClick={handleTogglePasswordVisibility}
                           />}
                       </div>
+                      <div style={{ color: "#DD5B51", marginTop:"3px", fontSize:"14px" }}>{errors.password}</div>
                       <Form.Control.Feedback type="invalid" className='text-start errorcss'>{errors.password}</Form.Control.Feedback>
 
                       <Row className='mt-2 mx-1'>
