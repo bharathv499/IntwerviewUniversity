@@ -27,6 +27,7 @@ export default function Account() {
     const updateddata = useSelector((state) => state.user.updateddata);
     const [gender, setgender] = useState('');
     const [errors, setErrors] = useState({});
+    // const [phoneError, setPhoneError] = useState({});
     const [selectedImage, setSelectedImage] = useState(null);
     const fileInputRef = useRef(null);
     const [userData, setuserData] = useState([]);
