@@ -124,18 +124,16 @@
     position: absolute;
     right: 30px;
     transition-duration: 0s;
-    top: 50%;
-    transform: translateY(-50%);
-
+    top: 12px;
+    
 }
 .eyeiconcp{
     
     position: absolute;
     right: 30px;
     transition-duration: 0s;
-    top: 50%;
-    transform: translateY(-50%);
-
+    top: 12px;
+   
 }
 
 

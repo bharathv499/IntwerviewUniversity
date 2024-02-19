@@ -55,7 +55,7 @@ export default function ProfessionalExperience() {
                 formData.email = data.email
                 console.log(result.payload.length, "result.payload")
                 setProExperience(result.payload)
-
+                setRemote(data.remote_option);
 
 
             })
@@ -118,11 +118,29 @@ export default function ProfessionalExperience() {
             console.log(formData, "formData")
 
             dispatch(updateExperience(formData))
-            toast.success('Data saved successfully', {
-                position: toast.POSITION.TOP_RIGHT,
-                autoClose: 2000,
-                hideProgressBar: true,
-            });
+            .then((result) => {
+                console.log(result,"result")
+                if(result?.payload?.error){
+                    toast.error(result?.payload?.error, {
+                        position: toast.POSITION.TOP_RIGHT,
+                        autoClose: 2000,
+                        hideProgressBar: true,
+                    });
+                }else{
+                    toast.success('Data saved successfully', {
+                        position: toast.POSITION.TOP_RIGHT,
+                        autoClose: 2000,
+                        hideProgressBar: true,
+                    });
+                }
+               
+        
+              })
+              .catch((error) => {
+                console.log(error)
+              });
+        
+          
         } else {
             event.stopPropagation();
         }
@@ -374,7 +392,7 @@ export default function ProfessionalExperience() {
                                         className='labelcss1'
                                         name="remote_option"
                                         label="Remote"
-                                        checked={item.remote_option}
+                                        checked={remote}
                                         onChange={handleOptionChecked}
                                     />
                                 </Form.Group>

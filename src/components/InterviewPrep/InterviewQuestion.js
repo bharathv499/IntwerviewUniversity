@@ -149,6 +149,13 @@ export default function InterviewQuestion() {
                 const questionArray = result?.payload?.choices[0].message.content.split('\n');
                 setQuestionData(questionArray?.filter((item) => item != ""))
 
+                {questionArray?.filter((item) => item != '')?.map((item, i) => (
+                    setAnswers(prevAnswers => ({
+                        ...prevAnswers,
+                        [`question_${i+1}`]: item
+                    }))
+                    ))}
+
                 { questionArray?.filter((item) => item != '')?.map((item, i) => ((i == 0) ? setSelectedItem(item) : '')) }
                 setLoading(false)
 

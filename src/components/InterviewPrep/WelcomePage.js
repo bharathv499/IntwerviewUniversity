@@ -176,7 +176,14 @@ export default function WelcomePage({ closeModal }) {
   };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    if (name === 'career_goal') {
+      if (e.target.value.length <= 1000) {
+        setFormData({ ...formData, [name]: value });
+      }
+    } else {
+     
+      setFormData({ ...formData, [name]: value });
+    }
     if (name === 'full_name' && errors.fullNameError) {
       setErrors({ ...errors, fullNameError: '' });
     }
@@ -228,22 +235,22 @@ export default function WelcomePage({ closeModal }) {
 
     // if (validateStep4()) {
 
-      closeModal()
-      const formDataToSubmit = { ...formData };
-      dispatch(InitiationQuestions(formDataToSubmit))
-        .then((result) => {
-          console.log(result, "result")
+    closeModal()
+    const formDataToSubmit = { ...formData };
+    dispatch(InitiationQuestions(formDataToSubmit))
+      .then((result) => {
+        console.log(result, "result")
 
-          dispatch(updateProfile(formDataToSubmit))
-          toast.success('Data saved successfully', {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 2000,
-            hideProgressBar: true,
-          });
-        })
-        .catch((errordata) => {
-
+        dispatch(updateProfile(formDataToSubmit))
+        toast.success('Data saved successfully', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 2000,
+          hideProgressBar: true,
         });
+      })
+      .catch((errordata) => {
+
+      });
 
     // }
   }
@@ -259,15 +266,15 @@ export default function WelcomePage({ closeModal }) {
         console.log(error)
       });
 
-      dispatch(getUserProfile())
+    dispatch(getUserProfile())
       .then((result) => {
-         
-          const data=result.payload;
-          console.log(data.email,"data.email")
 
-          setFormData({...formData, email:data.email})
+        const data = result.payload;
+        console.log(data.email, "data.email")
 
-          // formData.email = data.email;
+        setFormData({ ...formData, email: data.email })
+
+        // formData.email = data.email;
       })
 
   }, []);
@@ -494,6 +501,7 @@ export default function WelcomePage({ closeModal }) {
 
                     <Form.Control as="textarea" name="career_goal" required style={{ minHeight: '10rem' }}
                       value={formData.career_goal}
+                      maxLength={1000}
                       onChange={handleInputChange}
                     />
                     {errors.goalError && <p className='step-error'>{errors.goalError}</p>}
