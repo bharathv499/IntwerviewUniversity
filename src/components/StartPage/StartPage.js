@@ -273,7 +273,7 @@ const StartPage = () => {
 
           <Row className="no-gutters mx-1 " >
             <Col className="d-flex d-none d-lg-block" xl={6}>
-              <Card className="flex-fill no-margin loginImage">
+              <Card className="flex-fill no-margin loginImage box-shadow">
                 <Card.Body>
                   <div className='logocss loginmargin1'>
                   {/* <Image variant="top" className="img-fluid" style={{height:48}} src={mainlogo} /> */}
@@ -285,7 +285,7 @@ const StartPage = () => {
               </Card>
             </Col>
             <Col className="d-flex" xl={6}>
-              <Card className="flex-fill no-margin">
+              <Card className="flex-fill no-margin box-shadow">
                 <Card.Body>
 
                   <div className="text-center p-2 loginmargin" >
