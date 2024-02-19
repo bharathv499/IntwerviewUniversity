@@ -557,6 +557,16 @@ const authSlice = createSlice({
                     autoClose: 2000,
                     hideProgressBar: true,
                 });
+                if(message === "Password changed successfully"){
+                    localStorage.removeItem('token')
+                    localStorage.removeItem('username')
+                    localStorage.removeItem('role')
+                    localStorage.removeItem('userId')
+                    localStorage.removeItem('isAuthenticated')
+                    localStorage.setItem('isAuthenticated', false)
+                    localStorage.clear();
+                    window.location.href = "/"
+                }
             }
         },
         [changePassword.rejected]: (state, action) => {
