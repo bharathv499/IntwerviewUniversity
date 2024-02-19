@@ -81,8 +81,42 @@ export default function SignUp() {
 
         const inputPassword = event.target.value;
         setPassword(inputPassword);
-
-        if (errors.password && inputPassword.trim().length > 8 && isPasswordValid(inputPassword)) {
+        const validationErrors = {};
+        if (!isPasswordValid(inputPassword)) {
+            console.log("inputPassword.length",inputPassword.length)
+            if (!isNameValid(name)) {
+                validationErrors.name = "Please enter a valid user name.";
+            }
+            if (!isEmailValid(email)) {
+                validationErrors.email = "Please enter a valid email address.";
+            }
+            if(!/[A-Z]/.test(inputPassword)){
+                validationErrors.password = "Password must contain at least one uppercase letter.";
+            }
+            if(!/[@$!%*?&]/.test(inputPassword)){
+                validationErrors.password = "Password must contain at least one special character.";
+            }
+            if(!/[a-z]/.test(inputPassword)){
+                validationErrors.password = "Password must contain at least one lowercase letter.";
+            }
+            if(!/[0-9]/.test(inputPassword)){
+                validationErrors.password = "Password must contain at least one numeric number.";
+            }
+            if(inputPassword.length < 8){
+                validationErrors.password = "Password must be at least 8 characters long.";
+            }
+            if (!isConfirmPasswordValid(confirm_password)) {
+                validationErrors.confirm_password = "Please enter a valid password";
+            }
+            // if (!isPasswordMatches(confirm_password)) {
+            //     validationErrors.confirm_password_matches = "Password and Confirm does not match";
+            // }
+            if (Object.keys(validationErrors).length > 0) {
+                setErrors(validationErrors);
+                return;
+            }
+            
+        }else if (errors.password && inputPassword.trim().length > 8 && isPasswordValid(inputPassword)) {
             const updatedErrors = { ...errors };
             delete updatedErrors.password;
             setErrors(updatedErrors);
@@ -310,6 +344,8 @@ export default function SignUp() {
     const googlelogin = (response) => {
         dispatch(addAuthenticator(response))
         navigate('/interview')
+        localStorage.setItem('initialquestpopup', true)
+        localStorage.setItem('passworddisable', true)
         dispatch(getUserProfile())
             .then((result) => {
                 // localStorage.setItem('role', result.payload.role)
@@ -319,7 +355,7 @@ export default function SignUp() {
                 localStorage.setItem('username', result.payload.full_name)
                 localStorage.setItem('email', result.payload.email)
                 localStorage.setItem('userId', result.payload.id)
-
+               
 
 
             })
@@ -371,14 +407,15 @@ export default function SignUp() {
                                 autoClose: 2000,
                                 hideProgressBar: true,
                             });
+                            localStorage.setItem('passworddisable', true)
+                            localStorage.setItem('initialquestpopup', true)
                             dispatch(getUserProfile())
                                 .then((result) => {
                                     localStorage.setItem('role', result.payload.role)
                                     localStorage.setItem('username', result.payload.full_name)
                                     localStorage.setItem('email', result.payload.email)
                                     localStorage.setItem('userId', result.payload.id)
-
-
+                                   
                                 })
                                 .catch((errordata) => {
 
@@ -458,10 +495,32 @@ export default function SignUp() {
         setConfirm_password(inputPassword);
 
         // Clear the error for password field if it becomes non-empty
-
-        if (errors.confirm_password && inputPassword.trim().length > 8 && isConfirmPasswordValid(inputPassword)) {
+        const validationErrors = {};
+        if (!isConfirmPasswordValid(inputPassword)) {
+            console.log("test")
+            if (!isNameValid(name)) {
+                validationErrors.name = "Please enter a valid user name.";
+            }
+            if (!isEmailValid(email)) {
+                validationErrors.email = "Please enter a valid email address.";
+            }
+            if(inputPassword.length < 8){
+                validationErrors.confirm_password = "Password must be at least 8 characters long.";
+            }
+            if (!isPasswordValid(password)) {
+                validationErrors.password = "Please enter a valid password";
+            }
+            if (!isPasswordMatches(confirm_password)) {
+                validationErrors.confirm_password_matches = "Password and Confirm does not match";
+            }
+            if (Object.keys(validationErrors).length > 0) {
+                setErrors(validationErrors);
+                return;
+            }
+            
+        }else if (errors.confirm_password && inputPassword.trim().length > 8 && isConfirmPasswordValid(inputPassword)) {
             const updatedErrors = { ...errors };
-
+            delete updatedErrors.confirm_password_matches;
             delete updatedErrors.confirm_password;
 
             setErrors(updatedErrors);
@@ -474,6 +533,7 @@ export default function SignUp() {
 
             setErrors(updatedErrors);
         }
+       
     };
 
     return (
@@ -581,11 +641,12 @@ export default function SignUp() {
                                                         onClick={handleTogglePasswordVisibilityPassword}
                                                     />
                                                 )}
-                                            </div>
-
-                                            <Form.Control.Feedback type="invalid">
+                                                 <Form.Control.Feedback type="invalid">
                                                 {errors.password}
                                             </Form.Control.Feedback>
+                                            </div>
+
+                                           
                                         </Form.Group>
                                         <Form.Group
                                             className='formgr'
@@ -607,10 +668,11 @@ export default function SignUp() {
                                                         onClick={handleTogglePasswordVisibility}
                                                     />
                                                 )}
-                                            </div>
-                                            <Form.Control.Feedback type="invalid">
+                                                 <Form.Control.Feedback type="invalid">
                                                 {errors.confirm_password_matches || errors.confirm_password}
                                             </Form.Control.Feedback>
+                                            </div>
+                                           
                                         </Form.Group>
                                         <Form.Group className='formgr' controlId="formBasicCheckbox">
                                             <Form.Check

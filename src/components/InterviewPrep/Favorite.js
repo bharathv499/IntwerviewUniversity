@@ -37,10 +37,7 @@ export default function Favorite() {
 
             <Container>
                 <div className="row mb-2 mt-2">
-                    <div className="col-sm  backsmall">
-
-                        <Image src={ep_back} height={20} className='cursor'  onClick={() => navigate('/interview')}/><span className='ms-1 backcss cursor'  onClick={() => navigate('/interview')}>Back</span>
-                    </div>
+                <Col className="mt-lg-4 ms-lg-5  backsmall" ><span className='cursor' onClick={() => navigate('/interview')}><Image src={ep_back} height={20} /><span  className='ms-1 backcss'>Back</span></span></Col>
                 </div>
                 <div className="row mb-2 mt-2">
                     <div className="col-sm">

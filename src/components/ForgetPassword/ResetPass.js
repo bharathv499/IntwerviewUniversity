@@ -166,11 +166,11 @@ const ResetPass = () => {
             <div style={backgroundImageStyle1}></div></div>
           <span className='loginrow'>
             <Row className="no-gutters mx-1 " >
-              <Col className="d-flex" xl={6}>
+              <Col  className="d-flex d-none d-lg-block" xl={6}>
                 <Card className="flex-fill no-margin loginImage">
                   <Card.Body>
                     <div className='logocss loginmargin1'>
-                      <Image variant="top" className="img-fluid" src={logo} />
+                      {/* <Image variant="top" className="img-fluid" src={logo} /> */}
                     </div>
                     <div className='logocss d-none d-lg-block'>
                       <Image variant="top" className="img-fluid custom-img" src={loginside} />

@@ -186,7 +186,10 @@
     justify-content: flex-start;
     cursor: pointer;
 }
-
+.disabled-span {
+    color: #999; /* Example: Change text color to gray */
+    pointer-events: none; /* Prevent pointer events, effectively disabling interactions */
+  }
 .cameraimage {
 
     background-color: white;
