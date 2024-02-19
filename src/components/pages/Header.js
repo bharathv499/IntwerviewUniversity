@@ -96,6 +96,36 @@ export default function Header() {
     setMenuDisplay(false)
   }
 
+  const homenav =() =>{
+    navigate('/home')
+    setMenuDisplay(false)
+  }
+
+  const faqnav =() =>{
+    navigate('/faq')
+    setMenuDisplay(false)
+  }
+
+  const aboutnav=() =>{
+    navigate('/about')
+    setMenuDisplay(false)
+  }
+  const contactnav=() =>{
+    navigate('/contact')
+    setMenuDisplay(false)
+  }
+
+  const signupnav=()=>{
+    navigate('/signup')
+    setMenuDisplay(false)
+  }
+
+  const loginnav=()=>{
+    navigate('/login')
+    setMenuDisplay(false)
+  }
+  
+
   const profileClick = () => {
     navigate('/account')
     setMenuDisplay(false)
@@ -222,10 +252,14 @@ export default function Header() {
               (
                 <>
                   <div className='text-center '>
-                    <span className='navHeader my-2' onClick={() => navigate("/home")}>Home</span><hr />
-                    <span className='navHeader my-2' onClick={() => navigate("/faq")}>FAQ</span><hr />
-                    <span className='navHeader my-2' onClick={() => navigate("/about")}>About us</span><hr />
-                    <span className='navHeader my-2' onClick={() => navigate("/contact")}>Contact Us</span>
+                    <span className='navHeader my-2' onClick={homenav}>Home</span><hr />
+                    <span className='navHeader my-2' onClick={faqnav}>FAQ</span><hr />
+                    <span className='navHeader my-2' onClick={aboutnav}>About us</span><hr />
+                    <span className='navHeader my-2' onClick={contactnav}>Contact Us</span><hr />
+                    <span className='navHeader my-2' onClick={signupnav}>Signup</span><hr/>
+                   
+                <Image variant="top" className='socialImg cursor' onClick={loginnav} src={signin} />
+
                   </div>
 
                 </>

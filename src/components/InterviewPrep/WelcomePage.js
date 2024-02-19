@@ -155,12 +155,12 @@ export default function WelcomePage({ closeModal }) {
       case 0:
         isValid = validateStep1();
         break;
-      case 1:
-        isValid = validateStep2();
-        break;
-      case 2:
-        isValid = validateStep3();
-        break;
+      // case 1:
+      //   isValid = validateStep2();
+      //   break;
+      // case 2:
+      //   isValid = validateStep3();
+      //   break;
       // Add cases for additional steps as needed
       default:
         break;
@@ -226,7 +226,7 @@ export default function WelcomePage({ closeModal }) {
     //   hideProgressBar: true,
     // });
 
-    if (validateStep4()) {
+    // if (validateStep4()) {
 
       closeModal()
       const formDataToSubmit = { ...formData };
@@ -245,7 +245,7 @@ export default function WelcomePage({ closeModal }) {
 
         });
 
-    }
+    // }
   }
   useEffect(() => {
 

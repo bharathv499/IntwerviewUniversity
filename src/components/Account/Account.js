@@ -30,6 +30,7 @@ export default function Account() {
     const [selectedImage, setSelectedImage] = useState(null);
     const fileInputRef = useRef(null);
     const [userData, setuserData] = useState([]);
+    const passworddisable = localStorage.getItem('passworddisable');
     const [otherGender, setOtherGender] = useState(false);
     const [formData, setFormData] = useState({
         email: '',
@@ -41,6 +42,11 @@ export default function Account() {
         linkedin: ""
     });
 
+    console.log(passworddisable,"passworddisable")
+    useEffect(() => {
+       
+
+    }, [passworddisable]);
     useEffect(() => {
         dispatch(getUserProfile())
             .then((result) => {
@@ -274,13 +280,15 @@ export default function Account() {
                             </div>
                             <div className="col-sm" style={{ paddingTop: 5 }}>
                                 <Form.Group controlId="exampleForm.SelectCustom">
-                                    <Form.Label className="text-start labelcss" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Password</span>  <span style={{ color: '#FF7F50', cursor: 'pointer' }} onClick={() => handleShow()}>change</span></Form.Label>
+                                    <Form.Label  className="text-start labelcss" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Password</span>  
+                                    <span style={{ color: '#FF7F50' }} className={passworddisable? 'disabled-span':'cursor'}   onClick={() => handleShow()}>change</span>
+                                    </Form.Label>
                                     <Form.Control
                                         type='password'
                                         className='textcontainer'
                                         value={"formData?."}
                                         name='password'
-                                        disabled
+                                        disabled={passworddisable}
                                         onChange={handleChange}
                                     />
                                 </Form.Group>

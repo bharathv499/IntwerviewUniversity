@@ -107,7 +107,7 @@ const ForgetPassword = () => {
                         <Card className="flex-fill no-margin loginImage box-shadow">
                             <Card.Body>
                                 <div className='logocss loginmargin1'>
-                                    <Image variant="top" className="img-fluid" src={logo} />
+                                    {/* <Image variant="top" className="img-fluid" src={logo} /> */}
                                 </div>
                                 <div className='logocss d-none d-lg-block'>
                                     <Image variant="top" className="img-fluid custom-img" src={loginside} />
