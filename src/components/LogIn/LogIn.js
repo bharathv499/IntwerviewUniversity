@@ -476,9 +476,9 @@ const LogIn = () => {
                             icon={showPassword ? faEye : faEyeSlash}
                             onClick={handleTogglePasswordVisibility}
                           />}
+                           <Form.Control.Feedback type="invalid" className='text-start errorcss'>{errors.password}</Form.Control.Feedback>
                       </div>
-                      <div style={{ color: "#DD5B51", marginTop:"3px", fontSize:"14px" }}>{errors.password}</div>
-                      <Form.Control.Feedback type="invalid" className='text-start errorcss'>{errors.password}</Form.Control.Feedback>
+                     
 
                       <Row className='mt-2 mx-1'>
 

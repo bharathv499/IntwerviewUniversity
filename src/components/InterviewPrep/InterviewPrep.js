@@ -76,7 +76,7 @@ export default function InterviewPrep() {
   }
 
   useEffect(() => {
-    
+
     if (getinitpopval == "true") {
       dispatch(getResume())
         .then((result) => {
@@ -406,7 +406,8 @@ export default function InterviewPrep() {
   const [text, setText] = useState("");
 
   const handleTextAreaChange = (event) => {
-    setText(event.target.value);
+
+      setText(event.target.value);
   };
 
   const body1 = {
@@ -414,9 +415,21 @@ export default function InterviewPrep() {
   };
 
   const PasteResume = () => {
-    let formdata = new FormData();
 
-    formdata.append("content", text);
+    
+    const encodedText = encodeURIComponent(text);
+    const sizeInBytes = encodedText.length;
+    if (sizeInBytes > 10 * 1024 * 1024) {
+      toast.error("file size should be less than 10MB", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 5000,
+        hideProgressBar: true,
+      });
+      //event.target.value = null
+      // return;
+    } else {
+    const formData = new FormData();
+    formData.append('content', encodeURIComponent(text));
 
     let config = {
       method: "POST",
@@ -425,9 +438,9 @@ export default function InterviewPrep() {
         "Content-Type": "multipart/form-data",
         Authorization: `token ${localStorage.getItem("token")}`,
       },
-      data: formdata,
+      data: formData,
     };
-    for (const value of formdata.values()) {
+    for (const value of formData.values()) {
       console.log(value);
     }
 
@@ -444,7 +457,7 @@ export default function InterviewPrep() {
         // setSelectedImage(response.data.avatar);
       })
       .catch((error) => { });
-
+    }
     // dispatch(pasteResume(formdata))
     //     .then((result) => {
     //         setupload(false)
@@ -473,9 +486,9 @@ export default function InterviewPrep() {
     // });
   };
 
-  const viewSavedInterview = () => {
+  const viewSavedInterview = (id) => {
 
-    navigate('/viewsavedsession');
+    navigate(`/viewsavedsession/:${id}`);
 
   }
 
@@ -519,27 +532,27 @@ export default function InterviewPrep() {
           <Row className="ps-5">
             {savedInterview?.map((item) => (
               <Col xl={3} className="my-lg-4">
-                 <div className="savedcard">
-                <Card className="ps-1 cardBody pb-2">
-                  <Card.Body className="">
-                    <div className="d-flex justify-content-between ">
-                      <span className="spanText">Role</span>
-                      <span className="spanText">
-                        {item.created_at.slice(0, 10)}
-                      </span>
-                    </div>
-                    <div className="d-flex justify-content-between pt-2">
-                      <span className="savedText">{item.role}</span>
-                      <span className="cursor">
-                        <Image
-                          onClick={()=>viewSavedInterview(item.id)}
-                          src={view}
-                          className="viewImage"
-                        />
-                      </span>
-                    </div>
-                  </Card.Body>
-                </Card>
+                <div className="savedcard">
+                  <Card className="ps-1 cardBody pb-2">
+                    <Card.Body className="">
+                      <div className="d-flex justify-content-between ">
+                        <span className="spanText">Role</span>
+                        <span className="spanText">
+                          {item.created_at.slice(0, 10)}
+                        </span>
+                      </div>
+                      <div className="d-flex justify-content-between pt-2">
+                        <span className="savedText">{item.role}</span>
+                        <span className="cursor">
+                          <Image
+                            onClick={() => viewSavedInterview(item.id)}
+                            src={view}
+                            className="viewImage"
+                          />
+                        </span>
+                      </div>
+                    </Card.Body>
+                  </Card>
                 </div>
               </Col>
             ))}
@@ -551,31 +564,31 @@ export default function InterviewPrep() {
             {favData?.map((item) => (
               <Col xl={3} className="  my-lg-4 ">
                 <div className="interviewcard">
-                <Card className="cardBody">
-                  <Card.Body>
-                    <div className="d-flex justify-content-between">
-                      <span className="spanText">Role</span>
-                      <span className="spanText">
-                        {item.created_at.slice(0, 10)}
+                  <Card className="cardBody">
+                    <Card.Body>
+                      <div className="d-flex justify-content-between">
+                        <span className="spanText">Role</span>
+                        <span className="spanText">
+                          {item.created_at.slice(0, 10)}
+                        </span>
+                      </div>
+                      <div className="d-flex justify-content-between pt-2">
+                        <span className="savedText">{item.role}</span>
+                      </div>
+                      <span className="questionText d-flex pt-1">Question</span>
+                      <span className="cardText d-flex pt-1">
+                        {item.question}
                       </span>
-                    </div>
-                    <div className="d-flex justify-content-between pt-2">
-                      <span className="savedText">{item.role}</span>
-                    </div>
-                    <span className="questionText d-flex pt-1">Question</span>
-                    <span className="cardText d-flex pt-1">
-                      {item.question}
-                    </span>
 
-                    <span className="d-flex justify-content-end pt-2 cursor">
-                      <Image
-                        src={view}
-                        className="viewImage"
-                        onClick={() => viewSavedAnswer(item.id)}
-                      />
-                    </span>
-                  </Card.Body>
-                </Card>
+                      <span className="d-flex justify-content-end pt-2 cursor">
+                        <Image
+                          src={view}
+                          className="viewImage"
+                          onClick={() => viewSavedAnswer(item.id)}
+                        />
+                      </span>
+                    </Card.Body>
+                  </Card>
                 </div>
               </Col>
             ))}
@@ -607,15 +620,15 @@ export default function InterviewPrep() {
 
       <Modal
         show={upload}
-         onHide={uploadClose}
+        onHide={uploadClose}
         aria-labelledby="contained-modal-title-vcenter"
         centered
         className="interviewprep2"
-       
+
       >
-        <Modal.Header  
-        // onClick={uploadClose}
-        closeButton>
+        <Modal.Header
+          // onClick={uploadClose}
+          closeButton>
           <span
             className={`${activeMenuItem == "upload" ? "active" : ""
               } p-2 cursor `}
