@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { getInterviewSession } from '../../redux/authSlice';
+import { getInterviewSession, getInterviewSessionById } from '../../redux/authSlice';
 import { useDispatch } from 'react-redux';
 import { Card, Col, Container, Row, Form, Button, Image, Modal, Nav, CardBody } from 'react-bootstrap'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useParams } from 'react-router-dom';
 import ep_back from '../../assets/images/ep_back.png'
 import back from '../../assets/images/back.png'
 import Loader from './../../Loader';
-
 export default function ViewSavedSession() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -16,14 +15,14 @@ export default function ViewSavedSession() {
     const [answersData, setAnswersData] = useState([]);
     const [allData, setAllData] = useState('')
     const [loading, setLoading] = useState(false);
-
+    const { id } = useParams();
     useEffect(() => {
         setLoading(true)
-        dispatch(getInterviewSession())
+        dispatch(getInterviewSessionById(id.replace(":", "")))
             .then((result) => {
                 setLoading(false)
-                console.log(result, "result")
-                const obj = result?.payload[0]
+                console.log(result.payload, "result")
+                const obj = result?.payload
                 setAllData(obj)
 
 
