@@ -405,6 +405,11 @@ export default function InterviewPrep() {
         .request(config)
         .then((response) => {
           setWelcome1(true);
+          toast.success("Resume saved successfully", {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 10000,
+            hideProgressBar: true,
+          });
           // setSelectedImage(response.data.avatar);
         })
         .catch((error) => {
@@ -459,13 +464,14 @@ export default function InterviewPrep() {
       axios
         .request(config)
         .then((response) => {
-          setupload(false);
-          setWelcome1(true);
           toast.success("Resume saved successfully", {
             position: toast.POSITION.TOP_RIGHT,
-            autoClose: 5000,
+            autoClose: 10000,
             hideProgressBar: true,
           });
+          setupload(false);
+          setWelcome1(true);
+          
           // setSelectedImage(response.data.avatar);
         })
         .catch((error) => { });
@@ -543,7 +549,7 @@ export default function InterviewPrep() {
         {showSaved && (
           <Row className="ps-5">
             {savedInterview?.map((item) => (
-              <Col xl={3} className="my-lg-4">
+              <Col xl={3} className="my-lg-3">
                 <div className="savedcard">
                   <Card className="ps-1 cardBody pb-2">
                     <Card.Body className="">
