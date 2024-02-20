@@ -95,22 +95,28 @@ export default function InterviewQuestion() {
 
     const handleItemClick = (item, index) => {
         // setLoading(true)
-        console.log(answers, "answers")
+       
         // console.log(index, "ques")
 
-
+        // enablebtn
 
         if (answers.hasOwnProperty(`answer_${index}`)) {
+           // console.log(answers, "answers")
             const ques = `answer_${index}`
-            console.log(ques, "ques")
-            console.log(answers[ques], "answers.ques")
+            // console.log(ques, "ques")
+            // console.log(answers[ques], "answers.ques")
 
             settypeanswer(true)
             setInputAnswerData(answers[ques])
-
-            setEnablebtn(true)
+            console.log(answers.ques,"answers.ques")
+            if (answers[ques] !='') {
+                setEnablebtn(true)
+            } else {
+                setEnablebtn(false)
+            }
 
         } else {
+           
             // "answer_1" is not available in the object
             setanswerData('')
             setEnablebtn(false)
@@ -405,7 +411,7 @@ export default function InterviewQuestion() {
                                             <span className='answer'>Answer:</span>
                                             <Form.Group controlId="exampleForm.ControlTextarea1">
 
-                                                <Form.Control as="textarea" required style={{ minHeight: '90vh', overflow: 'auto' }}
+                                                <Form.Control as="textarea" required style={{ height: '80vh', overflow: 'auto' }}
                                                     value={inputAnswerData}
                                                     placeholder='Type your answer..' onChange={(e) => handleAnswerChange(selectedItem, e.target.value)}
                                                 />
@@ -425,7 +431,7 @@ export default function InterviewQuestion() {
                                                 {selectedItem}
                                             </Form.Label>
                                             <span className='answer'>Answer:</span>
-                                            <p style={{ height: '90vh', overflow: 'auto' }}>
+                                            <p style={{ height: '80vh', overflow: 'auto' }}>
                                                 {/* <Form.Control as="textarea" required style={{ minHeight: '90vh',overflow:'auto' }}
                                                 value={answerData} onChange={(e) => setInputAnswerData(e.target.value)}
                                                 /> */}
