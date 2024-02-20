@@ -140,6 +140,7 @@ const Feedback = () => {
                                     rows={3}
                                     onChange={handleMessageChange}
                                     isInvalid={!!errors.message}
+                                    // maxLength={100}
                                 />
                                 <Form.Control.Feedback type="invalid">
                                     {errors.message}

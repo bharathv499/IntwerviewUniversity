@@ -95,22 +95,28 @@ export default function InterviewQuestion() {
 
     const handleItemClick = (item, index) => {
         // setLoading(true)
-        console.log(answers, "answers")
+       
         // console.log(index, "ques")
 
-
+        // enablebtn
 
         if (answers.hasOwnProperty(`answer_${index}`)) {
+           // console.log(answers, "answers")
             const ques = `answer_${index}`
-            console.log(ques, "ques")
-            console.log(answers[ques], "answers.ques")
+            // console.log(ques, "ques")
+            // console.log(answers[ques], "answers.ques")
 
             settypeanswer(true)
             setInputAnswerData(answers[ques])
-
-            setEnablebtn(true)
+            console.log(answers.ques,"answers.ques")
+            if (answers[ques] !='') {
+                setEnablebtn(true)
+            } else {
+                setEnablebtn(false)
+            }
 
         } else {
+           
             // "answer_1" is not available in the object
             setanswerData('')
             setEnablebtn(false)
@@ -151,12 +157,14 @@ export default function InterviewQuestion() {
                 const questionArray = result?.payload?.choices[0].message.content.split('\n');
                 setQuestionData(questionArray?.filter((item) => item != ""))
 
-                {questionArray?.filter((item) => item != '')?.map((item, i) => (
-                    setAnswers(prevAnswers => ({
-                        ...prevAnswers,
-                        [`question_${i+1}`]: item
-                    }))
-                    ))}
+                {
+                    questionArray?.filter((item) => item != '')?.map((item, i) => (
+                        setAnswers(prevAnswers => ({
+                            ...prevAnswers,
+                            [`question_${i + 1}`]: item
+                        }))
+                    ))
+                }
 
                 { questionArray?.filter((item) => item != '')?.map((item, i) => ((i == 0) ? setSelectedItem(item) : '')) }
                 setLoading(false)
@@ -362,10 +370,12 @@ export default function InterviewQuestion() {
                             <div className='row ms-1 mt-3'>
                                 {/* <div className='col-sm d-flex justify-content-center cursor'><Image onClick={() => regenerateQ()} src={regenerate} style={{ height: 27 }} /></div> */}
                                 <div className='col-sm regen cursor'>
-                                    {!isOpen && <> <Image onClick={() => regenerateQ()} src={regen} />
+                                    {!isOpen && <> <Image onClick={() => regenerateQ()} src={regen}  />
                                         <span className='retxt'>Regenerate Questions</span> </>}
                                 </div>
-                                <div className='col-sm d-flex justify-content-end me-2'><Image onClick={toggleTab} src={back} style={{ height: 30 }} /></div>
+                                <div className='col-sm d-flex justify-content-end me-2'>
+                                    <Image className={`cursor ${isOpen ? 'rot180' : ''}`} onClick={toggleTab} src={back} style={{ height: 30 }} />
+                                </div>
                             </div>
 
                             {!isOpen &&
@@ -401,7 +411,7 @@ export default function InterviewQuestion() {
                                             <span className='answer'>Answer:</span>
                                             <Form.Group controlId="exampleForm.ControlTextarea1">
 
-                                                <Form.Control as="textarea" required style={{ minHeight: '90vh', overflow: 'auto' }}
+                                                <Form.Control as="textarea" required style={{ height: '80vh', overflow: 'auto' }}
                                                     value={inputAnswerData}
                                                     placeholder='Type your answer..' onChange={(e) => handleAnswerChange(selectedItem, e.target.value)}
                                                 />
@@ -421,7 +431,7 @@ export default function InterviewQuestion() {
                                                 {selectedItem}
                                             </Form.Label>
                                             <span className='answer'>Answer:</span>
-                                            <p style={{ height: '90vh', overflow: 'auto' }}>
+                                            <p style={{ height: '80vh', overflow: 'auto' }}>
                                                 {/* <Form.Control as="textarea" required style={{ minHeight: '90vh',overflow:'auto' }}
                                                 value={answerData} onChange={(e) => setInputAnswerData(e.target.value)}
                                                 /> */}

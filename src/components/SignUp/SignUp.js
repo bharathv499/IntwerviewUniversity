@@ -505,7 +505,7 @@ export default function SignUp() {
           if (inputPassword != password) {
             const updatedErrors = { ...errors };
       
-            updatedErrors.confirm_password = "Password and Confirm Password does not match"
+            updatedErrors.confirm_password = "Create Password and Confirm Password does not match"
       
             setErrors(updatedErrors);
           }

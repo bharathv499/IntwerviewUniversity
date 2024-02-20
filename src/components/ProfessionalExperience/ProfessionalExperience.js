@@ -109,8 +109,8 @@ export default function ProfessionalExperience() {
         const validationErrors = {};
 
 
-        const form = event.currentTarget;
-        if (form.checkValidity()) {
+        // const form = event.currentTarget;
+        // if (form.checkValidity()) {
             // Perform form submission or other actions here
             if (experience != '') {
                 formData.experience = experience
@@ -142,15 +142,15 @@ export default function ProfessionalExperience() {
               });
         
           
-        } else {
-            event.stopPropagation();
-        }
-        setValidated(true);
+        // } else {
+        //     event.stopPropagation();
+        // }
+        // setValidated(true);
 
-        if (Object.keys(validationErrors).length > 0) {
-            setErrors(validationErrors);
-            return;
-        }
+        // if (Object.keys(validationErrors).length > 0) {
+        //     setErrors(validationErrors);
+        //     return;
+        // }
     }
 
 
@@ -319,7 +319,7 @@ export default function ProfessionalExperience() {
             {/* <Col lg={8} className="mt-3 "> */}
             {proExperience.length > 0 ? <>
                 {proExperience?.map((item) => (
-                    <Form className="me-lg-5" noValidate validated={validated} onSubmit={handleFormSubmit}>
+                    <Form className="me-lg-5"  onSubmit={handleFormSubmit}>
                         <div className="row mb-3" >
                             <div className="col-sm">
                                 <Form.Group controlId="exampleForm.SelectCustom">
@@ -329,7 +329,7 @@ export default function ProfessionalExperience() {
                                         defaultValue={item.desired_job_role}
                                         name='desired_job_role'
                                         onChange={handleChange}
-                                        required
+                                        
                                     />
                                     <Form.Control.Feedback type="invalid">Please desired Job Role</Form.Control.Feedback>
                                 </Form.Group>
@@ -342,7 +342,7 @@ export default function ProfessionalExperience() {
                                         defaultValue={item.preferred_industry}
                                         name='preferred_industry'
                                         onChange={handleChange}
-                                        required
+                                        
                                     />
                                     <Form.Control.Feedback type="invalid">Please enter preferred industry</Form.Control.Feedback>
                                 </Form.Group>
@@ -376,7 +376,7 @@ export default function ProfessionalExperience() {
                                         defaultValue={item.job_location}
                                         name='job_location'
                                         onChange={handleChange}
-                                        required
+                                        
                                     />
                                     <Form.Control.Feedback type="invalid">Please enter Job Location</Form.Control.Feedback>
                                 </Form.Group>

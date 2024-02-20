@@ -329,6 +329,17 @@ export const getInterviewSession = createAsyncThunk('getInterviewSession', async
 })
 
 
+export const getInterviewSessionById = createAsyncThunk('getInterviewSessionById', async (id) => {
+    const res = await fetch(`https://round-unit-43333.botics.co/savesessions/${id}/`, {
+        method: "get",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `token ${localStorage.getItem('token')}`
+        }
+    })
+    return await res.json();
+})
+
 export const updateExperience = createAsyncThunk('updateExperience', async (body) => {
     const res = await fetch("https://round-unit-43333.botics.co/initiation_questions/update_job_applicants/", {
         method: "PUT",

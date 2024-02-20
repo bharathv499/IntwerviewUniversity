@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import './Account.css';
-import user1 from '../../assets/images/user1.jpg'
+import user1 from '../../assets/images/user1.svg'
 import Sidebar from './Sidebar';
 import Camera from '../../assets/images/Camera.svg'
 import Upload_icon from '../../assets/images/Upload_icon.svg'
