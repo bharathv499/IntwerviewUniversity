@@ -307,7 +307,7 @@ export default function WelcomePage({ closeModal }) {
               <div className="row mb-2">
                 <div className="col-sm">
                   <Form.Group controlId="exampleForm.SelectCustom">
-                    <Form.Label className="d-flex labelcss">Full Name</Form.Label>
+                    <Form.Label className="d-flex labelcss">Full Name<span class="required">*</span></Form.Label>
                     <Form.Control
                       type='text'
                       name='full_name'
@@ -326,7 +326,7 @@ export default function WelcomePage({ closeModal }) {
               <div className="row mb-2 account-row">
                 <div className="col-sm">
                   <Form.Group controlId="exampleForm.SelectCustom">
-                    <Form.Label className="d-flex labelcss">Email Address</Form.Label>
+                    <Form.Label className="d-flex labelcss">Email Address<span class="required">*</span></Form.Label>
                     <Form.Control
                       type='text'
                       className='textcontainer'
@@ -344,7 +344,7 @@ export default function WelcomePage({ closeModal }) {
 
                 <div className="col-sm" style={{ paddingTop: 5 }}>
                   <Form.Group controlId="exampleForm.SelectCustom">
-                    <Form.Label className="d-flex labelcss">Phone Number</Form.Label>
+                    <Form.Label className="d-flex labelcss">Phone Number<span class="required">*</span></Form.Label>
                     <Form.Control
                       type='text'
                       className='textcontainer'

@@ -265,7 +265,7 @@ const ChangePassword = () => {
         <Col lg={10}>
           <Form onSubmit={handleFormSubmit} >
             <Form.Group className='formgr' controlId="formBasicConfirmPassword" >
-              <Form.Label className="text-start labelcss">Current Password</Form.Label>
+              <Form.Label className="text-start labelcss">Current Password<span class="required">*</span></Form.Label>
               <div className='position-relative'>
                 <Form.Control
                   type={showCurrPassword ? "text" : "password"}
@@ -291,7 +291,7 @@ const ChangePassword = () => {
 
             <Form.Group controlId="formBasicPassword" className="mt-2">
               <Form.Label className="text-start labelcss">
-                New Password
+                New Password<span class="required">*</span>
               </Form.Label>
               <div className='position-relative'>
                 <Form.Control
@@ -336,7 +336,7 @@ const ChangePassword = () => {
               className="mt-2"
             >
               <Form.Label className="text-start labelcss">
-                Confirm Password
+                Confirm Password<span class="required">*</span>
               </Form.Label>
               <div className='position-relative'>
                 <Form.Control

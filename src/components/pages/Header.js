@@ -81,7 +81,10 @@ export default function Header() {
   const [showLogout, setshowLogout] = useState(false);
   const [deleteacc, setdeleteacc] = useState(false);
 
-  const handleClose1 = () => setshowLogout(false);
+  const handleClose1 = () => {
+    setShow(false)
+    setshowLogout(false)
+  };
   const handleClose2 = () => setdeleteacc(false);
 
   const [selectedItem, setSelectedItem] = useState('');
@@ -309,8 +312,8 @@ export default function Header() {
               <span className="logoutlabel">Are you sure you want to Log out?
               </span>
               <span>
-                <Button className='cancelbtn' type="submit" onClick={() => onLogout()}>Yes</Button>
-                <Button className='savebtn' style={{ marginLeft: 5 }} type="submit"  >No</Button>
+                <Button className='savebtn' type="submit" onClick={() => onLogout()}>Yes</Button>
+                <Button className='cancelbtn' style={{ marginLeft: 5 }} type="submit"  >No</Button>
               </span>
             </div>
           </Modal.Body>

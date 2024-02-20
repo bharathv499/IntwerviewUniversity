@@ -444,7 +444,7 @@ const LogIn = () => {
 
                   <Form onSubmit={handleFormSubmit}>
                     <Form.Group className='formgr' controlId="formEmail">
-                      <Form.Label className="text-start labelcss">Enter Email Address</Form.Label>
+                      <Form.Label className="text-start labelcss">Enter Email Address<span class="required">*</span></Form.Label>
                       <Form.Control
                         type="email"
                         className='inputcss'
@@ -457,7 +457,7 @@ const LogIn = () => {
 
                     <Form.Group className='formgr' controlId="formPassword">
 
-                      <Form.Label className="text-start labelcss">Enter Password
+                      <Form.Label className="text-start labelcss">Enter Password<span class="required">*</span>
 
                       </Form.Label>
                       <div className='position-relative'>

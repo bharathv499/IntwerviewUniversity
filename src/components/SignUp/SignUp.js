@@ -613,7 +613,7 @@ export default function SignUp() {
 
                                     <Form onSubmit={handleFormSubmit}>
                                         <Form.Group className='formgr' controlId="formBasicName">
-                                            <Form.Label className="text-start labelcss">Enter Name</Form.Label>
+                                            <Form.Label className="text-start labelcss">Enter Name<span class="required">*</span></Form.Label>
                                             <Form.Control
                                                 type="text"
                                                 className='inputcss'
@@ -627,7 +627,7 @@ export default function SignUp() {
                                         </Form.Group>
                                         <Form.Group className='formgr' controlId="formBasicEmail">
                                             <Form.Label className="text-start labelcss">
-                                                Enter Email address
+                                                Enter Email address<span class="required">*</span>
                                             </Form.Label>
                                             <Form.Control
                                                 type="email"
@@ -641,7 +641,7 @@ export default function SignUp() {
                                             </Form.Control.Feedback>
                                         </Form.Group>
                                         <Form.Group className='formgr' controlId="formBasicPassword">
-                                            <Form.Label className="text-start labelcss">Create Password</Form.Label>
+                                            <Form.Label className="text-start labelcss">Create Password<span class="required">*</span></Form.Label>
                                             <div className='position-relative'>
                                                 <Form.Control
                                                     type={showPasswordPass ? "text" : "password"}
@@ -667,7 +667,7 @@ export default function SignUp() {
                                             className='formgr'
                                             controlId="formBasicConfirmPassword"
                                         >
-                                            <Form.Label className="text-start labelcss">Confirm Password</Form.Label>
+                                            <Form.Label className="text-start labelcss">Confirm Password<span class="required">*</span></Form.Label>
                                             <div className='position-relative'>
                                                 <Form.Control
                                                     type={showPassword ? "text" : "password"}

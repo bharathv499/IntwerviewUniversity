@@ -126,7 +126,7 @@ const ForgetPassword = () => {
                                 <Form  onSubmit={handleSubmit}>
                                     <Form.Group className="mb-3" controlId="formBasicEmail">
                                         <Form.Label className="text-start labelcss">
-                                        Email Address
+                                        Email Address<span class="required">*</span>
                                         </Form.Label>
                                         <Form.Control
                                             type="email"
