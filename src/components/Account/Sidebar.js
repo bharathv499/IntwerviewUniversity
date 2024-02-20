@@ -118,7 +118,7 @@ export default function Sidebar() {
             });
     }
     return (
-        <div>
+        <div style={{paddingBottom:"40px"}}>
             <Row className="smallscreenque seesionHeader  mb-2 ms-2">
 
                 <Col className="mt-lg-4 ms-lg-5  backsmall" ><span className='cursor' onClick={() => navigate('/interview')}><Image src={ep_back} height={20} /><span  className='ms-1 backcss'>Back</span></span></Col>
@@ -127,7 +127,7 @@ export default function Sidebar() {
             <Container fluid>
                 <Row>
                     <Col lg={4} className='d-none d-lg-block'>
-                        <Card className="flex-column cardbackground ms-5 me-2 mt-2 mb-2" style={{ height: '100vh' }} >
+                        <Card className="flex-column cardbackground ms-5 me-2 mt-2 mb-2" style={{ height: '855px' }} >
                             <Nav className="flex-column">
                                 {items.map((item) => (
                                     <Nav.Item key={item.id} onClick={() => handleItemClick(item.id)}

@@ -181,11 +181,11 @@ export default function SignUp() {
             }
         }
 
-        if (!isConfirmPasswordValid(confirm_password)) {
+        if (!confirm_password) {
             validationErrors.confirm_password = "Please enter a valid password";
         }
-        if (!isPasswordMatches(confirm_password)) {
-            validationErrors.confirm_password_matches = "Password and Confirm does not match";
+        if (confirm_password && !isPasswordMatches(confirm_password)) {
+            validationErrors.confirm_password_matches = "Password and Confirm Password does not match";
         }
         if (!tnc) {
             validationErrors.tnc = "Please accept the terms & conditions";
@@ -527,7 +527,7 @@ export default function SignUp() {
                 validationErrors.password = "Please enter a valid password";
             }
             if (!isPasswordMatches(confirm_password)) {
-                validationErrors.confirm_password_matches = "Password and Confirm does not match";
+                validationErrors.confirm_password_matches = "Password and Confirm Password does not match";
             }
             if (Object.keys(validationErrors).length > 0) {
                 setErrors(validationErrors);

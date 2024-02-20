@@ -116,7 +116,11 @@ export default function Account() {
                                 const data = result.payload;
                                 setSelectedImage(data.avatar_signed_url);
                                 localStorage.setItem('photo', true)
-
+                                toast.success("Image uploaded successfully", {
+                                    position: toast.POSITION.CENTER,
+                                    autoClose: 5000,
+                                    hideProgressBar: true,
+                                });
                             })
                             .catch((error) => {
                                 console.log(error)

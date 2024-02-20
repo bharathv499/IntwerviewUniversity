@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Card, Col, Form, Image, Row, Container, CardDeck } from "react-bootstrap";
 import google from '../../assets/images/google.svg'
 import apple from '../../assets/images/apple.svg'
@@ -27,6 +27,14 @@ const LogIn = () => {
   const [showEye, setShowEye] = useState(false);
 
   const navigate = useNavigate();
+
+  const isAuthenticated = () => {
+    return localStorage.getItem('user') !== null ? true : false
+  }
+
+  useEffect(()=>{
+    if(isAuthenticated()) navigate("/interview")
+  },[])
 
   const handleTogglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
