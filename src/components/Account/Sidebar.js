@@ -127,7 +127,7 @@ export default function Sidebar() {
             <Container fluid>
                 <Row>
                     <Col lg={4} className='d-none d-lg-block'>
-                        <Card className="flex-column cardbackground ms-5 me-2 mt-2 mb-2" style={{ height: '100vh' }} >
+                        <Card className="flex-column cardbackground ms-5 me-2 mt-2 mb-2" style={{ height: '100vh'}} >
                             <Nav className="flex-column">
                                 {items.map((item) => (
                                     <Nav.Item key={item.id} onClick={() => handleItemClick(item.id)}

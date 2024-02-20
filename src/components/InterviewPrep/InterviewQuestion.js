@@ -157,12 +157,14 @@ export default function InterviewQuestion() {
                 const questionArray = result?.payload?.choices[0].message.content.split('\n');
                 setQuestionData(questionArray?.filter((item) => item != ""))
 
-                {questionArray?.filter((item) => item != '')?.map((item, i) => (
-                    setAnswers(prevAnswers => ({
-                        ...prevAnswers,
-                        [`question_${i+1}`]: item
-                    }))
-                    ))}
+                {
+                    questionArray?.filter((item) => item != '')?.map((item, i) => (
+                        setAnswers(prevAnswers => ({
+                            ...prevAnswers,
+                            [`question_${i + 1}`]: item
+                        }))
+                    ))
+                }
 
                 { questionArray?.filter((item) => item != '')?.map((item, i) => ((i == 0) ? setSelectedItem(item) : '')) }
                 setLoading(false)
@@ -368,10 +370,12 @@ export default function InterviewQuestion() {
                             <div className='row ms-1 mt-3'>
                                 {/* <div className='col-sm d-flex justify-content-center cursor'><Image onClick={() => regenerateQ()} src={regenerate} style={{ height: 27 }} /></div> */}
                                 <div className='col-sm regen cursor'>
-                                    {!isOpen && <> <Image onClick={() => regenerateQ()} src={regen} />
+                                    {!isOpen && <> <Image onClick={() => regenerateQ()} src={regen}  />
                                         <span className='retxt'>Regenerate Questions</span> </>}
                                 </div>
-                                <div className='col-sm d-flex justify-content-end me-2'><Image onClick={toggleTab} src={back} style={{ height: 30 }} /></div>
+                                <div className='col-sm d-flex justify-content-end me-2'>
+                                    <Image className={`cursor ${isOpen ? 'rot180' : ''}`} onClick={toggleTab} src={back} style={{ height: 30 }} />
+                                </div>
                             </div>
 
                             {!isOpen &&
