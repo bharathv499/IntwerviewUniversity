@@ -44,7 +44,7 @@ export default function InterviewPrep() {
   const [welcome, setWelcome] = useState(false);
   const [welcome1, setWelcome1] = useState(false);
   const [extractData, setextractData] = useState("");
-
+  const [validated, setValidated] = useState(false);
   const getinitpopval = localStorage.getItem('initialquestpopup')
 
 
@@ -287,35 +287,47 @@ export default function InterviewPrep() {
   });
 
   const [contentData, setcontentData] = useState("");
-
+  const [errors, setErrors] = useState({});
   const handleInputChange = (e) => {
     const contentData1 = e.target.value;
     setcontentData(contentData1);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData.content, "selectedOption");
-    formData.role = userRole;
-    if (extractData != "") {
-      // <role> as a role with  <job description> job desricption can you give me 5 questions
-      const userrole = `${userRole} ${"as a role,"}`; //userRole.concat('as a role with');
-      const newString = "please give 5 questions on these skills?";
-      const resultString = `${extractData} ${newString}`; //extractData.concat(newString);
-      const finalestr = `${resultString}`; //userrole.concat(resultString);
-      formData.content = finalestr;
-    } else if (contentData != "") {
-      const userrole = `${userRole} ${"as a role,"}`; //userRole.concat('as a role with');
-      const newString = "please give 5 questions on these skills?";
-      const resultString = `${contentData} ${newString}`; //extractData.concat(newString);
-      const finalestr = `${resultString}`; //userrole.concat(resultString);
-      formData.content = finalestr;
-    }
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-    // Assuming you want to redirect to '/display' and pass the form data
-    console.log(formData, "formDataaaaaaaaaa");
-    console.log("data");
-    navigate("/question", { state: { userData: formData } });
+
+    const validationErrors = {};
+
+    const form = event.currentTarget;
+    if (form.checkValidity()) {
+      formData.role = userRole;
+      if (extractData != "") {
+        // <role> as a role with  <job description> job desricption can you give me 5 questions
+        const userrole = `${userRole} ${"as a role,"}`; //userRole.concat('as a role with');
+        const newString = "please give 5 questions on these skills?";
+        const resultString = `${extractData} ${newString}`; //extractData.concat(newString);
+        const finalestr = `${resultString}`; //userrole.concat(resultString);
+        formData.content = finalestr;
+      } else if (contentData != "") {
+        const userrole = `${userRole} ${"as a role,"}`; //userRole.concat('as a role with');
+        const newString = "please give 5 questions on these skills?";
+        const resultString = `${contentData} ${newString}`; //extractData.concat(newString);
+        const finalestr = `${resultString}`; //userrole.concat(resultString);
+        formData.content = finalestr;
+      }
+
+      navigate("/question", { state: { userData: formData } });
+    } else {
+      event.stopPropagation();
+    }
+    setValidated(true);
+
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
   };
 
   const [formData1, setFormData1] = useState({
@@ -407,7 +419,7 @@ export default function InterviewPrep() {
 
   const handleTextAreaChange = (event) => {
 
-      setText(event.target.value);
+    setText(event.target.value);
   };
 
   const body1 = {
@@ -416,7 +428,7 @@ export default function InterviewPrep() {
 
   const PasteResume = () => {
 
-    
+
     const encodedText = encodeURIComponent(text);
     const sizeInBytes = encodedText.length;
     if (sizeInBytes > 10 * 1024 * 1024) {
@@ -428,35 +440,35 @@ export default function InterviewPrep() {
       //event.target.value = null
       // return;
     } else {
-    const formData = new FormData();
-    formData.append('content', encodeURIComponent(text));
+      const formData = new FormData();
+      formData.append('content', encodeURIComponent(text));
 
-    let config = {
-      method: "POST",
-      url: "https://round-unit-43333.botics.co/paste_resume/paste_form/",
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `token ${localStorage.getItem("token")}`,
-      },
-      data: formData,
-    };
-    for (const value of formData.values()) {
-      console.log(value);
-    }
+      let config = {
+        method: "POST",
+        url: "https://round-unit-43333.botics.co/paste_resume/paste_form/",
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `token ${localStorage.getItem("token")}`,
+        },
+        data: formData,
+      };
+      for (const value of formData.values()) {
+        console.log(value);
+      }
 
-    axios
-      .request(config)
-      .then((response) => {
-        setupload(false);
-        setWelcome1(true);
-        toast.success("Resume saved successfully", {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 5000,
-          hideProgressBar: true,
-        });
-        // setSelectedImage(response.data.avatar);
-      })
-      .catch((error) => { });
+      axios
+        .request(config)
+        .then((response) => {
+          setupload(false);
+          setWelcome1(true);
+          toast.success("Resume saved successfully", {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 5000,
+            hideProgressBar: true,
+          });
+          // setSelectedImage(response.data.avatar);
+        })
+        .catch((error) => { });
     }
     // dispatch(pasteResume(formdata))
     //     .then((result) => {
@@ -659,16 +671,21 @@ export default function InterviewPrep() {
             <div className="wlecomeContainer">
               {hideOnUpload && (
                 <>
+                
                   {" "}
                   <span className="welcomelable">
                     Upload your latest Resume
                   </span>
+                 
                   <div className="row ">
+                   
                     <div
                       onDrop={handleDrop}
                       onDragOver={handleDragOver}
                       className="fileUploadContainer"
                     >
+                      <div className="d-flex justify-content-end ">max-size: 50mb</div>
+                      <div className="fileUpload">
                       <Image
                         variant="top"
                         src={uploadicon}
@@ -678,6 +695,7 @@ export default function InterviewPrep() {
                       <p className="fileuploadtxt">
                         Drag and drop to upload file
                       </p>
+                      
                       <input
                         type="file"
                         id="fileInput"
@@ -693,7 +711,7 @@ export default function InterviewPrep() {
                       </label>
                       {/* </Button> */}
                       <p className="support">Supports: docx, pdf</p>
-                    </div>
+                    </div></div>
                   </div>
                 </>
               )}
@@ -782,14 +800,15 @@ export default function InterviewPrep() {
         className="newInterview interviewContainer"
       >
         <Modal.Body className="newModal">
-          <Form onSubmit={handleSubmit}>
+          <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <div className="col-sm-12 pb-3">
+            <Row>
+                  <Col lg={6}>
               <Form.Group controlId="exampleForm.SelectCustom">
                 <Form.Label className="text-start labelcss">
-                  Choose Role
+                  Choose Role<span class="required">*</span>
                 </Form.Label>
-                <Row>
-                  <Col lg={6}>
+                
                     <Form.Control
                       type="text"
                       className="textcontainer"
@@ -798,15 +817,16 @@ export default function InterviewPrep() {
                       onChange={handleChange1}
                       required
                     />
-                  </Col>
-                </Row>
-                <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
+                 
+                <Form.Control.Feedback type="invalid">Please enter role</Form.Control.Feedback>
               </Form.Group>
+              </Col>
+                </Row>
             </div>
 
             <div className="row jobescription">
 
-              <Form.Label className="text-start labelcss" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Job Description</span>  <span style={{ color: '#FF7F50', cursor: 'pointer' }} >
+              <Form.Label className="text-start labelcss" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Job Description<span class="required">*</span></span>  <span style={{ color: '#FF7F50', cursor: 'pointer' }} >
                 <div
                 >
                   <input

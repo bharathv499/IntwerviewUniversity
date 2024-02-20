@@ -149,7 +149,7 @@ export default function Account() {
             dispatch(updateProfile(data))
             window.scrollTo(0, 0)
             toast.success("Profile updated successfully", {
-                position: toast.POSITION.TOP_RIGHT,
+                position: toast.POSITION.CENTER,
                 autoClose: 5000,
                 hideProgressBar: true,
             });
@@ -235,7 +235,7 @@ export default function Account() {
                         <div className="row mb-2 account-row">
                             <div className="col-sm" style={{ paddingTop: 5 }}>
                                 <Form.Group controlId="exampleForm.SelectCustom">
-                                    <Form.Label className="text-start labelcss">Full Name</Form.Label>
+                                    <Form.Label className="text-start labelcss">Full Name<span class="required">*</span></Form.Label>
                                     <Form.Control
                                         type='text'
                                         value={formData?.full_name}
@@ -256,9 +256,9 @@ export default function Account() {
                                         value={formData?.linkedin}
                                         name='linkedin'
                                         onChange={handleChange}
-                                        required
+                                        
                                     />
-                                    <Form.Control.Feedback type="invalid">Please enter linkedin</Form.Control.Feedback>
+                                   
                                 </Form.Group>
                             </div>
                         </div>
@@ -266,7 +266,7 @@ export default function Account() {
                         <div className="row mb-2 account-row">
                             <div className="col-sm">
                                 <Form.Group controlId="exampleForm.SelectCustom">
-                                    <Form.Label className="text-start labelcss">Email Address</Form.Label>
+                                    <Form.Label className="text-start labelcss">Email Address<span class="required">*</span></Form.Label>
                                     <Form.Control
                                         type='text'
                                         className='textcontainer'
@@ -281,7 +281,7 @@ export default function Account() {
                             </div>
                             <div className="col-sm" style={{ paddingTop: 5 }}>
                                 <Form.Group controlId="exampleForm.SelectCustom">
-                                    <Form.Label  className="text-start labelcss" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Password</span>  
+                                    <Form.Label  className="text-start labelcss" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Password<span class="required">*</span></span>  
                                     <span style={{ color: '#FF7F50' }} className={passworddisable? 'disabled-span':'cursor'}   onClick={() => handleShow()}>change</span>
                                     </Form.Label>
                                     <Form.Control
@@ -304,7 +304,6 @@ export default function Account() {
 
                                                 <Form.Control
                                                     as="select"
-                                                    required
                                                     name='gender'
                                                     value={gender}
                                                     onChange={handleSelect}
@@ -334,14 +333,14 @@ export default function Account() {
                                         </div>
                                         <div className="col-sm" style={{ paddingTop: 5 }}>
                                             <Form.Group controlId="exampleForm.SelectCustom">
-                                                <Form.Label className="text-start labelcss">Phone Number</Form.Label>
+                                                <Form.Label className="text-start labelcss">Phone Number<span class="required">*</span></Form.Label>
                                                 <Form.Control
                                                     type='text'
                                                     className='textcontainer'
                                                     name='phone_number'
                                                     value={formData?.phone_number}
                                                     onChange={handleChange}
-                                                    // required
+                                                     required
                                                 />
                                                 <Form.Control.Feedback type="invalid">Please enter number</Form.Control.Feedback>
                                             </Form.Group>

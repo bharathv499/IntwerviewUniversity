@@ -162,8 +162,8 @@ export default function Sidebar() {
                         <span className="logoutlabel">Are you sure you want to Log out?
                         </span>
                         <span>
-                            <Button className='cancelbtn' type="submit" onClick={() => onLogout()}>Yes</Button>
-                            <Button className='savebtn' style={{ marginLeft: 5 }} onClick={() => handleClose1()}  >No</Button>
+                            <Button className='savebtn' type="submit" onClick={() => onLogout()}>Yes</Button>
+                            <Button className='cancelbtn' style={{ marginLeft: 5 }} onClick={() => handleClose1()}  >No</Button>
                         </span>
                     </div>
                 </Modal.Body>
@@ -183,8 +183,8 @@ export default function Sidebar() {
                         <span className="logoutlabel">Are you sure you want to delete the account?
                         </span>
                         <span>
-                            <Button className='cancelbtn' type="submit" onClick={deleteAccount}>Yes</Button>
-                            <Button className='savebtn' style={{ marginLeft: 5 }} onClick={() => handleClose2()}  >No</Button>
+                            <Button className='savebtn' type="submit" onClick={deleteAccount}>Yes</Button>
+                            <Button className='cancelbtn' style={{ marginLeft: 5 }} onClick={() => handleClose2()}  >No</Button>
                         </span>
                     </div>
                 </Modal.Body>

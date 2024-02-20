@@ -135,9 +135,12 @@
     /* cursor: pointer; */
     background-color: rgba(245, 245, 245, 1);
     padding-left: 75px !important;
-    padding-right: 75px !important;
+    /* padding-right: 75px !important; */
     margin-top: 25px !important;
     margin-bottom: 25px !important;
+}
+.fileUpload{
+    padding-right: 75px !important;
 }
 
 .filePasteContainer {
@@ -314,11 +317,13 @@
         cursor: pointer;
         background-color: rgba(245, 245, 245, 1);
         padding-left: 75px !important;
-        padding-right: 75px !important;
+        /* padding-right: 75px !important; */
         margin-top: 25px !important;
         margin-bottom: 25px !important;
     }
-
+    .fileUpload{
+        padding-right: 75px !important;
+    }
     .inteviewbtncss {
         background: rgba(0, 168, 119, 1) !important;
         border: none;
@@ -444,11 +449,13 @@
         cursor: pointer;
         background-color: rgba(245, 245, 245, 1);
         padding-left: 45px !important;
-        padding-right: 45px !important;
+        /* padding-right: 45px !important; */
         margin-top: 25px !important;
         margin-bottom: 25px !important;
     }
-
+    .fileUpload{
+        padding-right: 45px !important;
+    }
     .filePasteContainer {
         border: 1px solid rgba(174, 174, 174, 1);
         border-radius: 8px;
@@ -493,11 +500,13 @@
         cursor: pointer;
         background-color: rgba(245, 245, 245, 1);
         padding-left: 45px !important;
-        padding-right: 45px !important;
+        /* padding-right: 45px !important; */
         margin-top: 25px !important;
         margin-bottom: 25px !important;
     }
-
+    .fileUpload{
+        padding-right: 45px !important;
+    }
     .cardBody {
         background: linear-gradient(0deg, #F5F5F5, #F5F5F5);
         width: 320px;

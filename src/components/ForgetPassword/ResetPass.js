@@ -187,7 +187,7 @@ const ResetPass = () => {
                     <ToastContainer />
                     <Form onSubmit={handleSubmit}>
                       <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label className="text-start labelcss">Enter Password</Form.Label>
+                        <Form.Label className="text-start labelcss">Enter Password<span class="required">*</span></Form.Label>
                         <div className='position-relative'>
                           <Form.Control
                             type={showPasswordPass ? "text" : "password"}
@@ -208,7 +208,7 @@ const ResetPass = () => {
                         </Form.Control.Feedback>
                       </Form.Group>
                       <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label className="text-start labelcss">Enter Re-Password</Form.Label>
+                        <Form.Label className="text-start labelcss">Enter Re-Password<span class="required">*</span></Form.Label>
                         <div className='position-relative'>
                           <Form.Control
                             type={showPassword ? "text" : "password"}

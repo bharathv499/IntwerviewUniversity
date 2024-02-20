@@ -68,7 +68,7 @@ export default function ProfessionalExperience() {
             .then((result) => {
 
                 console.log(result, "getresume")
-
+              
                 setResume(result?.payload?.file_name)
 
 
@@ -81,7 +81,8 @@ export default function ProfessionalExperience() {
         dispatch(getPasteResume())
             .then((result) => {
                 console.log(result.payload, "pasteresume")
-                setPasteResume(result.payload.content)
+                const decodedText = decodeURI(result?.payload?.content);
+                setPasteResume(decodedText)
 
             })
             .catch((error) => {
@@ -319,7 +320,7 @@ export default function ProfessionalExperience() {
             {proExperience.length > 0 ? <>
                 {proExperience?.map((item) => (
                     <Form className="me-lg-5" noValidate validated={validated} onSubmit={handleFormSubmit}>
-                        <div className="row " style={{marginBottom:"100px"}}>
+                        <div className="row mb-3" >
                             <div className="col-sm">
                                 <Form.Group controlId="exampleForm.SelectCustom">
                                     <Form.Label className="text-start labelcss">Desired Job Role</Form.Label>
@@ -349,7 +350,7 @@ export default function ProfessionalExperience() {
 
                         </div>
 
-                        <div className="row">
+                        <div className="row mb-3">
                             <div className="col-sm">
                                 <Form.Group controlId="exampleForm.SelectCustom">
                                     <Form.Label className="text-start labelcss">Experience</Form.Label>
@@ -398,7 +399,7 @@ export default function ProfessionalExperience() {
                                 </Form.Group>
                             </div></div>
 
-                        <div className="row" >
+                        <div className="row mb-3" >
                             <Form.Label className="text-start labelcss">  Career Goals</Form.Label>
                             <Form.Group controlId="exampleForm.ControlTextarea1">
 
@@ -409,7 +410,7 @@ export default function ProfessionalExperience() {
                             </Form.Group>
                         </div>
 
-                        <div className="col-sm-6" style={{ paddingTop: 5 }}>
+                        <div className="col-sm-6 mb-3" style={{ paddingTop: 5 }}>
                             <Form.Group controlId="exampleForm.SelectCustom">
                                 <Form.Label className="text-start labelcss" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Resume</span>
                                     <span style={{ color: '#FF7F50', cursor: 'pointer' }} onClick={() => handleShow()}>Replace</span></Form.Label>
@@ -425,7 +426,7 @@ export default function ProfessionalExperience() {
                             </Form.Group>
                         </div>
 
-                        <div className="row pasteresume">
+                        <div className="row pasteresume mb-3">
                             <Form.Label className="text-start labelcss">Paste your Resume</Form.Label>
                             <Form.Group controlId="exampleForm.ControlTextarea1">
 
