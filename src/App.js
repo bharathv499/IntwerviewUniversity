@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import About from './components/pages/About';
 import LogIn from './components/LogIn/LogIn';
 import Header from './components/pages/Header';
@@ -22,31 +22,42 @@ import Faq from './components/pages/Faq';
 import Contact from './components/pages/Contact';
 
 function App() {
-
   const [profilePhoto, setProfilePhoto] = useState(null);
+
+  const isAuthenticated = () => {
+    return localStorage.getItem('user') !== null ? true : false
+  }
+
+  console.log("check here --->", isAuthenticated())
+
+  const PrivateRoute = ({ element }) => {
+    return isAuthenticated() ? (
+      element
+    ) : (
+      <Navigate to="/login" replace={true} state={{ from: window.location.pathname }} />
+    );
+  };
 
   return (
     <div className="App">
-
       <Router>
-        <Header />
+        <Header /> 
         <Routes>
-
           <Route path='/login' element={<LogIn />} />
           <Route path='/home' element={<LandingPage />} />
           <Route path='/about' element={<About />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path='/forgetpassword' element={<ForgetPassword />} />
-          <Route path='/account' element={<Account />} />
-          <Route path='/feedback' element={<Feedback />} />
+          <Route path='/account' element={<PrivateRoute element={<Account />} />} />
+          <Route path='/feedback' element={<PrivateRoute element={<Feedback />} />} />
           <Route path='/' element={<StartPage />} />
-          <Route path='/interview' element={<InterviewPrep />} />
-          <Route path='/experience' element={<ProfessionalExperience />} />
-          <Route path='/question' element={<InterviewQuestion />} />
+          <Route path='/interview' element={<PrivateRoute element={<InterviewPrep />} />} />
+          <Route path='/experience' element={<PrivateRoute element={<ProfessionalExperience />} />} />
+          <Route path='/question' element={<PrivateRoute element={<InterviewQuestion />} />} />
           <Route exact path='/resetPassword' element={<ResetPass />} />
-          <Route exact path='/sidebar' element={<Sidebar />} />
-          <Route exact path='/Favorite/:id' element={< Favorite />} />
-          <Route exact path='/viewsavedsession/:id' element={<ViewSavedSession />} />
+          <Route exact path='/sidebar' element={<PrivateRoute element={<Sidebar />} />} />
+          <Route exact path='/Favorite/:id' element={<PrivateRoute element={<Favorite />} />} />
+          <Route exact path='/viewsavedsession/:id' element={<PrivateRoute element={<ViewSavedSession />} />} />
 
           <Route exact path='/contact' element={<Contact />} />
           <Route exact path='/faq' element={<Faq />} />

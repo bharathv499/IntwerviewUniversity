@@ -549,7 +549,7 @@ export default function InterviewPrep() {
         {showSaved && (
           <Row className="ps-5">
             {savedInterview?.map((item) => (
-              <Col xl={3} className="my-lg-4">
+              <Col xl={3} className="my-lg-3">
                 <div className="savedcard">
                   <Card className="ps-1 cardBody pb-2">
                     <Card.Body className="">

@@ -85,6 +85,10 @@
     min-height: 360px;
 }
 
+.savedcard{
+    /* margin-right: 40px; */
+}
+
 .savedcard .card-body{
     min-height: 150px;
 }

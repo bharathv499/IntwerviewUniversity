@@ -155,21 +155,48 @@ const ChangePassword = () => {
     const newStrength = calculateStrength(inputPassword);
     setStrength(newStrength);
 
+    // if (!regex.test(inputPassword)) {
+    //   const updatedErrors = { ...errors };
+
+    //   updatedErrors.New_Pass = "Please enter a valid New Password"
+
+    //   setErrors(updatedErrors);
+    // }
     if (!regex.test(inputPassword)) {
+      const validationErrors = {};
+      if (!/[A-Z]/.test(inputPassword)) {
+        validationErrors.New_Pass = "Password must contain at least one uppercase letter.";
+      }
+      if (!/[@$!%*?&]/.test(inputPassword)) {
+        validationErrors.New_Pass = "Password must contain at least one special character.";
+      }
+      if (!/[a-z]/.test(inputPassword)) {
+        validationErrors.New_Pass = "Password must contain at least one lowercase letter.";
+      }
+      if (!/[0-9]/.test(inputPassword)) {
+        validationErrors.New_Pass = "Password must contain at least one numeric number.";
+      }
+      if (inputPassword.length < 8) {
+        validationErrors.New_Pass = "Password must be at least 8 characters long.";
+      }
+
+      if (Object.keys(validationErrors).length > 0) {
+        setErrors(validationErrors);
+        return;
+      }
+    } else if (errors.New_Pass && inputPassword.trim().length > 8 && regex.test(inputPassword)) {
       const updatedErrors = { ...errors };
-
-      updatedErrors.New_Pass = "Please enter a valid New Password"
-
-      setErrors(updatedErrors);
-    }
-
-    if (errors.New_Pass && regex.test(inputPassword)) {
-      const updatedErrors = { ...errors };
-
       delete updatedErrors.New_Pass;
-
       setErrors(updatedErrors);
     }
+
+    // if (errors.New_Pass && regex.test(inputPassword)) {
+    //   const updatedErrors = { ...errors };
+
+    //   delete updatedErrors.New_Pass;
+
+    //   setErrors(updatedErrors);
+    // }
   };
 
 
@@ -254,10 +281,6 @@ const ChangePassword = () => {
     }
   };
 
-  const getCriteriaLabel = (criteria, isValid) => {
-    return isValid ? null : <div style={{ color: 'red' }}>{criteria}</div>;
-  };
-
   return (
     <div>
       <ToastContainer></ToastContainer>
@@ -310,19 +333,12 @@ const ChangePassword = () => {
                 }
               </div>
               <div style={{ color: "red" }}>{errors.New_Pass}</div>
-              <div style={{ display: 'flex', alignItems: 'center', marginTop:"8px" }}>
+              <div style={{ display: 'flex', alignItems: 'center', marginTop: "8px" }}>
                 <progress
                   value={strength}
                   max="5"
                   style={{ width: '150px', height: '15px', marginRight: '10px' }}
                 />
-                <div>
-                  {getCriteriaLabel('At least one uppercase letter', /[A-Z]/.test(password))}
-                  {getCriteriaLabel('At least one lowercase letter', /[a-z]/.test(password))}
-                  {getCriteriaLabel('At least one numeric character', /\d/.test(password))}
-                  {getCriteriaLabel('At least one special character', /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(password))}
-                  {getCriteriaLabel('Minimum length of 8 characters', password.length >= 8)}
-                </div>
               </div>
               <div>
                 Password Strength: {getStrengthLabel()}
